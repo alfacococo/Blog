@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300&display=swap');
+
 /* Global styles */
 :root {
   --background: #1e1e2e;
@@ -9,7 +11,7 @@
   --text-link-light: #375a7f;
   --underline: #375a7f;
   --header: 'Pacifico', cursive;
-  --body: 'Josefin Sans', sans-serif;
+  --body: 'Josefin Sans',"Noto Sans SC", sans-serif;
 }
 
 html {
@@ -253,7 +255,7 @@ footer {
   border-color: var(--text-link);
 }
 
-.git-icon {
+.masterdon-icon {
   content: url("/.netlify/images?url=/images/mastodon.svg");
 }
 
