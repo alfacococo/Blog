@@ -1,18 +1,15 @@
 {
-  "name": "spiffy-star",
+  "name": "milky-way",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.10"
-  },
-  "devDependencies": {
-    "prettier": "3.5.3",
-    "prettier-plugin-astro": "0.14.1"
+    "astro": "^5.5.4"
   }
 }

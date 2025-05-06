@@ -1,7 +1,13 @@
 ---
+import ThemeIcon from './ThemeIcon.astro';
 ---
-<div class="nav-links">
-<a href="/">首页</a>
-<a href="/about/">关于</a>
-<a href="/blog/">博客</a>
+<div class="navbar">
+    <div class="navbar__title">
+        <a href="/">Curly Sheep</a>
+    </div>
+    <div class="navbar__menu">
+        <a href="/works/">Works</a>
+        <a href="/posts/">Posts</a>
+        <ThemeIcon />
+    </div>
 </div>

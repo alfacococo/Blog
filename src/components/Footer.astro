@@ -1,17 +1,11 @@
 ---
-import Social from './Social.astro';
+const year = new Date().getFullYear();
 ---
-
 <footer>
-  <Social platform="twitter" username="astrodotbuild" />
-  <Social platform="github" username="withastro" />
-  <Social platform="youtube" username="astrodotbuild" />
+    <div class="center">
+        <ul class="footer">
+            <li class="icon__btn"><a class="icon__link" href="https://moresci.sale/@bipolar" target="_blank"><span class="">Mastodon</span></a></li>
+        </ul>
+        <small>&copy; {year} Curly Sheep by <a class="footer__link" href="https://github.com/ttomczak3">卷毛羊</a>. All Rights Reserved.</small>
+    </div>
 </footer>
-
-<style>
-  footer {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-</style>
