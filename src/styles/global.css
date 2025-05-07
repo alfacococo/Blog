@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400&display=swap');
 
 /* Global styles */
 :root {
@@ -10,7 +10,7 @@
   --text-link: #78c2ad;
   --text-link-light: #375a7f;
   --underline: #375a7f;
-  --header: 'Pacifico', cursive;
+  --header: 'Pacifico', "Noto Sans SC", cursive;
   --body: 'Josefin Sans',"Noto Sans SC", sans-serif;
 }
 
@@ -60,7 +60,7 @@ li {
 
 a {
   text-decoration: none;
-  color: #78c2ad;
+  color: inherit;
 }
 
 a:visited {
