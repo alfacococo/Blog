@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const allPosts = Object.entries(import.meta.glob('../../content/posts/*.md', { eager: true })).map(
+  ([path, post]: [string, any]) => {
+    const slug = path.split('/').pop()?.replace('.md', '');
+    return {
+      ...post,
+      slug,
+      url: `/posts/${slug}`,
+    };
+  }
+);
+
+  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+<BaseLayout pageTitle={tag}>
+  <p>包含「{tag}」标签的文章</p>
+  <ul>
+    {posts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+  </ul>
+</BaseLayout>
