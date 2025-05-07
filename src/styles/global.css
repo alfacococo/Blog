@@ -58,6 +58,15 @@ li {
   font-family: var(--body);
 }
 
+a {
+  text-decoration: none;
+  color: #78c2ad;
+}
+
+a:visited {
+  color: inherit;
+}
+
 /* Navigation Bar */
 .navbar {
   display: grid;
@@ -342,6 +351,10 @@ html.light {
 
 .light .icon__link:hover {
   border-color: var(--text-link-light);
+}
+
+.tag a {
+  color: #375a7f;
 }
 
 /* Media Query */

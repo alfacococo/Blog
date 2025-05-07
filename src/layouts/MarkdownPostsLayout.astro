@@ -15,6 +15,19 @@ const { frontmatter } = Astro.props;
         <li>
             <span class="badge badge--item">PUBLISHED</span>{frontmatter.date}
         </li>
+        <li>
+        <span class="badge badge--item">TAGS</span>
+    {frontmatter.tags.map((tag: string) => (
+      <span class="tag"><a href={`/tags/${tag}`}>{tag}</a></span>
+    ))}
+        </li>
     </ul>
     <slot />
 </BaseLayout>
+
+<style>
+    .tag {
+        margin-right: 15px;
+    }
+
+    </style>
