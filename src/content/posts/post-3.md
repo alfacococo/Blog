@@ -3,6 +3,7 @@ title: 'Post 3'
 author: Tristen Tomczak
 date: '03-23-2025'
 tags: ["astro", "blogging", "learning in public"]
+description: "testtesttest"
 image:
     url: '/.netlify/images?url=/images/blog-post.webp'
     alt: 'Post Thumbnail'
