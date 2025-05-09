@@ -47,7 +47,7 @@ h2 {
 
 p {
   font-family: var(--body);
-  font-size: 1.1rem;
+  font-size: 1rem;
   hyphens: auto;
   line-height: 1.5;
   text-indent: 1rem;
@@ -328,6 +328,10 @@ html.light {
   text-indent: 0;
 }
 
+.tag-text {
+  color: #375a7f;
+}
+
 /* Posts' List/ Timeline */
 
 .timeline {
@@ -344,17 +348,21 @@ html.light {
   padding-left: 2rem;
 }
 
-/* .post-date {
-  font-size: 1rem;
-  font-family: "Noto Sans SC", sans-serif;
-  padding-right: 10px;
-  color: #999;
-} */
-
 .post-title:hover {
   text-decoration: underline;
 }
 
+/* Post Layout */
+.foreword {
+  font-size: 0.85em;
+  color: #5C5B77;
+}
+
+.divider {
+  border-top: 2px dotted #5C5B77;;
+  width: 8%;
+  margin: 0 auto;
+}
 
 /* Media Query */
 @media only screen and (max-width: 600px) {

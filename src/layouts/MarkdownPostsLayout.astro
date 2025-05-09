@@ -15,7 +15,7 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
         <li>
         <span class="badge badge--item">TAGS</span>
     {frontmatter.tags.map((tag: string) => (
-      <span class="tag"><a href={`/tags/${tag}`}>{tag}</a></span>
+      <span class="tag-text"><a href={`/tags/${tag}`}>{tag}</a></span>
     ))}
         </li>
         <li>
