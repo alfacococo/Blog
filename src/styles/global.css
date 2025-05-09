@@ -389,6 +389,7 @@ html.light {
 
   .pro-img,
   .post-img {
+    box-sizing: border-box;
     width: 100%;
     height: auto;
   }
