@@ -1,8 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/CardPost.astro";
-const allPosts = await getCollection("posts");
+const allPosts = (await getCollection("posts")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 const pageTitle = "Posts";
 ---
 
@@ -11,16 +12,14 @@ const pageTitle = "Posts";
         <img src="/.netlify/images?url=/images/blog.webp" role="presentation" width="300" height="259" decoding="async">
     </div>
     <h2>Blog</h2>
-    <ul role="list" class="link-card-grid">
+    <ul role="list" class="timeline">
         {
-            allPosts.map((cardPost) => (
-                <Card
-                    url={`/posts/${cardPost.id}/`}
-                    image={cardPost.data.image.url}
-                    title={cardPost.data.title}
-                    date={cardPost.data.date}
-                />
+            allPosts.map((post) => (
+              <li class="timeline-item">
+                <time class="post-date badge--item badge">{post.data.date}</time>
+                <a href={`/posts/${post.id}/`} class="post-title">{post.data.title}</a>
+              </li>
             ))
-        }
+          }
     </ul>
 </Layout>

@@ -1,20 +1,23 @@
 ---
-import { getCollection, getEntry, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MarkdownPostsLayout from "../../layouts/MarkdownPostsLayout.astro";
+import { getWordCount, getReadingTime } from "../../utils/wordCount";
 
 export const prerender = true;
 export async function getStaticPaths() {
-    const postEntries = await getCollection("posts");
-    return postEntries.map((entry) => ({
-        params: { slug: entry.id },
-        props: { entry },
-    }));
+  const postEntries = await getCollection("posts");
+  return postEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
 }
 
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
+const wordCount = getWordCount(entry.body, { onlyChinese: true }); // 中文为主可启用此选项
+const readingTime = getReadingTime(wordCount);
 ---
 
-<MarkdownPostsLayout frontmatter={entry.data}>
+<MarkdownPostsLayout frontmatter={entry.data} wordCount={wordCount} readingTime={readingTime}>
     <Content />
 </MarkdownPostsLayout>
