@@ -32,3 +32,8 @@ image:
 当然啦，我自己的布置也给这间屋子加分不少。现在基本每天都要检查每个角落，偶尔欣赏自己家的美观和整洁，更多的时候是在思考哪个细节可以稍加改动，让自己住起来更舒心，看起来也更赏心悦目。
 
 当我写下这段文字的时候，已经在新家扎根下来了，东西大都安排妥当，零碎的东西可以再慢慢添置，这里已经有个家的样子了。
+
+<div class='divider'></div>
+<p class='foreword'>20250509追记：是真的非常让我满意的一个家！特地精选了两张在长毛象发过的照片附在最后，让大家陪我一起欣赏嘿嘿嘿。</p>
+<img src="/.netlify/images?url=/images/post-1-1.jpeg" role="presentation" class='post-img' decoding="async">
+<img src="/.netlify/images?url=/images/post-1-2.jpeg" role="presentation" class='post-img' decoding="async">
