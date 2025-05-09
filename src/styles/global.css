@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400&display=swap');
 
+* {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+
 /* Global styles */
 :root {
   --background: #1e1e2e;
@@ -20,9 +27,13 @@ html {
 }
 
 body {
+  width: 100%;
   max-width: 540px;
   margin: 0 auto;
+  padding: 0 1rem;
   text-align: justify;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 h1,
@@ -372,7 +383,14 @@ html.light {
 /* Media Query */
 @media only screen and (max-width: 600px) {
   body {
-    width: 350px;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .pro-img,
+  .post-img {
+    width: 100%;
+    height: auto;
   }
 
   .navbar {
@@ -400,11 +418,5 @@ html.light {
   .badge__list {
     font-size: 0.9rem;
     text-indent: 0;
-  }
-
-  .pro-img,
-  .post-img {
-    height: auto;
-    width: 350px;
   }
 }
