@@ -29,11 +29,15 @@ html {
 body {
   width: 100%;
   max-width: 540px;
+  padding: 0;
   margin: 0 auto;
-  padding: 0 1rem;
   text-align: justify;
   min-width: 0;
   overflow-wrap: break-word;
+}
+
+main {
+  padding: 0 1rem
 }
 
 h1,
@@ -384,7 +388,6 @@ html.light {
 @media only screen and (max-width: 600px) {
   body {
     width: 100%;
-    padding: 0 1rem;
   }
 
   .pro-img,
