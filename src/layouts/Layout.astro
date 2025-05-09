@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ScrollToTop from "../components/ScrollToTop.astro";
 import '../styles/global.css';
 const { pageTitle } = Astro.props;
 ---
@@ -23,6 +24,7 @@ const { pageTitle } = Astro.props;
         <Header />
         <main>
             <slot />
+            <ScrollToTop />
             <Footer />
         </main>
         <script>
