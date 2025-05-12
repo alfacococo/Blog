@@ -215,8 +215,9 @@ footer {
 }
 
 .icon__link {
-  display: flex;
-  padding: 10px;
+  position: relative;
+  display: block;
+  padding: 15px;
   height: 20px;
   width: 20px;
   border-radius: 50%;
@@ -229,6 +230,10 @@ footer {
 
 .masterdon-icon {
   content: url("/images/mastodon.svg");
+  position: absolute;
+  vertical-align: top;
+  top: 5px;
+  left: 5px;
 }
 
 /* 404 */
