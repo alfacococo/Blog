@@ -228,7 +228,7 @@ footer {
 }
 
 .masterdon-icon {
-  content: url("/.netlify/images?url=/images/mastodon.svg");
+  content: url("/images/mastodon.svg");
 }
 
 /* 404 */
@@ -290,18 +290,6 @@ html.light {
 
 .light .icon__link:hover {
   border-color: var(--text-link);
-}
-
-.light .git-icon {
-  content: url("/.netlify/images?url=/images/github-mark.svg");
-}
-
-.light .mail-icon {
-  content: url("/.netlify/images?url=/images/mail.svg");
-}
-
-.light .linked-in {
-  content: url("/.netlify/images?url=/images/li-in.png");
 }
 
 .light .badge__link {
