@@ -9,9 +9,9 @@ image:
     alt: 'Post Thumbnail'
 ---
 
-<p class='foreword'>前言：一时之间不知道该从哪里开始，便跑去翻了翻其他人的博客。大家好像也只是随心所欲地写，并没有那么多固定的格式。思来想去，要是没一个起头的地方的话，倒不如循着时间顺序慢慢梳理下来，思路应当会比较顺畅。再芟除多余的枝蔓，也足以成一篇文章了。</p>
+<p class='foreword my-3'>前言：一时之间不知道该从哪里开始，便跑去翻了翻其他人的博客。大家好像也只是随心所欲地写，并没有那么多固定的格式。思来想去，要是没一个起头的地方的话，倒不如循着时间顺序慢慢梳理下来，思路应当会比较顺畅。再芟除多余的枝蔓，也足以成一篇文章了。</p>
 
-<div class="divider"></div>
+<div class="divider mb-3 mx-auto"></div>
 
 没想到换个环境也就是一眨眼的事情，一个月前我还在听这栋新房子的说明会，水电气网也才申请开通不久，还申请了回收公司上门处理搬不走的家具。这些常规的自不必说，对于新家的规划，其实早在定下这件房子的时候就已经暗暗开始了。当时我还住在师姐家里，每天就对着中介给的图纸，研究新家是什么网络，是不是二十四小时垃圾房，房间适合什么尺寸的家具。师姐对我的热衷感到很费解，觉得我满脑子都是房子的事情。现在想来，那个时候对即将到来的新生活固然感到焦虑，却也并非没有半点期待。
 
@@ -33,7 +33,7 @@ image:
 
 当我写下这段文字的时候，已经在新家扎根下来了，东西大都安排妥当，零碎的东西可以再慢慢添置，这里已经有个家的样子了。
 
-<div class='divider'></div>
+<div class="divider my-3 mx-auto"></div>
 <p class='foreword'>20250509追记：是真的非常让我满意的一个家！特地精选了两张在长毛象发过的照片附在最后，让大家陪我一起欣赏嘿嘿嘿。</p>
-<img src="/.netlify/images?url=/images/post-1-1.jpeg" role="presentation" class='post-img' decoding="async">
-<img src="/.netlify/images?url=/images/post-1-2.jpeg" role="presentation" class='post-img' decoding="async">
+<img src="/images/post-1-1.jpeg" role="presentation" class='post-img' decoding="async">
+<img src="/images/post-1-2.jpeg" role="presentation" class='post-img' decoding="async">

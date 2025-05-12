@@ -4,24 +4,30 @@ const pageTitle = "Curly Sheep";
 ---
 <Layout pageTitle={pageTitle}>
     <div class="gif">
-        <img src="/.netlify/images?url=/images/space.webp" role="presentation" width="300" height="259" decoding="async">
+        <img src="/images/space.webp" role="presentation" width="300" height="259" decoding="async" class="mx-auto">
     </div>
     <h1>{pageTitle}</h1>
     <span class="badge">The Mighty Herbivore</span>
-    <h2>About</h2>
+    <h2 class="my-[20px]">About</h2>
     <p>
         羊星居羊卷卷。喜欢嘟囔一些日常小事，很少进行大思考。
     </p>
-    <p>可以在<a href="https://moresci.sale/@bipolar" target="_blank">长毛象</a>捕捉到卷毛羊的更多生活动态！</p>
-    <h2>Interests</h2>
+    <p>可以在<a href="https://moresci.sale/@bipolar" target="_blank" class="hover:underline">长毛象</a>捕捉到卷毛羊的更多生活动态！</p>
+    <h2 class="my-[20px]">Interests</h2>
     <p>
         爱好基本都很安静，翻翻闲书插插花喝喝茶什么的。
     </p>
     <p>偶尔遇到能让自己上头的游戏或者小说，也会不分昼夜地玩。</p>
     <p>还特别热衷于装饰自己的羊圈，三天两头就会炫耀自己的家（…）</p>
     <p>自我观察是羊生课题。</p>
-    <h2>Friends</h2>
+    <h2 class="my-[20px]">Friends</h2>
     <p>
-        啊这只羊不会没朋友吧……欢迎跟羊交换友情链接！
+        欢迎跟羊交换友情链接！（扭动）
     </p>
+    <ul class="pl-8 list-disc">
+        <li class="hover:underline"><a href="https://naturaleki.one/" title="Across the street, cross one’s heart." target="_blank">天堂错误文件</a></li>
+        <li class="hover:underline"><a href="https://ocod.netlify.app/" target="_blank" title="">稽异录残篇</a></li>
+        <li class="hover:underline"><a href="ccaatthouse.icu" title="我们不生产猫头气球" target="_blank">猫头气球生产工厂</a></li>
+        <li class="hover:underline"><a href="https://luoshui.icu/" title="小心！野兽凶猛！" target="_blank">此地有野狗出没</a></li>
+    </ul>
 </Layout>

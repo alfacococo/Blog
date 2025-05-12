@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400&display=swap');
+@import "tailwindcss";
 
 * {
   min-width: 0;
@@ -57,7 +58,6 @@ h2 {
   text-decoration-thickness: 4px;
   text-underline-offset: 6px;
   font-size: 36px;
-  margin-bottom: 0;
 }
 
 p {
@@ -73,14 +73,6 @@ li {
   font-family: var(--body);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:visited {
-  color: inherit;
-}
 
 /* Navigation Bar */
 .navbar {
@@ -339,7 +331,7 @@ html.light {
   padding: .5em 1em;
   font-size: 20px;
   background-color: #584966;
-  color: var(--text);
+  /* color: var(--text); */
   text-indent: 0;
 }
 
@@ -374,9 +366,8 @@ html.light {
 }
 
 .divider {
-  border-top: 2px dotted #5C5B77;;
+  border-top: 2px dotted #5C5B77;
   width: 8%;
-  margin: 0 auto;
 }
 
 .post-img {
