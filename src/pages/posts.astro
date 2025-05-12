@@ -14,10 +14,17 @@ const pageTitle = "Posts";
     <h2>Blog</h2>
     <ul role="list" class="timeline">
         {
-            allPosts.map((post) => (
+            allPosts.map((post, index) => (
               <li class="timeline-item flex items-center mb-4  ">
                 <time class="post-date badge--item badge min-w-[80px] block">{post.data.date}</time>
+                <div class="inline-block">
                 <a href={`/posts/${post.id}/`} class="post-title">{post.data.title}</a>
+                {
+            index === 0 && (
+              <sup class="text-[12px] text-white bg-red-400 rounded px-1 py-px">NEW</sup>
+            )
+          }
+                </div>
               </li>
             ))
           }
