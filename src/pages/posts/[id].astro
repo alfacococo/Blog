@@ -1,0 +1,46 @@
+---
+// import { getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import MarkdownPostsLayout from "../../layouts/MarkdownPostsLayout.astro";
+import { getWordCount, getReadingTime } from "../../utils/wordCount";
+
+export const prerender = true;
+export async function getStaticPaths() {
+    const posts = (await getCollection('posts'));
+    const postCount = posts.length;
+    return posts.map((post, index) => ({
+        params: { id: post.id },
+        props: {
+            post,
+            prevPost: index + 1 !== postCount ? posts[index + 1] : null,
+            nextPost: index !== 0 ? posts[index - 1] : null
+        }
+    }));
+}
+// export async function getStaticPaths() {
+//   const postEntries = await getCollection("posts");
+//   return postEntries.map((entry) => ({
+//     params: { slug: entry.id },
+//     props: { entry },
+//   }));
+// }
+
+// const { entry } = Astro.props;
+type Props = { post: CollectionEntry<'posts'>; prevPost: CollectionEntry<'posts'>; nextPost: CollectionEntry<'posts'> };
+const { post, prevPost, nextPost } = Astro.props;
+const { Content, headings } = await render(post);
+const wordCount = getWordCount(post.body, { onlyChinese: true }); // 中文为主可启用此选项
+const readingTime = getReadingTime(wordCount);
+---
+
+<MarkdownPostsLayout frontmatter={post.data} wordCount={wordCount} readingTime={readingTime}>
+    <Content />
+    {
+        (prevPost || nextPost) && (
+            <div class="my-16 sm:my-24 flex justify-between">
+                {prevPost ? <div><a class="mb-4 text-lg sm:mb-6 sm:text-xl border-b-4 inline-block border-[#375a7f] pb-[10px]" href={`/posts/${prevPost.id}/`}>←上一篇</a> <div><a href={`/posts/${prevPost.id}/`}>{prevPost.data.title}</a><p></p></div></div> : <div></div>}
+                {nextPost && <div class="flex flex-col items-end"><a class="mb-4 text-lg sm:mb-6 sm:text-xl text-right border-b-4 inline-block border-[#375a7f] pb-[10px]" href={`/posts/${nextPost.id}/`}>下一篇→</a><div><a href={`/posts/${nextPost.id}/`}>{nextPost.data.title}</a><p></p></div></div>}
+            </div>
+        )
+    }
+</MarkdownPostsLayout>

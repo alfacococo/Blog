@@ -13,7 +13,7 @@ image:
 
 <div class="divider mb-3 mx-auto"></div>
 
-<h3 class='pl-4 border-l-2 mb-4 text-lg'>卧室收纳</h3>
+<h3 class='pl-4 border-l-4 mb-4 text-lg'>卧室收纳</h3>
 
 床底的抽屉收纳也跟我一起搬了两次家了，甚至我买新床的时候都要考虑床底下能不能放东西，特意选可以调节床高、放得下我这些抽屉的床铺，不然小户型的话这片空间没有利用起来太浪费了。当然每次拿去都要蹲下略有不便，所以主要用来存放过季的衣物和一些床品，平常主要还是用壁橱的挂衣区。
 
@@ -50,7 +50,7 @@ image:
 
 <img src="/images/post-2-13.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
 
-<h3 class='pl-4 border-l-2 mb-4'>书房（？）客厅收纳</h3>
+<h3 class='pl-4 border-l-4 mb-4'>书房（？）客厅收纳</h3>
 
 说是书房其实没啥书（擦汗）说是客厅好像也不算通常意义上的客厅……反正就是一个办公休闲用的空间！主要承担收纳作用的是这个置物架~绿植镜子还有一些常用不常用的杂务统统都被我堆到了这里。想让它视觉上看起来不那么杂乱，所以装了个帘子！
 

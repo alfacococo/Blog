@@ -14,7 +14,7 @@ image:
 
 <div class="divider mb-3 mx-auto"></div>
 
-<h3 class='pl-4 border-l-2 mb-4 text-lg'>茶叶咖啡粉收纳</h3>
+<h3 class='pl-4 border-l-4 mb-4 text-lg'>茶叶咖啡粉收纳</h3>
 
 茶叶咖啡粉收纳试了很多种！一开始是从百元店和三百元店买的圆罐子：
 
@@ -40,7 +40,7 @@ image:
 
 <img src="/images/post-2-6.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
 
-<h3 class='pl-4 border-l-2 mb-4'>厨房橱柜配套收纳</h3>
+<h3 class='pl-4 border-l-4 mb-4'>厨房橱柜配套收纳</h3>
 
 如果家里有高过自己身高的上方橱柜的话，这个带把手的收纳超级推荐！我是在3coins和daiso买到的，可以有效利用橱柜靠里的空间，不用每次都踩着凳子或者踮起脚尖用手扒拉了。非透明有些难辨认，加上标签纸会好一些。建议放轻一些的东西，有点重量的话得两手扶着才能拿下来……
 <img src="/images/post-2-2.jpg" role="presentation" decoding="async" class='h-[300px] pl-4 mx-auto my-3'>
@@ -70,7 +70,7 @@ image:
 
 <img src="/images/post-2-43.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
 
-<h3 class='pl-4 border-l-2 mb-4'>其他厨房相关收纳</h3>
+<h3 class='pl-4 border-l-4 mb-4'>其他厨房相关收纳</h3>
 
 餐桌旁收纳的话买了个nitori收纳筐，本来上个家是用来放茶叶罐的，最近发现放锅垫更加顺手。百元店应该也有类似的商品~！旁边小铁板也是nitori的，可以用来磁吸一些东西，我暂时还没想好放啥……思考……
 

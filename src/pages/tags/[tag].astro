@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/Layout.astro';
 export async function getStaticPaths() {
   const allPosts = Object.entries(import.meta.glob('../../content/posts/*.md', { eager: true })).map(
   ([path, post]: [string, any]) => {
-    const slug = path.split('/').pop()?.replace('.md', '');
+    const slug = path.split('/').pop();
     return {
       ...post,
       slug,
@@ -28,8 +28,11 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 <BaseLayout pageTitle={tag}>
-  <p>包含「{tag}」标签的文章</p>
-  <ul>
-    {posts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+  <h3 class="my-8 text-xl">包含「{tag}」标签的文章</h3>
+  <ul class="list-disc pl-4 ">
+    {posts.map((post: any) => <li class="mb-4"><a href={post.url}>
+      <h4 class="hover:underline ">{post.frontmatter.title}</h4>
+      <p class="text-[#333333]">{post.frontmatter.description}</p>
+      </a></li>)}
   </ul>
 </BaseLayout>

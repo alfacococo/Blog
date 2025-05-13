@@ -12,9 +12,12 @@ const tags = [
 const pageTitle = "标签索引";
 ---
 <BaseLayout pageTitle={pageTitle}>
+  <div class="my-8 text-xl border-l-4 pl-4">
+    <h3>也可以通过以下标签来查看博文~</h3>
+  </div>
   <div class="tags">
     {tags.map((tag) => (
-      <p><a href={`/tags/${tag}`}  class="tag text-[#ffffff]">{tag}</a></p>
+      <p><a href={`/tags/${tag}`}  class="tag text-[#ffffff] hover:bg-[#9076a8] bg-[#584966] transition duration-300 ease-in-out">{tag}</a></p>
     ))}
   </div>
 </BaseLayout>
