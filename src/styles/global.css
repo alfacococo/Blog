@@ -2,7 +2,6 @@
 @import "tailwindcss";
 
 * {
-  min-width: 0;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -349,7 +348,6 @@ html.light {
   position: relative;
   display: flex;
   align-items: center;
-  padding-left: 2rem;
 }
 
 .post-title:hover {

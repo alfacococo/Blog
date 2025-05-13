@@ -10,7 +10,7 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     <h2 style="text-decoration:none;">{frontmatter.title}</h2>
     <ul class="badge__list">
         <li>
-            <span class="badge badge--item">PUBLISHED</span>{frontmatter.date}{frontmatter.updateDate && (`(更新于 ${frontmatter.updateDate})`)}
+            <span class="badge badge--item whitespace-nowrap min-w-[87px]">PUBLISHED</span>{frontmatter.date}{frontmatter.updateDate && (`(更新于 ${frontmatter.updateDate})`)}
         </li>
         <li>
         <span class="badge badge--item">TAGS</span>
