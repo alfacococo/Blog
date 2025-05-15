@@ -239,6 +239,14 @@ footer {
   left: 5px;
 }
 
+.rss-icon {
+  content: url("/images/rss.svg");
+  position: absolute;
+  vertical-align: top;
+  top: 5px;
+  left: 5px;
+}
+
 /* 404 */
 .lost {
   margin-top: 30%;

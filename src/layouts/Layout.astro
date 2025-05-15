@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollToTop from "../components/ScrollToTop.astro";
 import '../styles/global.css';
+import '../styles/waline.css'
 const { pageTitle } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -27,6 +28,14 @@ const { pageTitle } = Astro.props;
             <ScrollToTop />
             <Footer />
         </main>
+        <script type="module">
+          import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+          init({
+            el: '#waline',
+            serverURL: 'https://curly-sheeps-comments.netlify.app/.netlify/functions/comment',
+          });
+        </script>
         <script>
             function colorMode() {
                 if (
