@@ -25,7 +25,9 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
             <span class="badge badge--item">Reading Time</span>{readingTime} 分钟
         </li>
     </ul>
+    <div class="prose">
     <slot />
+    </div>
     <div id="waline"></div>
 </BaseLayout>
 
@@ -33,5 +35,4 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     .tag {
         margin-right: 15px;
     }
-
     </style>

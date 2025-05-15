@@ -14,7 +14,15 @@ const pageTitle = "Posts";
     <h2>Blog</h2>
     <ul role="list" class="timeline">
         {
-            allPosts.map((post, index) => (
+            allPosts.sort((a, b) => {
+  const dateDiff = new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+
+  if (dateDiff !== 0) {
+    return dateDiff; // 日期不同，按日期降序
+  }
+
+  return b.id.localeCompare(a.id); // 日期相同，按 id 降序
+}).map((post, index) => (
               <li class="timeline-item flex items-center mb-4 sm:pl-8">
                 <time class="post-date badge--item badge min-w-[80px] block">{post.data.date}</time>
                 <div class="inline-block">

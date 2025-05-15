@@ -71,6 +71,10 @@ p {
   text-indent: 1rem;
 }
 
+.prose p {
+  margin-bottom: 1rem;
+}
+
 small,
 li {
   font-family: var(--body);
@@ -232,7 +236,7 @@ footer {
 }
 
 .masterdon-icon {
-  content: url("/images/mastodon.svg");
+  /* content: url("/images/mastodon.svg"); */
   position: absolute;
   vertical-align: top;
   top: 5px;
@@ -240,7 +244,7 @@ footer {
 }
 
 .rss-icon {
-  content: url("/images/rss.svg");
+  /* content: url("/images/rss.svg"); */
   position: absolute;
   vertical-align: top;
   top: 5px;
@@ -318,6 +322,11 @@ html.light {
 
 .light .icon__link:hover {
   border-color: var(--text-link-light);
+}
+
+html.light .masterdon-icon,
+html.light .rss-icon {
+  fill: var(--text-light);
 }
 
 /* Tags */
