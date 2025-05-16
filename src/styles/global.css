@@ -330,9 +330,12 @@ html.light {
   border-color: var(--text-link-light);
 }
 
-html.light .masterdon-icon,
-html.light .rss-icon {
+html.light .masterdon-icon  {
   fill: var(--text-light);
+}
+
+.light .timeline-card {
+  background-color: #fff;
 }
 
 /* Tags */
