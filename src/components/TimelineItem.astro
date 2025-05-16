@@ -1,0 +1,11 @@
+---
+// props: time（时间）, children（插槽内容）
+const { time } = Astro.props;
+---
+
+<li class="flex mb-4 items-start gap-2">
+  <time class="post-date badge--item badge min-w-[81px] block">{time}</time>
+  <div class="inline-block ">
+    <slot />
+  </div>
+</li>

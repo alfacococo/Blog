@@ -50,13 +50,14 @@ h2 {
   font-weight: normal;
 }
 
-h1 {
+.homepage h1 {
   font-size: 42px;
   margin: 0;
   margin-bottom: 5px;
 }
 
-h2 {
+.homepage h2,
+.postshome {
   text-decoration: underline var(--underline);
   text-decoration-thickness: 4px;
   text-underline-offset: 6px;
@@ -65,14 +66,19 @@ h2 {
 
 p {
   font-family: var(--body);
-  font-size: 20px;
   hyphens: auto;
   line-height: 1.5;
+
+}
+
+.homepage p {
   text-indent: 1rem;
 }
 
 .prose p {
   margin-bottom: 1rem;
+  font-size: 1rem;
+  text-indent: 1rem;
 }
 
 small,
@@ -83,8 +89,8 @@ li {
 
 /* Navigation Bar */
 .navbar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   margin-top: 0.8rem;
 }
 

@@ -31,8 +31,8 @@ const { posts } = Astro.props;
   <h3 class="my-8 text-xl">包含「{tag}」标签的文章</h3>
   <ul class="list-disc pl-4 ">
     {posts.map((post: any) => <li class="mb-4"><a href={post.url}>
-      <h4 class="hover:underline ">{post.frontmatter.title}</h4>
-      <p class="text-[#333333]">{post.frontmatter.description}</p>
+      <h4 class="hover:underline text-lg font-medium border-b-2 inline border-[#375a7f]">{post.frontmatter.title}</h4>
+      <p class="text-[#333333] text-base">{post.frontmatter.description}</p>
       </a></li>)}
   </ul>
 </BaseLayout>

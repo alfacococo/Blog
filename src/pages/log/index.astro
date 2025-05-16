@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/Layout.astro';
+import TimelineItem from '../../components/TimelineItem.astro'
+
+---
+
+<BaseLayout >
+  <div class="my-8 text-xl border-l-4 pl-4">
+    <h3>赛博羊圈装修日志</h3>
+  </div>
+  <div class="changelog">
+    <ul role="list" class="timeline">
+      <TimelineItem time="2025-05-15">
+        <p>新增changelog的页面，可以看到卷毛羊博客装修的历史啦。</p>
+      </TimelineItem>
+      <TimelineItem time="2025-05-15">
+        <p>新增评论区功能，footer追加了rss订阅的按钮。修复了一些bug。</p>
+      </TimelineItem>
+      <TimelineItem time="2025-05-13">
+        <p>更新了友链，修复了footer底部masterdon图标不显示的bug。增加了最新博文右上角显示new的标识功能。博文的发布时间处追加了更新时间的显示（如果有编辑的话）。微调了排版。博文页尾增加了上一篇、下一篇的按钮。</p>
+      </TimelineItem>
+      <TimelineItem time="2025-05-12">
+        <p>增加了友链，发现不能没有tailwind css，遂装之！</p>
+      </TimelineItem>
+      <TimelineItem time="2025-05-09">
+        <p>正式公开我的赛博羊圈！上传了第1篇博文（虽然是篇压箱底的旧文）。稍微调整了屏幕自适应，增加了两张图片。</p>
+      </TimelineItem>
+    </ul>
+  </div>
+</BaseLayout>
