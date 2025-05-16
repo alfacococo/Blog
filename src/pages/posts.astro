@@ -23,8 +23,8 @@ const pageTitle = "Posts";
 
   return b.id.localeCompare(a.id); // 日期相同，按 id 降序
 }).map((post, index) => (
-              <li class="timeline-item flex items-center mb-4 sm:pl-8">
-                <time class="post-date badge--item badge min-w-[80px] block">{post.data.date}</time>
+              <li class="flex justify-start items-start mb-4 sm:pl-8">
+                <time class="post-date badge--item badge w-[82px] block whitespace-nowrap">{post.data.date}</time>
                 <div class="inline-block">
                 <a href={`/posts/${post.id}/`} class="post-title">{post.data.title}</a>
                 {

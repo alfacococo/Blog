@@ -7,7 +7,7 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     <div class="gif">
         <img src="/images/blog.webp" role="presentation" width="300" height="259" decoding="async" class="mx-auto">
     </div>
-    <h2 style="text-decoration:none;">{frontmatter.title}</h2>
+    <h2 style="text-decoration:none" class="postshome">{frontmatter.title}</h2>
     <ul class="badge__list">
         <li>
             <span class="badge badge--item whitespace-nowrap min-w-[87px]">PUBLISHED</span>{frontmatter.date}{frontmatter.updateDate && (`(更新于 ${frontmatter.updateDate})`)}
