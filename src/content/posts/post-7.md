@@ -35,7 +35,6 @@ image:
 
 <img src="/images/post-7-2.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
 
-日本老房子常见的壁橱怎么收纳对我来说一直是个问题，想了很久，最后壁橱上方买了nitori的可伸缩架子，尽可能开拓上部的空间，防止东西都堆在下面很乱，也很浪费。搭配的袋子是daiso和cando买的那种有点类似于塑料布的袋子，主要作用是美观，其实袋子很软没有什么支撑，里面装的东西太少了立不起来，而且不太方便判断里面装的是什么，后续会考虑加个标签什么的。
 
 <h3 class='pl-4 border-l-4 mb-4 text-lg'>湿厕纸</h3>
 
