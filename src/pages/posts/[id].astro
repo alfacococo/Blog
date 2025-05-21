@@ -37,9 +37,9 @@ const readingTime = getReadingTime(wordCount);
     <Content />
     {
         (prevPost || nextPost) && (
-            <div class="my-6 flex justify-between">
-                {prevPost ? <div><a class="mb-4 text-lg sm:mb-6 sm:text-xl border-b-4 inline-block border-[#375a7f] pb-[10px]" href={`/posts/${prevPost.id}/`}>←上一篇</a> <div><a href={`/posts/${prevPost.id}/`}>{prevPost.data.title}</a><p></p></div></div> : <div></div>}
-                {nextPost && <div class="flex flex-col items-end"><a class="mb-4 text-lg sm:mb-6 sm:text-xl text-right border-b-4 inline-block border-[#375a7f] pb-[10px]" href={`/posts/${nextPost.id}/`}>下一篇→</a><div><a href={`/posts/${nextPost.id}/`}>{nextPost.data.title}</a><p></p></div></div>}
+            <div class="my-6 flex justify-between gap-[20px]">
+                {prevPost ? <div class="flex-1"><a class="mb-4 text-lg sm:mb-6 sm:text-xl border-b-4 inline-block border-[#375a7f] pb-[10px]" href={`/posts/${prevPost.id}/`}>←上一篇</a> <div><a href={`/posts/${prevPost.id}/`}>{prevPost.data.title}</a><p></p></div></div> : <div></div>}
+                {nextPost && <div class="flex flex-col items-end flex-1"><a class="mb-4 text-lg sm:mb-6 sm:text-xl text-right border-b-4 inline-block border-[#375a7f] pb-[10px]" href={`/posts/${nextPost.id}/`}>下一篇→</a><div><a href={`/posts/${nextPost.id}/`}>{nextPost.data.title}</a><p></p></div></div>}
             </div>
         )
     }
