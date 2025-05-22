@@ -3,7 +3,7 @@ title: '羊羊买啥不买啥'
 author: Curly Sheep
 date: '2025-05-21'
 tags: ["生活日常"]
-description: "打理羊圈怎么就这么难呢？"
+description: "羊羊的购物心得！"
 image:
     url: '/images/blog-post.webp'
     alt: 'Post Thumbnail'
