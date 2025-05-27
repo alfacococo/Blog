@@ -3,7 +3,7 @@ title: '2025年5月观察报告'
 author: Curly Sheep
 date: '2025-05-27'
 tags: ["卷毛羊观察报告"]
-description: "相信点进来的大家可能是想吃瓜，但可能没多少瓜……！"
+description: "你将获得饲养在时间线上的卷毛羊的近况！"
 image:
     url: '/images/blog-post.webp'
     alt: 'Post Thumbnail'
