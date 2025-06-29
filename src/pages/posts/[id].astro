@@ -6,7 +6,9 @@ import { getWordCount, getReadingTime } from "../../utils/wordCount";
 
 export const prerender = true;
 export async function getStaticPaths() {
-    const posts = (await getCollection('posts'));
+    const posts = (await getCollection('posts')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
     const postCount = posts.length;
     return posts.map((post, index) => ({
         params: { id: post.id },
