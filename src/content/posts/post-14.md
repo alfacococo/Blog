@@ -2,7 +2,7 @@
 title: '换过的房子，搬过的家'
 author: Curly Sheep
 date: '2025-06-14'
-tags: ["卷毛羊观察报告"]
+tags: ["生活日常"]
 description: "竟然已经搬过三次家了呢！羊羊！"
 image:
     url: '/images/blog-post.webp'
