@@ -91,6 +91,7 @@ p {
 }
 
 .prose h4 {
+  margin-top: 1rem;
   margin-bottom: 1rem;
   padding-left: 1rem;
   border-left: solid 4px #1e1e2e;
