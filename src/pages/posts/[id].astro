@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import MarkdownPostsLayout from "../../layouts/MarkdownPostsLayout.astro";
 import { getWordCount, getReadingTime } from "../../utils/wordCount";
+import TableOfContents from "../../components/TableOfContents.astro";
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -30,6 +31,7 @@ console.log('nextpost',nextPost);
 ---
 
 <MarkdownPostsLayout frontmatter={post.data} wordCount={wordCount} readingTime={readingTime}>
+    <TableOfContents headings={headings} />
     <Content />
     {
         (prevPost || nextPost) && (

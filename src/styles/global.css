@@ -98,6 +98,11 @@ p {
   font-size: 1rem;
 }
 
+.prose li {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
 small,
 li {
   font-family: var(--body);
