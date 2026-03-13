@@ -10,7 +10,7 @@
 /* Global styles */
 :root {
   --background: #1e1e2edd;
-  --background-light: #ffffffbb;
+  --background-light: #ffffffdd;
   --button: #78c2ad;
   --text: #eff1f5;
   --text-light: #1e1e2e;
@@ -27,6 +27,7 @@ sup {
 
 html {
   background-image: url(/images/background.png);
+  background-attachment: fixed;
   color: var(--text);
 }
 
