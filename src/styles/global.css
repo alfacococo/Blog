@@ -420,6 +420,10 @@ html.light .masterdon-icon  {
   height: auto;
 }
 
+.wl-meta-foot {
+  display: none;
+}
+
 /* Media Query */
 @media only screen and (max-width: 600px) {
   body {
