@@ -2,7 +2,7 @@
 title: '2026年1月~2月观察报告'
 author: Curly Sheep
 date: '2026-02-22'
-tags: ["生活日常"]
+tags: ["卷毛羊观察报告"]
 description: "东拼西凑用自己的嘟嘟凑了个双月刊！"
 image:
     url: '/images/blog-post.webp'

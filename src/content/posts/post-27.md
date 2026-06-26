@@ -2,7 +2,7 @@
 title: '2026年3月观察报告'
 author: Curly Sheep
 date: '2026-03-17'
-tags: ["生活日常"]
+tags: ["卷毛羊观察报告"]
 description: "好像已经恢复到原来的日常了~！"
 image:
     url: '/images/blog-post.webp'

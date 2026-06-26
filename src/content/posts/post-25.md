@@ -2,7 +2,7 @@
 title: '2025年12月观察报告'
 author: Curly Sheep
 date: '2025-12-22'
-tags: ["生活日常"]
+tags: ["卷毛羊观察报告"]
 description: "好快啊，怎么今年就这么过去了？"
 image:
     url: '/images/blog-post.webp'

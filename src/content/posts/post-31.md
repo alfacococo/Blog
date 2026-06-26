@@ -2,7 +2,7 @@
 title: '2026年6月观察报告'
 author: Curly Sheep
 date: '2026-06-11'
-tags: ["生活日常"]
+tags: ["卷毛羊观察报告"]
 description: "天哪加班好可怕我这辈子都不想再加班了"
 image:
     url: '/images/blog-post.webp'

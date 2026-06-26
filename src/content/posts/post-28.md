@@ -2,7 +2,7 @@
 title: '2026年4月观察报告'
 author: Curly Sheep
 date: '2026-04-13'
-tags: ["生活日常"]
+tags: ["卷毛羊观察报告"]
 description: "这个月的每个周末好像都过得很充实？？"
 image:
     url: '/images/blog-post.webp'

@@ -2,7 +2,7 @@
 title: '2026年5月观察报告'
 author: Curly Sheep
 date: '2026-05-16'
-tags: ["生活日常"]
+tags: ["卷毛羊观察报告"]
 description: "都怪破工吞噬我精力……恨……"
 image:
     url: '/images/blog-post.webp'
