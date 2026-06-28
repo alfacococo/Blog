@@ -1,9 +1,62 @@
 ---
-import Navigation from './Navigation.astro';
+import Navigation from "./Navigation.astro";
 ---
-<header>
-    <nav transition:persist >
-        <Navigation />
-    </nav>
+
+<header class="site-header">
+  <nav transition:persist>
+    <Navigation />
+  </nav>
 </header>
 
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 1rem;
+    transform: translateX(-50%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    background-color: var(--background);
+  }
+  .site-header.header-hidden {
+    transform: translateX(-50%) translateY(-100%);
+  }
+</style>
+
+<script>
+  function initSmartHeader() {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const header = document.querySelector(".site-header") as HTMLElement;
+
+    if (!header) return;
+
+    function updateHeader() {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        header.classList.add("header-hidden");
+      } else {
+        header.classList.remove("header-hidden");
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    });
+  }
+
+  // 首次加载执行
+  initSmartHeader();
+  // 每次 view transition 切换页面后重新执行
+  document.addEventListener("astro:page-load", initSmartHeader);
+</script>
