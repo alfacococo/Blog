@@ -1,0 +1,113 @@
+---
+interface Props {
+  slug: string; // 比如文章的 slug，用来区分不同文章
+}
+const { slug } = Astro.props;
+---
+
+<div class="like-button" data-slug={slug}>
+  <button class="like-btn" aria-label="点赞这篇文章">
+    <span class="like-icon">♡</span>
+    <span class="like-count">--</span>
+  </button>
+</div>
+
+<style>
+  .like-button {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .like-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 999px;
+    background: var(--background);
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      background 0.15s ease;
+    font-size: 1rem;
+  }
+
+  .like-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .like-btn.liked {
+    background: rgba(255, 0, 0, 0.08);
+  }
+
+  .like-btn.liked .like-icon {
+    animation: pop 0.3s ease;
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.4);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script>
+  function initLikeButton() {
+    const wrapper = document.querySelector(".like-button") as HTMLElement;
+    if (!wrapper) return;
+
+    const slug = wrapper.dataset.slug;
+    const btn = wrapper.querySelector(".like-btn") as HTMLButtonElement;
+    const countEl = wrapper.querySelector(".like-count") as HTMLElement;
+
+    if (!slug || !btn || !countEl) return;
+
+    const likedKey = `liked-${slug}`;
+    const alreadyLiked = localStorage.getItem(likedKey) === "true";
+
+    if (alreadyLiked) {
+      btn.classList.add("liked");
+    }
+
+    // 页面加载时读取当前点赞数
+    fetch(`/.netlify/functions/likes?slug=${encodeURIComponent(slug)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        countEl.textContent = String(data.count);
+      })
+      .catch(() => {
+        countEl.textContent = "0";
+      });
+
+    btn.addEventListener("click", async () => {
+      if (localStorage.getItem(likedKey) === "true") {
+        return; // 已经点过了，不再重复请求
+      }
+
+      btn.classList.add("liked");
+      localStorage.setItem(likedKey, "true");
+
+      try {
+        const res = await fetch(
+          `/.netlify/functions/likes?slug=${encodeURIComponent(slug)}`,
+          { method: "POST" },
+        );
+        const data = await res.json();
+        countEl.textContent = String(data.count);
+      } catch (err) {
+        console.error("点赞失败", err);
+      }
+    });
+  }
+
+  initLikeButton();
+  document.addEventListener("astro:page-load", initLikeButton);
+</script>
