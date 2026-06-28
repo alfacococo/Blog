@@ -30,17 +30,34 @@ import Navigation from "./Navigation.astro";
   function initSmartHeader() {
     let lastScrollY = window.scrollY;
     let ticking = false;
+    let upScrollAccum = 0; // 累计上滑距离
+    const SHOW_THRESHOLD = 80; // 累计上滑超过这个距离才显示，可以自己调
     const header = document.querySelector(".site-header") as HTMLElement;
 
     if (!header) return;
 
     function updateHeader() {
       const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY; // 正数=往下滑，负数=往上滑
 
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        header.classList.add("header-hidden");
-      } else {
+      if (delta > 0) {
+        // 往下滑：重置累计值，隐藏 header
+        upScrollAccum = 0;
+        if (currentScrollY > 80) {
+          header.classList.add("header-hidden");
+        }
+      } else if (delta < 0) {
+        // 往上滑：累加上滑距离
+        upScrollAccum += Math.abs(delta);
+        if (upScrollAccum > SHOW_THRESHOLD) {
+          header.classList.remove("header-hidden");
+        }
+      }
+
+      // 滚动到顶部附近时，无论方向都强制显示
+      if (currentScrollY <= 80) {
         header.classList.remove("header-hidden");
+        upScrollAccum = 0;
       }
 
       lastScrollY = currentScrollY;
@@ -55,8 +72,6 @@ import Navigation from "./Navigation.astro";
     });
   }
 
-  // 首次加载执行
   initSmartHeader();
-  // 每次 view transition 切换页面后重新执行
   document.addEventListener("astro:page-load", initSmartHeader);
 </script>
