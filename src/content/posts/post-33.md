@@ -2,7 +2,7 @@
 title: '卷毛羊版开源节流ver2026'
 author: Curly Sheep
 date: '2026-06-26'
-tags: ["生活日常"]
+tags: ["生活日常", "记账和省钱"]
 description: "请你，不要到处抠抠～潮流需要抠抠～不小心就没抠抠～wow～"
 ---
 

@@ -2,7 +2,7 @@
 title: '羊羊买啥不买啥'
 author: Curly Sheep
 date: '2025-05-21'
-tags: ["生活日常"]
+tags: ["生活日常", "购物和好物分享"]
 description: "羊羊的购物心得！"
 image:
     url: '/images/blog-post.webp'
