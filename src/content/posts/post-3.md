@@ -2,7 +2,7 @@
 title: '收纳，大盘点！(中)'
 author: Curly Sheep
 date: '2025-05-13'
-tags: ["生活日常", "收纳"]
+tags: ["收纳"]
 description: "我怎么能有这么多收纳！"
 image:
     url: '/images/blog-post.webp'

@@ -3,7 +3,7 @@ title: '家居好物分享（一）'
 author: Curly Sheep
 date: '2025-05-18'
 updateDate: '2025-05-20'
-tags: ["生活日常", "购物和好物分享"]
+tags: ["购物和好物分享"]
 description: "谈起这个那可就太多了！真觉得自己应该去当个家居博主哈哈哈哈（并不敢"
 image:
     url: '/images/blog-post.webp'

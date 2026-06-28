@@ -2,7 +2,7 @@
 title: '羊羊是怎么收纳的呀'
 author: Curly Sheep
 date: '2025-12-09'
-tags: ["生活日常", "收纳"]
+tags: ["收纳"]
 description: "写之前觉得我家好像也没有做什么特别的收纳，写出来之后发现其实也还不少？？"
 image:
     url: '/images/blog-post.webp'

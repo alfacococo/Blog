@@ -2,7 +2,7 @@
 title: '羊羊进货渠道大公开！'
 author: Curly Sheep
 date: '2025-05-25'
-tags: ["生活日常", "购物和好物分享"]
+tags: ["购物和好物分享"]
 description: "羊羊平常都是在哪里买东西的呀？想知道的朋友让我看到你们的双手！"
 image:
     url: '/images/blog-post.webp'

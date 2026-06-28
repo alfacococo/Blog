@@ -2,7 +2,7 @@
 title: '来数数家里的餐具吧'
 author: Curly Sheep
 date: '2025-06-29'
-tags: ["生活日常", "购物和好物分享"]
+tags: ["购物和好物分享"]
 description: "平常喜欢拍吃饭喝下午茶的照片，但还没给家里餐具杯具什么的正经拍过照呢，让我来数一数！"
 image:
     url: '/images/blog-post.webp'
