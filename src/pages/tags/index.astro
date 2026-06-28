@@ -1,7 +1,9 @@
 ---
-import BaseLayout from '../../layouts/Layout.astro';
+import BaseLayout from "../../layouts/Layout.astro";
 
-const allPosts = Object.values(import.meta.glob('../../content/posts/*.md', { eager: true }));
+const allPosts = Object.values(
+  import.meta.glob("../../content/posts/*.md", { eager: true }),
+);
 
 // ✅ 标签计数对象
 const tagCountMap: Record<string, number> = {};
@@ -12,26 +14,36 @@ const tags = [
       .map((post: any) => {
         const tags = post.frontmatter?.tags || [];
         tags.forEach((tag: string) => {
-          if (typeof tag === 'string' && tag.trim() !== '') {
+          if (typeof tag === "string" && tag.trim() !== "") {
             tagCountMap[tag] = (tagCountMap[tag] || 0) + 1;
           }
         });
         return tags;
       })
       .flat()
-      .filter((tag) => typeof tag === 'string' && tag.trim() !== '')
-  )
+      .filter((tag) => typeof tag === "string" && tag.trim() !== ""),
+  ),
 ];
 
 const pageTitle = "标签索引";
 ---
+
 <BaseLayout pageTitle={pageTitle}>
   <div class="my-8 text-xl border-l-4 pl-4">
     <h3>也可以通过以下标签来查看博文~</h3>
   </div>
-  <div class="tags">
-    {tags.map((tag) => (
-      <p><a href={`/tags/${tag}`}  class="tag text-[#ffffff] hover:bg-[#9076a8] bg-[#584966] transition duration-300 ease-in-out">{tag}({tagCountMap[tag]})</a></p>
-    ))}
+  <div class="tags gap-4 flex flex-wrap">
+    {
+      tags.map((tag) => (
+        <p>
+          <a
+            href={`/tags/${tag}`}
+            class="tag text-[#ffffff] hover:bg-[#9076a8] bg-[#584966] transition duration-300 ease-in-out"
+          >
+            {tag}({tagCountMap[tag]})
+          </a>
+        </p>
+      ))
+    }
   </div>
 </BaseLayout>
