@@ -82,7 +82,10 @@
         const script = document.createElement("script");
         script.src = "/pagefind/pagefind-ui.js";
         script.onload = () => {
-          new (window as any).PagefindUI({ element: "#search" });
+          new (window as any).PagefindUI({
+            element: "#search",
+            excerptLength: 5,
+          });
         };
         document.body.appendChild(script);
         uiLoaded = true;
