@@ -132,18 +132,29 @@ li {
   text-align: right;
 }
 
+#search-container {
+  display: inline-flex;
+}
+
+#search-trigger {
+  cursor: pointer;
+}
+
 .navbar__title>a,
-.navbar__menu>a {
+.navbar__menu>a,
+#search-container {
   color: var(--text);
   text-decoration: none;
 }
 
-.navbar__menu>a {
+.navbar__menu>a,
+#search-containe {
   margin: 0 10px;
 }
 
 .navbar__title>a:hover,
 .navbar__menu>a:hover,
+#search-container:hover,
 .navbar__menu>a:focus {
   text-decoration: underline var(--underline);
   text-decoration-thickness: 2px;

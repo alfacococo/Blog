@@ -1,0 +1,100 @@
+<div id="search-container">
+  <button id="search-trigger" aria-label="搜索文章">Search</button>
+  <div id="search-modal" class="search-modal hidden">
+    <div class="search-modal-content">
+      <div id="search"></div>
+      <button id="search-close" aria-label="关闭搜索">✕</button>
+    </div>
+  </div>
+</div>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+
+<style>
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 3000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10vh;
+  }
+
+  .search-modal.hidden {
+    display: none;
+  }
+
+  .search-modal-content {
+    background: var(--background);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    width: 90%;
+    max-width: 500px;
+    max-height: 70vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  #search-close {
+    position: absolute;
+    top: 2.5rem;
+    transform: translateY(-50%);
+    right: 0.5rem; /* 原来是 0rem，贴着边缘也不太好看，建议留一点呼吸空间 */
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1; /* 关键：避免默认行高把符号挤偏 */
+    padding: 0;
+  }
+</style>
+
+<script>
+  function initSearch() {
+    const trigger = document.getElementById("search-trigger");
+    const modal = document.getElementById("search-modal");
+    const closeBtn = document.getElementById("search-close");
+    if (!trigger || !modal || !closeBtn) return;
+
+    if (modal.parentElement !== document.body) {
+      document.body.appendChild(modal);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+        modal.classList.add("hidden");
+      }
+    });
+
+    let uiLoaded = false;
+
+    trigger.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+
+      if (!uiLoaded) {
+        const script = document.createElement("script");
+        script.src = "/pagefind/pagefind-ui.js";
+        script.onload = () => {
+          new (window as any).PagefindUI({ element: "#search" });
+        };
+        document.body.appendChild(script);
+        uiLoaded = true;
+      }
+    });
+
+    closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.add("hidden");
+    });
+  }
+
+  initSearch();
+  document.addEventListener("astro:page-load", initSearch);
+</script>

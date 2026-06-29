@@ -1,14 +1,17 @@
 ---
-import ThemeIcon from './ThemeIcon.astro';
+import ThemeIcon from "./ThemeIcon.astro";
+import SearchBox from "./SearchBox.astro";
 ---
+
 <div class="navbar">
-    <div class="navbar__title">
-        <a href="/">Curly Sheep</a>
-    </div>
-    <div class="navbar__menu">
-        <a href="/posts/">Posts</a>
-        <a href="/tags/">Tags</a>
-        <a href="/log/">Log</a>
-        <ThemeIcon />
-    </div>
+  <div class="navbar__title">
+    <a href="/">Curly Sheep</a>
+  </div>
+  <div class="navbar__menu">
+    <SearchBox className="navbar__search" />
+    <a href="/posts/">Posts</a>
+    <a href="/tags/">Tags</a>
+    <a href="/log/">Log</a>
+    <ThemeIcon />
+  </div>
 </div>
