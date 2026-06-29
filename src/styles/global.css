@@ -19,6 +19,15 @@
   --underline: #375a7f;
   --header: 'Pacifico', "Noto Sans SC", cursive;
   --body: 'Josefin Sans',"Noto Sans SC", sans-serif;
+  --pagefind-ui-text: var(--text) !important;
+}
+
+:root.light {
+  --pagefind-ui-text: var(--text-light) !important;
+}
+
+.pagefind-ui__search-input {
+  color: #1a1a1a !important;
 }
 
 sup {
