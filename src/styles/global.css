@@ -26,9 +26,13 @@ sup {
 }
 
 html {
-  background-image: url(/images/background.png);
+  background-image: url(/images/background-dark.png);
   background-attachment: fixed;
   color: var(--text);
+}
+
+html.light {
+  background-image: url(/images/background.png);
 }
 
 body {
