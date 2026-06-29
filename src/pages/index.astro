@@ -75,12 +75,20 @@ const friends = [
   <div class="homepage">
     <div class="gif">
       <img
-        src="/images/space.webp"
+        src="/images/mv-dark.png"
         role="presentation"
-        width="300"
+        width="400"
         height="259"
         decoding="async"
-        class="mx-auto"
+        class="mx-auto theme-img theme-img-dark"
+      />
+      <img
+        src="/images/mv.png"
+        role="presentation"
+        width="400"
+        height="259"
+        decoding="async"
+        class="mx-auto theme-img theme-img-light"
       />
     </div>
     <h1>{pageTitle}</h1>
@@ -168,5 +176,16 @@ const friends = [
     .friend-card {
       transition: none;
     }
+  }
+
+  .theme-img-light {
+    display: none;
+  }
+
+  :global(.light) .theme-img-dark {
+    display: none;
+  }
+  :global(.light) .theme-img-light {
+    display: block;
   }
 </style>
