@@ -1,56 +1,97 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import ScrollToTop from "../components/ScrollToTop.astro";
-import '../styles/global.css';
-import '../styles/waline.css'
+import "../styles/global.css";
+import "../styles/waline.css";
 const { pageTitle } = Astro.props;
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html transition:animate="none" lang="en">
-	<head>
-        <meta charset="utf-8" />
-        <meta name="description" content="卷毛羊的赛博羊圈！">
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" href="/images/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap" as="style">
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200&display=swap" rel="stylesheet">
-        <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
-	</head>
-	<body class="mt-[78px] mx-auto">
-        <Header />
-        <main>
-            <slot />
-            <ScrollToTop />
-            <Footer />
-        </main>
-        <script type="module">
-          import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="卷毛羊的赛博羊圈！" />
+    <meta name="viewport" content="width=device-width" />
+    <script is:inline data-astro-rerun>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          return "light";
+        }
+        return "dark";
+      })();
 
-          init({
-            el: '#waline',
-            serverURL: 'https://curly-sheeps-comments.netlify.app/.netlify/functions/comment',
-          });
-        </script>
-        <script>
-            function colorMode() {
-                if (
-                    localStorage.theme === "light" ||
-                    (!("theme" in localStorage) &&
-                    window.matchMedia("(prefers-color-scheme: light)").matches)
-                ) {
-                    document.documentElement.classList.add("light");
-                } else {
-                    document.documentElement.classList.remove("light");
-                }
-              }
+      if (theme === "dark") {
+        document.documentElement.classList.remove("light");
+      } else {
+        document.documentElement.classList.add("light");
+      }
 
-            colorMode();
-            document.addEventListener('astro:after-swap', colorMode);
-        </script>
-	</body>
+      window.localStorage.setItem("theme", theme);
+
+      document.addEventListener("astro:before-swap", (event) => {
+        const isLight = document.documentElement.classList.contains("light");
+        if (isLight) {
+          event.newDocument.documentElement.classList.add("light");
+        }
+      });
+    </script>
+    <link rel="icon" href="/images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="mt-[78px] mx-auto">
+    <Header />
+    <main>
+      <slot />
+      <ScrollToTop />
+      <Footer />
+    </main>
+    <script type="module">
+      import { init } from "https://unpkg.com/@waline/client@v3/dist/waline.js";
+
+      init({
+        el: "#waline",
+        serverURL:
+          "https://curly-sheeps-comments.netlify.app/.netlify/functions/comment",
+      });
+    </script>
+    <script>
+      function colorMode() {
+        if (
+          localStorage.theme === "light" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: light)").matches)
+        ) {
+          document.documentElement.classList.add("light");
+        } else {
+          document.documentElement.classList.remove("light");
+        }
+      }
+
+      colorMode();
+      document.addEventListener("astro:after-swap", colorMode);
+    </script>
+  </body>
 </html>
