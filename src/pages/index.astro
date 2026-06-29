@@ -1,48 +1,172 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 const pageTitle = "Curly Sheep";
+
+const friends = [
+  {
+    name: "天堂错误文件",
+    url: "https://naturaleki.one/",
+    motto: "Across the street, cross one's heart.",
+  },
+  { name: "稽异录残篇", url: "https://ocod.netlify.app/", motto: "" },
+  {
+    name: "猫头气球生产工厂",
+    url: "https://ccaatthouse.icu",
+    motto: "我们不生产猫头气球",
+  },
+  {
+    name: "此地有野狗出没",
+    url: "https://luoshui.icu/",
+    motto: "小心！野兽凶猛！",
+  },
+  {
+    name: "Mimoshark's Blog",
+    url: "https://notion-next-neon-eight.vercel.app/",
+    motto: "",
+  },
+  {
+    name: "树响集",
+    url: "https://wbzddwsw.vercel.app/",
+    motto: "不作诗则做诗",
+  },
+  {
+    name: "漫游者迷路中",
+    url: "https://blog-sooty-beta.vercel.app/",
+    motto: "记生活迷思，做吟游诗人",
+  },
+  {
+    name: "AI碎片缓存",
+    url: "https://hirate3.wordpress.com/",
+    motto: "欢迎访问虚拟仓库",
+  },
+  {
+    name: "晴空",
+    url: "https://summerwasover.vercel.app/",
+    motto: "像鸟儿编辑它们的飞行一般书写",
+  },
+  {
+    name: "Meaningless Nothingness",
+    url: "https://xyzxy.me",
+    motto: "桂棹兮兰桨，击空明兮溯流光",
+  },
+  { name: "夏小雪的星球散步", url: "https://sizheng.org/", motto: "" },
+  { name: "蝴蝶曾在此处", url: "https://changingmoments.one/", motto: "" },
+  {
+    name: "深海鱼拒绝触礁",
+    url: "https://trails-of-isara.vercel.app/",
+    motto: "把最棒的吊桥效应献给你",
+  },
+  { name: "山月", url: "https://sanguok.com", motto: "左海逐月，雙峰遺夢" },
+  { name: "42th Window", url: "https://blog.welsea.site/", motto: "" },
+  {
+    name: "日々精進",
+    url: "https://arayr.com/",
+    motto: "一般会社员A的电子手帐。",
+  },
+  {
+    name: "小球飞鱼",
+    url: "https://mantyke.icu/",
+    motto: "我们会一起遇见鲸鱼吗？",
+  },
+];
 ---
+
 <Layout pageTitle={pageTitle}>
-    <div class="homepage">
+  <div class="homepage">
     <div class="gif">
-        <img src="/images/space.webp" role="presentation" width="300" height="259" decoding="async" class="mx-auto">
+      <img
+        src="/images/space.webp"
+        role="presentation"
+        width="300"
+        height="259"
+        decoding="async"
+        class="mx-auto"
+      />
     </div>
     <h1>{pageTitle}</h1>
     <span class="badge">The Mighty Herbivore</span>
     <h2 class="my-[20px]">About</h2>
+    <p>羊星居羊卷卷。喜欢嘟囔一些日常小事，很少进行大思考。</p>
     <p>
-        羊星居羊卷卷。喜欢嘟囔一些日常小事，很少进行大思考。
+      可以在<a
+        href="https://moresci.sale/@bipolar"
+        target="_blank"
+        class="hover:underline">长毛象</a
+      >捕捉到卷毛羊的更多生活动态！
     </p>
-    <p>可以在<a href="https://moresci.sale/@bipolar" target="_blank" class="hover:underline">长毛象</a>捕捉到卷毛羊的更多生活动态！</p>
     <h2 class="my-[20px]">Interests</h2>
-    <p>
-        爱好基本都很安静，翻翻闲书插插花喝喝茶什么的。
-    </p>
+    <p>爱好基本都很安静，翻翻闲书插插花喝喝茶什么的。</p>
     <p>偶尔遇到能让自己上头的游戏或者小说，也会不分昼夜地玩。</p>
     <p>还特别热衷于装饰自己的羊圈，三天两头就会炫耀自己的家（…）</p>
     <p>自我观察是羊生课题。</p>
     <h2 class="my-[20px]">Friends</h2>
-    <p>
-        欢迎跟羊交换友情链接！（扭动）
-    </p>
-    <ul class="pl-8 list-disc">
-        <li class="hover:underline"><a href="https://naturaleki.one/" title="Across the street, cross one’s heart." target="_blank">天堂错误文件</a></li>
-        <li class="hover:underline"><a href="https://ocod.netlify.app/" target="_blank" title="">稽异录残篇</a></li>
-        <li class="hover:underline"><a href="https://ccaatthouse.icu" title="我们不生产猫头气球" target="_blank">猫头气球生产工厂</a></li>
-        <li class="hover:underline"><a href="https://luoshui.icu/" title="小心！野兽凶猛！" target="_blank">此地有野狗出没</a></li>
-        <li class="hover:underline"><a href="https://notion-next-neon-eight.vercel.app/" title="" target="_blank">Mimoshark’s Blog</a></li>
-        <li class="hover:underline"><a href="https://wbzddwsw.vercel.app/" title="不作诗则做诗" target="_blank">树响集</a></li>
-        <li class="hover:underline"><a href="https://blog-sooty-beta.vercel.app/" title="记生活迷思，做吟游诗人" target="_blank">漫游者迷路中</a></li>
-        <li class="hover:underline"><a href="https://hirate3.wordpress.com/" title="欢迎访问虚拟仓库" target="_blank">AI碎片缓存</a></li>
-        <li class="hover:underline"><a href="https://summerwasover.vercel.app/" title="像鸟儿编辑它们的飞行一般书写" target="_blank">晴空</a></li>
-        <li class="hover:underline"><a href="https://xyzxy.me" title="桂棹兮兰桨，击空明兮溯流光" target="_blank">Meaningless Nothingness</a></li>
-        <li class="hover:underline"><a href="https://sizheng.org/" title="" target="_blank">夏小雪的星球散步</a></li>
-        <li class="hover:underline"><a href="https://changingmoments.one/" title="" target="_blank">蝴蝶曾在此处</a></li>
-        <li class="hover:underline"><a href="https://trails-of-isara.vercel.app/" title="把最棒的吊桥效应献给你" target="_blank">深海鱼拒绝触礁</a></li>
-        <li class="hover:underline"><a href="https://sanguok.com" title="左海逐月，雙峰遺夢" target="_blank">山月</a></li>
-        <li class="hover:underline"><a href="https://blog.welsea.site/" title="" target="_blank">42th Window</a></li>
-        <li class="hover:underline"><a href="https://arayr.com/" title="一般会社员A的电子手帐。" target="_blank">日々精進</a></li>
-        <li class="hover:underline"><a href="https://mantyke.icu/" title="我们会一起遇见鲸鱼吗？" target="_blank">小球飞鱼</a></li>
+    <p>欢迎跟羊交换友情链接！（扭动）</p>
+    <ul class="friend-grid">
+      {
+        friends.map((friend) => (
+          <li class="friend-card">
+            <a href={friend.url} target="_blank" rel="noopener noreferrer">
+              <span class="friend-name">{friend.name}</span>
+              {friend.motto && (
+                <span class="friend-motto">「{friend.motto}」</span>
+              )}
+            </a>
+          </li>
+        ))
+      }
     </ul>
-</div>
+  </div>
 </Layout>
+
+<style>
+  .friend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    padding: 0;
+    margin: 1.5rem 0;
+    list-style: none;
+  }
+
+  .friend-card {
+    border: 1px solid var(--border, #ddd);
+    border-radius: 10px;
+    background: var(--background);
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .friend-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent, #888);
+  }
+
+  .friend-card a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1rem 1.2rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .friend-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .friend-motto {
+    font-family: Georgia, "Noto Serif SC", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .friend-card {
+      transition: none;
+    }
+  }
+</style>
