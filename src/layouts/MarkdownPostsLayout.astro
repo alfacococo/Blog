@@ -4,35 +4,64 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-    <div class="gif">
-        <img src="/images/blog.webp" role="presentation" width="300" height="259" decoding="async" class="mx-auto">
-    </div>
-    <h2 style="text-decoration:none" class="postshome">{frontmatter.title}</h2>
-    <ul class="badge__list">
-        <li>
-            <span class="badge badge--item whitespace-nowrap min-w-[87px]">PUBLISHED</span>{frontmatter.date}{frontmatter.updateDate && (`(更新于 ${frontmatter.updateDate})`)}
-        </li>
-        <li>
-        <span class="badge badge--item">TAGS</span>
-    {frontmatter.tags.map((tag: string) => (
-      <span class="tag-text mr-2"><a href={`/tags/${tag}`}>{tag}</a></span>
-    ))}
-        </li>
-        <li>
-            <span class="badge badge--item">Total Word Count</span>{wordCount} 字
-        </li>
-        <li>
-            <span class="badge badge--item">Reading Time</span>{readingTime} 分钟
-        </li>
-    </ul>
-    <div class="prose">
+  <div class="gif">
+    <img
+      src="/images/blog.webp"
+      role="presentation"
+      width="300"
+      height="259"
+      decoding="async"
+      class="mx-auto"
+    />
+  </div>
+  <h2 style="text-decoration:none" class="postshome">{frontmatter.title}</h2>
+  <ul class="badge__list">
+    <li>
+      <span class="badge badge--item whitespace-nowrap min-w-[87px]"
+        >PUBLISHED</span
+      >{frontmatter.date}{
+        frontmatter.updateDate && `(更新于 ${frontmatter.updateDate})`
+      }
+    </li>
+    <li>
+      <span class="badge badge--item">TAGS</span>
+      {
+        frontmatter.tags.map((tag: string) => (
+          <span class="tag-text mr-2">
+            <a href={`/tags/${tag}`}>{tag}</a>
+          </span>
+        ))
+      }
+    </li>
+    <li>
+      <span class="badge badge--item">Total Word Count</span>{wordCount} 字
+    </li>
+    <li>
+      <span class="badge badge--item">Reading Time</span>{readingTime} 分钟
+    </li>
+  </ul>
+  <div class="prose">
     <slot />
-    </div>
-    <div id="waline"></div>
+  </div>
+  <div id="waline"></div>
 </BaseLayout>
 
 <style>
-    .tag {
-        margin-right: 15px;
-    }
-    </style>
+  .tag {
+    margin-right: 15px;
+  }
+</style>
+
+<script>
+  import mediumZoom from "medium-zoom";
+
+  function initImageZoom() {
+    mediumZoom(".prose img", {
+      background: "rgba(0, 0, 0, 0.8)",
+      margin: 24, // 放大后图片跟屏幕边缘留一点呼吸空间
+    });
+  }
+
+  initImageZoom();
+  document.addEventListener("astro:page-load", initImageZoom);
+</script>
