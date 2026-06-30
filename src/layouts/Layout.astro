@@ -41,6 +41,17 @@ const { pageTitle } = Astro.props;
           event.newDocument.documentElement.classList.add("light");
         }
       });
+
+      const originalTitle = document.title;
+      const awayTitle = "(つ•̀ω•́)つ 羊等你回来~";
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          document.title = awayTitle;
+        } else {
+          document.title = originalTitle;
+        }
+      });
     </script>
     <link rel="icon" href="/images/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
