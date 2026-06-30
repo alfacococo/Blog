@@ -1,0 +1,108 @@
+<div class="misskey-note" id="misskey-note">
+  <div class="misskey-note-header">
+    <span class="misskey-note-label">最近在咩……</span>
+    <a
+      class="misskey-note-link"
+      id="misskey-note-link"
+      href="https://stelpolva.moe/@bipolar"
+      target="_blank"
+      rel="noopenernoreferrer"
+    >
+      @bipolar@stelpolva.moe ↗
+    </a>
+  </div>
+  <p class="misskey-note-text" id="misskey-note-text">加载中……</p>
+</div>
+
+<style>
+  .misskey-note {
+    border: 1px solid var(--border, #ddd);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--background);
+  }
+
+  .misskey-note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+
+  .misskey-note-label {
+    font-style: italic;
+  }
+
+  .misskey-note-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .misskey-note-link:hover {
+    text-decoration: underline;
+  }
+
+  .misskey-note-text {
+    margin: 0;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    justify-content: space-between;
+  }
+</style>
+
+<script>
+  async function loadMisskeyNote() {
+    const textEl = document.getElementById("misskey-note-text");
+    const linkEl = document.getElementById("misskey-note-link");
+    if (!textEl || !linkEl) return;
+
+    try {
+      // 第一步：用用户名查 userId
+      const userRes = await fetch("https://stelpolva.moe/api/users/show", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: "bipolar" }),
+      });
+      const user = await userRes.json();
+
+      // 第二步：拉取最近 30 条嘟文（只拿有文字内容的普通嘟文，不含转嘟）
+      const notesRes = await fetch("https://stelpolva.moe/api/users/notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.id,
+          limit: 30,
+          withRenotes: false, // 不包含转嘟
+          withReplies: false, // 不包含回复
+        }),
+      });
+      const notes = await notesRes.json();
+
+      // 第三步：过滤掉没有文字内容的嘟文（比如纯图片嘟文），随机取一条
+      const textNotes = notes.filter(
+        (note: any) => note.text && note.text.trim().length > 0,
+      );
+
+      if (!textNotes.length) {
+        textEl.textContent = "暂时没有可以显示的嘟文。";
+        return;
+      }
+
+      const randomNote =
+        textNotes[Math.floor(Math.random() * textNotes.length)];
+
+      textEl.textContent = randomNote.text;
+      // 更新链接，指向这条具体的嘟文
+      linkEl.href = `https://stelpolva.moe/notes/${randomNote.id}`;
+    } catch (err) {
+      if (textEl) textEl.textContent = "嘟文加载失败，请稍后再试。";
+      console.error("Misskey note fetch error:", err);
+    }
+  }
+
+  loadMisskeyNote();
+  document.addEventListener("astro:page-load", loadMisskeyNote);
+</script>
