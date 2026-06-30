@@ -1,0 +1,103 @@
+<div class="mastodon-note" id="mastodon-note">
+  <div class="mastodon-note-header">
+    <span class="mastodon-note-label">最近在嘟……</span>
+    <a
+      class="mastodon-note-link"
+      id="mastodon-note-link"
+      href="#"
+      target="_blank"
+    >
+      @bipolar@moresci.sale ↗
+    </a>
+  </div>
+  <p class="mastodon-note-text" id="mastodon-note-text">加载中……</p>
+</div>
+
+<style>
+  .mastodon-note {
+    border: 1px solid var(--border, #ddd);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    background-color: var(--background);
+  }
+  .mastodon-note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+  .mastodon-note-text {
+    margin: 0;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+  }
+  .mastodon-note-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  .mastodon-note-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  async function loadMastodonNote() {
+    const textEl = document.getElementById("mastodon-note-text");
+    const linkEl = document.getElementById("mastodon-note-link");
+
+    // 配置信息
+    const INSTANCE = "https://moresci.sale"; // Mastodon 实例地址
+    const USERNAME = "bipolar"; // 这里直接填写用户名
+
+    if (!textEl || !linkEl) return;
+
+    try {
+      // 第一步：通过 lookup 接口获取用户的 ID
+      const lookupRes = await fetch(
+        `${INSTANCE}/api/v1/accounts/lookup?acct=${USERNAME}`,
+      );
+      if (!lookupRes.ok) throw new Error("无法找到用户");
+      const user = await lookupRes.json();
+      const userId = user.id;
+
+      // 第二步：使用获取到的 userId 拉取最近嘟文
+      const notesRes = await fetch(
+        `${INSTANCE}/api/v1/accounts/${userId}/statuses?limit=30&exclude_replies=true&exclude_reblogs=true`,
+      );
+      const notes = await notesRes.json();
+
+      // 第三步：过滤掉纯媒体或空文本（Mastodon 的 content 包含 HTML）
+      const textNotes = notes.filter((n) => {
+        const plainText = n.content.replace(/<[^>]+>/g, "").trim();
+        return plainText.length > 0;
+      });
+
+      if (!textNotes.length) {
+        textEl.textContent = "暂时没有可以显示的嘟文。";
+        return;
+      }
+
+      // 随机获取一条
+      const randomNote =
+        textNotes[Math.floor(Math.random() * textNotes.length)];
+
+      // 渲染文本（清理 HTML 标签）
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = randomNote.content;
+      textEl.textContent = tempDiv.textContent || tempDiv.innerText;
+
+      // 更新跳转链接
+      linkEl.href = randomNote.url;
+    } catch (err) {
+      if (textEl) textEl.textContent = "嘟文加载失败，请检查用户是否存在。";
+      console.error("Mastodon fetch error:", err);
+    }
+  }
+
+  // 初始化调用
+  loadMastodonNote();
+</script>

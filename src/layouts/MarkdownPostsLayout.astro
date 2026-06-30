@@ -83,4 +83,42 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 
   initImageZoom();
   document.addEventListener("astro:page-load", initImageZoom);
+
+  // 查找所有代码块
+  const blocks = document.querySelectorAll("pre");
+
+  blocks.forEach((block) => {
+    const button = document.createElement("button");
+    button.innerText = "COPY";
+    button.className = "copy-btn";
+
+    // 点击复制逻辑
+    button.addEventListener("click", () => {
+      const code = block.querySelector("code")?.innerText;
+      if (code) {
+        navigator.clipboard.writeText(code);
+        button.innerText = "Success!";
+        setTimeout(() => (button.innerText = "COPY"), 2000);
+      }
+    });
+
+    block.style.position = "relative";
+    block.prepend(button);
+  });
 </script>
+
+<style>
+  /* 简单的样式，你可以根据你的博客主题调整 */
+  .copy-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+</style>

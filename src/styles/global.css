@@ -90,6 +90,8 @@ p {
   text-indent: 1rem;
 }
 
+/* 博文内部样式 */
+
 .prose p {
   margin-bottom: 1rem;
   font-size: 1rem;
@@ -115,6 +117,27 @@ p {
 .prose li {
   list-style-type: disc;
   margin-left: 2rem;
+}
+
+.prose p code,
+.prose li code {
+    background: #f3f4f5;
+    color: #476582;
+    padding: 0.2em 0;
+    border-radius: 3px;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.85em;
+  }
+
+  .prose pre {
+  margin: 1rem 0;
+border-radius: 16px;
+}
+
+.prose pre code{
+  display: block;
+  padding: 1rem;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 small,
