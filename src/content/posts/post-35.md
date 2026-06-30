@@ -87,18 +87,20 @@ description: "之所以能取得这样的科研成果，首先要感谢我的克
 
 * 其实下面都是克老师写给我的！要写这篇教程的时候我才开始研究代码，去找了[misskey的API文档](https://misskey.io/api-doc#description/introduction)，感觉应该可以开发很多玩法！大家有空也可以去看看。
 
-```javascript
+```js
 <script>
   async function loadMisskeyNote() {
     // 对应html里面id为"misskey-note-text"的元素，即卡片部分
     const textEl = document.getElementById("misskey-note-text");
     // 对应html里面id为"misskey-note-link"的元素，即链接部分
-    const linkEl = document.getElementById("misskey-note-link");
+    const linkEl = document.getElementById(
+      "misskey-note-link",
+    ) as HTMLAnchorElement | null;
     // 如果这俩有谁不存在的话就返回，不再执行以下代码
     if (!textEl || !linkEl) return;
 
+    // 第一步：用用户名查 userId, 其中stelpolva.moe 是 Misskey 实例域名，bipolar 是 Misskey 用户名
     try {
-      // 第一步：用用户名查 userId, 其中stelpolva.moe 是 Misskey 实例域名，bipolar 是 Misskey 用户名
       const userRes = await fetch("https://stelpolva.moe/api/users/show", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -112,16 +114,19 @@ description: "之所以能取得这样的科研成果，首先要感谢我的克
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: user.id,
-          limit: 30, // 拉取嘟文数上限
-          withRenotes: false, // 不包含转嘟
-          withReplies: false, // 不包含回复
+          limit: 30,
+          withRenotes: false,
+          withReplies: false,
         }),
       });
       const notes = await notesRes.json();
 
-      // 第三步：过滤掉没有文字内容的嘟文（比如纯图片嘟文）
+      // 只保留"真正自己写的嘟文"，排除带 renote 字段的转嘟（即使带了自己的评论文字）
       const textNotes = notes.filter(
-        (note: any) => note.text && note.text.trim().length > 0,
+        (note: {
+          text: { trim: () => { (): any; new (): any; length: number } };
+          renoteId: any;
+        }) => note.text && note.text.trim().length > 0 && !note.renoteId,
       );
 
       // 如果没有抓到嘟文或者嘟文数量为零的时候，显示下方文字。
@@ -134,8 +139,8 @@ description: "之所以能取得这样的科研成果，首先要感谢我的克
       const randomNote =
         textNotes[Math.floor(Math.random() * textNotes.length)];
 
-      // 让html显示该条随机嘟文的文字
-      textEl.textContent = randomNote.text;
+      // 让html显示该条随机嘟文的文字（同时转换表情符号）
+      textEl.innerHTML = await renderTextWithEmojis(randomNote.text);
 
       // 更新链接，指向这条具体的嘟文
       linkEl.href = `https://stelpolva.moe/notes/${randomNote.id}`;
@@ -143,6 +148,50 @@ description: "之所以能取得这样的科研成果，首先要感谢我的克
       if (textEl) textEl.textContent = "嘟文加载失败，请稍后再试。";
       console.error("Misskey note fetch error:", err);
     }
+  }
+
+  function escapeHtml(str: string) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  async function renderTextWithEmojis(text: string) {
+    const escaped = escapeHtml(text);
+
+    // 找出文字里所有 :表情名: 占位符，去重
+    const matches = [...escaped.matchAll(/:([a-zA-Z0-9_]+):/g)];
+    const emojiNames = [...new Set(matches.map((m) => m[1]))];
+
+    if (!emojiNames.length) return escaped;
+
+    // 并发查询每个表情名对应的图片 URL
+    const emojiMap: Record<string, string> = {};
+    await Promise.all(
+      emojiNames.map(async (name) => {
+        try {
+          const res = await fetch(
+            `https://stelpolva.moe/api/emoji?name=${encodeURIComponent(name)}`,
+          );
+          if (!res.ok) return; // 查不到就跳过，保留原文字
+          const data = await res.json();
+          if (data.url) emojiMap[name] = data.url;
+        } catch {
+          // 单个表情查询失败不影响其他表情，静默跳过
+        }
+      }),
+    );
+
+    return escaped.replace(
+      /:([a-zA-Z0-9_]+):/g,
+      (match: any, name: string | number) => {
+        const url = emojiMap[name];
+        if (!url) return match;
+        return `<img src="${url}" alt=":${name}:" class="misskey-emoji" style="width: 1.2em; vertical-align: middle; display: inline;" />`;
+      },
+    );
   }
 
   loadMisskeyNote();
@@ -227,45 +276,43 @@ description: "之所以能取得这样的科研成果，首先要感谢我的克
       const lookupRes = await fetch(
         `${INSTANCE}/api/v1/accounts/lookup?acct=${USERNAME}`,
       );
-      if (!lookupRes.ok) throw new Error("无法找到用户");
       const user = await lookupRes.json();
-      const userId = user.id;
 
-      // 第二步：使用获取到的 userId 拉取最近嘟文
+      // 2. 获取嘟文（包含自定义表情信息）
       const notesRes = await fetch(
-        `${INSTANCE}/api/v1/accounts/${userId}/statuses?limit=30&exclude_replies=true&exclude_reblogs=true`,
+        `${INSTANCE}/api/v1/accounts/${user.id}/statuses?limit=30&exclude_replies=true&exclude_reblogs=true`,
       );
       const notes = await notesRes.json();
 
-      // 第三步：过滤掉纯媒体或空文本（Mastodon 的 content 包含 HTML）
-      const textNotes = notes.filter((n) => {
-        const plainText = n.content.replace(/<[^>]+>/g, "").trim();
-        return plainText.length > 0;
-      });
+      const textNotes = notes.filter(
+        (n) => n.content && n.content.replace(/<[^>]+>/g, "").trim().length > 0,
+      );
+      if (!textNotes.length) return;
 
-      if (!textNotes.length) {
-        textEl.textContent = "暂时没有可以显示的嘟文。";
-        return;
+      const randomNote = textNotes[Math.floor(Math.random() * textNotes.length)];
+
+      // 3. 处理内容与表情渲染
+      let content = randomNote.content;
+
+      // 将 API 返回的自定义表情数组映射为图片标签
+      if (randomNote.emojis && randomNote.emojis.length > 0) {
+        randomNote.emojis.forEach((emoji) => {
+          // Mastodon 表情的格式通常是 :shortcode:
+          const shortcode = `:${emoji.shortcode}:`;
+          const imgTag = `<img src="${emoji.url}" alt="${emoji.shortcode}" style="width: 1.2em; height: 1.2em; vertical-align: middle; margin: 0 0.1em;" />`;
+          // 使用全局替换，确保同一表情出现多次都能被替换
+          content = content.replaceAll(shortcode, imgTag);
+        });
       }
 
-      // 随机获取一条
-      const randomNote =
-        textNotes[Math.floor(Math.random() * textNotes.length)];
-
-      // 渲染文本（清理 HTML 标签）
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = randomNote.content;
-      textEl.textContent = tempDiv.textContent || tempDiv.innerText;
-
-      // 更新跳转链接
+      // 将处理好的 HTML 插入容器（使用 innerHTML 以渲染 img 标签）
+      textEl.innerHTML = content;
       linkEl.href = randomNote.url;
     } catch (err) {
-      if (textEl) textEl.textContent = "嘟文加载失败，请检查用户是否存在。";
       console.error("Mastodon fetch error:", err);
+      textEl.textContent = "嘟文加载失败。";
     }
   }
-
-  // 初始化调用
   loadMastodonNote();
 </script>
 ```

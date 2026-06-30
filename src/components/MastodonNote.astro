@@ -60,44 +60,44 @@
       const lookupRes = await fetch(
         `${INSTANCE}/api/v1/accounts/lookup?acct=${USERNAME}`,
       );
-      if (!lookupRes.ok) throw new Error("无法找到用户");
       const user = await lookupRes.json();
-      const userId = user.id;
 
-      // 第二步：使用获取到的 userId 拉取最近嘟文
+      // 2. 获取嘟文（包含自定义表情信息）
       const notesRes = await fetch(
-        `${INSTANCE}/api/v1/accounts/${userId}/statuses?limit=30&exclude_replies=true&exclude_reblogs=true`,
+        `${INSTANCE}/api/v1/accounts/${user.id}/statuses?limit=30&exclude_replies=true&exclude_reblogs=true`,
       );
       const notes = await notesRes.json();
 
-      // 第三步：过滤掉纯媒体或空文本（Mastodon 的 content 包含 HTML）
-      const textNotes = notes.filter((n) => {
-        const plainText = n.content.replace(/<[^>]+>/g, "").trim();
-        return plainText.length > 0;
-      });
+      const textNotes = notes.filter(
+        (n) => n.content && n.content.replace(/<[^>]+>/g, "").trim().length > 0,
+      );
+      if (!textNotes.length) return;
 
-      if (!textNotes.length) {
-        textEl.textContent = "暂时没有可以显示的嘟文。";
-        return;
-      }
-
-      // 随机获取一条
       const randomNote =
         textNotes[Math.floor(Math.random() * textNotes.length)];
 
-      // 渲染文本（清理 HTML 标签）
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = randomNote.content;
-      textEl.textContent = tempDiv.textContent || tempDiv.innerText;
+      // 3. 处理内容与表情渲染
+      let content = randomNote.content;
 
-      // 更新跳转链接
+      // 将 API 返回的自定义表情数组映射为图片标签
+      if (randomNote.emojis && randomNote.emojis.length > 0) {
+        randomNote.emojis.forEach((emoji) => {
+          // Mastodon 表情的格式通常是 :shortcode:
+          const shortcode = `:${emoji.shortcode}:`;
+          const imgTag = `<img src="${emoji.url}" alt="${emoji.shortcode}" style="width: 1.2em; height: 1.2em; vertical-align: middle; margin: 0 0.1em;" />`;
+          // 使用全局替换，确保同一表情出现多次都能被替换
+          content = content.replaceAll(shortcode, imgTag);
+        });
+      }
+
+      // 将处理好的 HTML 插入容器（使用 innerHTML 以渲染 img 标签）
+      textEl.innerHTML = content;
       linkEl.href = randomNote.url;
     } catch (err) {
-      if (textEl) textEl.textContent = "嘟文加载失败，请检查用户是否存在。";
       console.error("Mastodon fetch error:", err);
+      textEl.textContent = "嘟文加载失败。";
     }
   }
 
-  // 初始化调用
   loadMastodonNote();
 </script>
