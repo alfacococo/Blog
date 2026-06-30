@@ -1,5 +1,5 @@
 ---
-title: '如何在博客里插入嘟文动态'
+title: '如何在博客里随机显示嘟文'
 author: Curly Sheep
 date: '2026-06-30'
 tags: ["博客教程"]
