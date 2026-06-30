@@ -1,17 +1,51 @@
 ---
 const description = "404";
-import '../styles/global.css';
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 ---
-<layout>
-    <div class="lost">
-        <div class="gif">
-            <img src="/.netlify/images?url=/images/404.webp" role="presentation" width="300" height="259" decoding="async">
-        </div>
-        <h1 class="lost__header">{ description }</h1>
-        <p class="lost__body">It seems like you've wandered into the wrong forest!</p>
-        <p>
-            <a class="lost__link" href="/">Return Home</a>
-        </p>
-    </div>
-</layout>
 
+<Layout>
+  <div class="lost">
+    <div class="gif">
+      <img
+        src="/images/mv-dark.png"
+        role="presentation"
+        width="400"
+        height="259"
+        decoding="async"
+        class="mx-auto theme-img theme-img-dark"
+      />
+      <img
+        src="/images/mv.png"
+        role="presentation"
+        width="400"
+        height="259"
+        decoding="async"
+        class="mx-auto theme-img theme-img-light"
+      />
+    </div>
+    <h1 class="lost__header">{description}</h1>
+    <p class="lost__body">
+      好像你迷路了呢……卷毛羊的羊圈里没有这个页面哦。
+    </p>
+    <p>
+      <a class="lost__link" href="/">回到首页</a>
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .lost {
+    margin: 0 auto;
+  }
+  .theme-img-light {
+    display: none;
+  }
+
+  :global(.light) .theme-img-dark {
+    display: none;
+  }
+  :global(.light) .theme-img-light {
+    display: block;
+  }
+</style>
