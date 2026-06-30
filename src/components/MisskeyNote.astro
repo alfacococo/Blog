@@ -50,16 +50,24 @@
     font-size: 0.95rem;
     justify-content: space-between;
   }
+
+  .misskey-emoji {
+    height: 1.2em;
+    width: 40px;
+    vertical-align: middle;
+    display: inline;
+  }
 </style>
 
 <script>
   async function loadMisskeyNote() {
     const textEl = document.getElementById("misskey-note-text");
-    const linkEl = document.getElementById("misskey-note-link");
+    const linkEl = document.getElementById(
+      "misskey-note-link",
+    ) as HTMLAnchorElement | null;
     if (!textEl || !linkEl) return;
 
     try {
-      // 第一步：用用户名查 userId
       const userRes = await fetch("https://stelpolva.moe/api/users/show", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,22 +75,24 @@
       });
       const user = await userRes.json();
 
-      // 第二步：拉取最近 30 条嘟文（只拿有文字内容的普通嘟文，不含转嘟）
       const notesRes = await fetch("https://stelpolva.moe/api/users/notes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: user.id,
           limit: 30,
-          withRenotes: false, // 不包含转嘟
-          withReplies: false, // 不包含回复
+          withRenotes: false,
+          withReplies: false,
         }),
       });
       const notes = await notesRes.json();
 
-      // 第三步：过滤掉没有文字内容的嘟文（比如纯图片嘟文），随机取一条
+      // 只保留"真正自己写的嘟文"，排除带 renote 字段的转嘟（即使带了自己的评论文字）
       const textNotes = notes.filter(
-        (note: any) => note.text && note.text.trim().length > 0,
+        (note: {
+          text: { trim: () => { (): any; new (): any; length: number } };
+          renoteId: any;
+        }) => note.text && note.text.trim().length > 0 && !note.renoteId,
       );
 
       if (!textNotes.length) {
@@ -93,13 +103,56 @@
       const randomNote =
         textNotes[Math.floor(Math.random() * textNotes.length)];
 
-      textEl.textContent = randomNote.text;
-      // 更新链接，指向这条具体的嘟文
+      textEl.innerHTML = await renderTextWithEmojis(randomNote.text);
       linkEl.href = `https://stelpolva.moe/notes/${randomNote.id}`;
     } catch (err) {
       if (textEl) textEl.textContent = "嘟文加载失败，请稍后再试。";
       console.error("Misskey note fetch error:", err);
     }
+  }
+
+  function escapeHtml(str: string) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  async function renderTextWithEmojis(text: string) {
+    const escaped = escapeHtml(text);
+
+    // 找出文字里所有 :表情名: 占位符，去重
+    const matches = [...escaped.matchAll(/:([a-zA-Z0-9_]+):/g)];
+    const emojiNames = [...new Set(matches.map((m) => m[1]))];
+
+    if (!emojiNames.length) return escaped;
+
+    // 并发查询每个表情名对应的图片 URL
+    const emojiMap: Record<string, string> = {};
+    await Promise.all(
+      emojiNames.map(async (name) => {
+        try {
+          const res = await fetch(
+            `https://stelpolva.moe/api/emoji?name=${encodeURIComponent(name)}`,
+          );
+          if (!res.ok) return; // 查不到就跳过，保留原文字
+          const data = await res.json();
+          if (data.url) emojiMap[name] = data.url;
+        } catch {
+          // 单个表情查询失败不影响其他表情，静默跳过
+        }
+      }),
+    );
+
+    return escaped.replace(
+      /:([a-zA-Z0-9_]+):/g,
+      (match: any, name: string | number) => {
+        const url = emojiMap[name];
+        if (!url) return match;
+        return `<img src="${url}" alt=":${name}:" class="misskey-emoji" style="width: 1.2em; vertical-align: middle; display: inline;" />`;
+      },
+    );
   }
 
   loadMisskeyNote();
