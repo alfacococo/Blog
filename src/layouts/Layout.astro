@@ -13,6 +13,24 @@ const { pageTitle } = Astro.props;
     <meta charset="utf-8" />
     <meta name="description" content="卷毛羊的赛博羊圈！" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
     <script is:inline data-astro-rerun>
       const theme = (() => {
         if (
@@ -42,35 +60,56 @@ const { pageTitle } = Astro.props;
         }
       });
 
-      const originalTitle = document.title;
-      const awayTitle = "(つ•̀ω•́)つ 羊等你回来~";
+      function initTitleEffect() {
+        const originalTitle = document.title;
+        const awayTitle = "(つ•̀ω•́)つ 羊等你回来~";
+        const backTitle = "欢迎回来！ヽ(・∀・)ﾉ ";
 
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          document.title = awayTitle;
-        } else {
+        let hasHidden = false;
+        let timer = null;
+
+        if (window.__titleEffectBound) return;
+        window.__titleEffectBound = true;
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            hasHidden = true;
+
+            clearTimeout(timer);
+            document.title = awayTitle;
+          } else {
+            if (hasHidden) {
+              document.title = backTitle;
+
+              timer = setTimeout(() => {
+                document.title = originalTitle;
+              }, 600);
+
+              hasHidden = false;
+            } else {
+              document.title = originalTitle;
+            }
+          }
+        });
+
+        window.addEventListener("pageshow", () => {
+          clearTimeout(timer);
           document.title = originalTitle;
-        }
+        });
+      }
+
+      initTitleEffect();
+
+      document.addEventListener("pjax:complete", () => {
+        window.__titleEffectBound = false;
+
+        setTimeout(() => {
+          document.title = document.querySelector("title").innerText;
+
+          initTitleEffect();
+        }, 0);
       });
     </script>
-    <link rel="icon" href="/images/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
-      as="style"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
   </head>
   <body class="mt-[78px] mx-auto">
     <Header />
