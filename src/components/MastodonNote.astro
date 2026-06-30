@@ -46,8 +46,12 @@
 
 <script>
   async function loadMastodonNote() {
-    const textEl = document.getElementById("mastodon-note-text");
-    const linkEl = document.getElementById("mastodon-note-link");
+    const textEl = document.getElementById(
+      "mastodon-note-text",
+    ) as HTMLParagraphElement | null;
+    const linkEl = document.getElementById(
+      "mastodon-note-link",
+    ) as HTMLAnchorElement | null;
 
     // 配置信息
     const INSTANCE = "https://moresci.sale"; // Mastodon 实例地址
@@ -69,7 +73,7 @@
       const notes = await notesRes.json();
 
       const textNotes = notes.filter(
-        (n) => n.content && n.content.replace(/<[^>]+>/g, "").trim().length > 0,
+        (n: any) => n.content && n.content.replace(/<[^>]+>/g, "").trim().length > 0,
       );
       if (!textNotes.length) return;
 
@@ -81,7 +85,7 @@
 
       // 将 API 返回的自定义表情数组映射为图片标签
       if (randomNote.emojis && randomNote.emojis.length > 0) {
-        randomNote.emojis.forEach((emoji) => {
+        randomNote.emojis.forEach((emoji: { shortcode: any; url: any }) => {
           // Mastodon 表情的格式通常是 :shortcode:
           const shortcode = `:${emoji.shortcode}:`;
           const imgTag = `<img src="${emoji.url}" alt="${emoji.shortcode}" style="width: 1.2em; height: 1.2em; vertical-align: middle; margin: 0 0.1em;" />`;

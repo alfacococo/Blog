@@ -1,5 +1,6 @@
 <div class="misskey-note" id="misskey-note">
   <div class="misskey-note-header">
+    <span class="status-dot" id="status-dot"></span>
     <span class="misskey-note-label">最近在咩……</span>
     <a
       class="misskey-note-link"
@@ -57,6 +58,33 @@
     vertical-align: middle;
     display: inline;
   }
+
+  .misskey-note-label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #999; /* 默认灰色，加载完成后会被 JS 改成对应颜色 */
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .status-dot.online {
+    background: #4caf50; /* 绿色：在线 */
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.6); /* 轻微发光，更有"活着"的感觉 */
+  }
+
+  .status-dot.active {
+    background: #ffc107; /* 黄色：最近活跃但不一定在线 */
+  }
+
+  .status-dot.offline {
+    background: #999; /* 灰色：离线 */
+  }
 </style>
 
 <script>
@@ -65,6 +93,7 @@
     const linkEl = document.getElementById(
       "misskey-note-link",
     ) as HTMLAnchorElement | null;
+    const dotEl = document.getElementById("status-dot");
     if (!textEl || !linkEl) return;
 
     try {
@@ -74,6 +103,21 @@
         body: JSON.stringify({ username: "bipolar" }),
       });
       const user = await userRes.json();
+
+      // 更新在线状态徽章
+      if (dotEl) {
+        dotEl.classList.remove("online", "active", "offline");
+        if (user.onlineStatus === "online") {
+          dotEl.classList.add("online");
+          dotEl.title = "现在在线";
+        } else if (user.onlineStatus === "active") {
+          dotEl.classList.add("active");
+          dotEl.title = "最近活跃过";
+        } else {
+          dotEl.classList.add("offline");
+          dotEl.title = "目前离线";
+        }
+      }
 
       const notesRes = await fetch("https://stelpolva.moe/api/users/notes", {
         method: "POST",

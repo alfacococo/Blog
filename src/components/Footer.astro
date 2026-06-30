@@ -1,5 +1,25 @@
 ---
+import { getCollection } from "astro:content";
+import { getWordCount } from "../utils/wordCount";
 const year = new Date().getFullYear();
+// 拿到所有文章
+const posts = await getCollection("posts");
+
+// 计算总字数（复用你已有的 getWordCount 工具函数）
+const totalWordCount = posts.reduce((sum, post) => {
+  return sum + getWordCount(post.body, { onlyChinese: true });
+}, 0);
+
+// 设定博客搭建日期
+const earliestDate = new Date(2025,4,9);
+
+// 计算从最早那篇文章到今天，一共多少天
+const daysSinceStart = Math.floor(
+  (new Date().getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24),
+);
+
+// 字数转换成"千字"为单位，保留一位小数
+const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
 ---
 
 <footer>
@@ -44,6 +64,17 @@ const year = new Date().getFullYear();
         >
       </li>
     </ul>
+    <p class="footer-stats">
+      卷毛羊<del>登基</del>圈地已经 {daysSinceStart} 天，<br />咩咩了 {wordCountInThousands} 千字的废话
+    </p>
     <small>&copy; {year} Curly Sheep by 卷毛羊. All Rights Reserved.</small>
   </div>
 </footer>
+
+<style>
+  .footer-stats {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin: 0.5rem 0;
+  }
+</style>
