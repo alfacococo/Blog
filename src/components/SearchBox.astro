@@ -8,8 +8,6 @@
   </div>
 </div>
 
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-
 <style>
   .search-modal {
     position: fixed;
@@ -58,32 +56,39 @@
 
 <script>
   function initSearch() {
-    const trigger = document.getElementById("search-trigger");
-    const modal = document.getElementById("search-modal");
-    const closeBtn = document.getElementById("search-close");
+    const trigger = document.getElementById('search-trigger');
+    const modal = document.getElementById('search-modal');
+    const closeBtn = document.getElementById('search-close');
     if (!trigger || !modal || !closeBtn) return;
 
     if (modal.parentElement !== document.body) {
       document.body.appendChild(modal);
     }
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-        modal.classList.add("hidden");
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
       }
     });
 
     let uiLoaded = false;
 
-    trigger.addEventListener("click", () => {
-      modal.classList.remove("hidden");
+    trigger.addEventListener('click', () => {
+      modal.classList.remove('hidden');
 
       if (!uiLoaded) {
-        const script = document.createElement("script");
-        script.src = "/pagefind/pagefind-ui.js";
+        // 1. 动态注入 CSS (避免阻塞首屏)
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/pagefind/pagefind-ui.css';
+        document.head.appendChild(link);
+
+        // 2. 动态注入 JS
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
         script.onload = () => {
           new (window as any).PagefindUI({
-            element: "#search",
+            element: '#search',
             excerptLength: 50,
           });
         };
@@ -92,12 +97,12 @@
       }
     });
 
-    closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) modal.classList.add("hidden");
+    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.add('hidden');
     });
   }
 
   initSearch();
-  document.addEventListener("astro:page-load", initSearch);
+  document.addEventListener('astro:page-load', initSearch);
 </script>
