@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import MisskeyNote from "../components/MisskeyNote.astro";
+import HeroImage from "../components/HeroImage.astro";
 const pageTitle = "Curly Sheep";
 
 const friends = [
@@ -75,22 +76,7 @@ const friends = [
 <Layout pageTitle={pageTitle}>
   <div class="homepage">
     <div class="gif">
-      <img
-        src="/images/mv-dark.png"
-        role="presentation"
-        width="400"
-        height="259"
-        decoding="async"
-        class="mx-auto theme-img theme-img-dark"
-      />
-      <img
-        src="/images/mv.png"
-        role="presentation"
-        width="400"
-        height="259"
-        decoding="async"
-        class="mx-auto theme-img theme-img-light"
-      />
+      <HeroImage className="theme-img" />
     </div>
     <h1>{pageTitle}</h1>
     <span class="badge">The Mighty Herbivore</span>
@@ -178,16 +164,5 @@ const friends = [
     .friend-card {
       transition: none;
     }
-  }
-
-  .theme-img-light {
-    display: none;
-  }
-
-  :global(.light) .theme-img-dark {
-    display: none;
-  }
-  :global(.light) .theme-img-light {
-    display: block;
   }
 </style>

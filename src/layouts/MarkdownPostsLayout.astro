@@ -1,26 +1,13 @@
 ---
 import BaseLayout from "./Layout.astro";
+import HeroImage from "../components/HeroImage.astro";
+import "../styles/waline.css";
 const { frontmatter, wordCount, readingTime } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
   <div class="gif">
-    <img
-      src="/images/mv-dark.png"
-      role="presentation"
-      width="400"
-      height="259"
-      decoding="async"
-      class="mx-auto theme-img theme-img-dark"
-    />
-    <img
-      src="/images/mv.png"
-      role="presentation"
-      width="400"
-      height="259"
-      decoding="async"
-      class="mx-auto theme-img theme-img-light"
-    />
+    <HeroImage className="theme-img" />
   </div>
   <h2 style="text-decoration:none" class="postshome">{frontmatter.title}</h2>
   <ul class="badge__list">
@@ -57,17 +44,6 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 <style>
   .tag {
     margin-right: 15px;
-  }
-
-  .theme-img-light {
-    display: none;
-  }
-
-  :global(.light) .theme-img-dark {
-    display: none;
-  }
-  :global(.light) .theme-img-light {
-    display: block;
   }
 </style>
 

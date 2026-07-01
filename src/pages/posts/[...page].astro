@@ -3,6 +3,7 @@ import type { GetStaticPathsOptions, Page } from "astro";
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Paginator from "../../components/Paginator.astro";
+import HeroImage from "../../components/HeroImage.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts = (await getCollection("posts")).sort(
@@ -18,22 +19,7 @@ const pageTitle = "Posts";
 
 <Layout pageTitle={pageTitle}>
   <div class="gif">
-    <img
-      src="/images/mv-dark.png"
-      role="presentation"
-      width="400"
-      height="259"
-      decoding="async"
-      class="mx-auto theme-img theme-img-dark"
-    />
-    <img
-      src="/images/mv.png"
-      role="presentation"
-      width="400"
-      height="259"
-      decoding="async"
-      class="mx-auto theme-img theme-img-light"
-    />
+    <HeroImage className="theme-img" />
   </div>
   <h2 class="postshome">Blog</h2>
   <ul role="list" class="timeline">
@@ -61,16 +47,3 @@ const pageTitle = "Posts";
   <!-- ✅ 分页控件 -->
   <Paginator page={page} basePath="/posts" />
 </Layout>
-
-<style>
-  .theme-img-light {
-    display: none;
-  }
-
-  :global(.light) .theme-img-dark {
-    display: none;
-  }
-  :global(.light) .theme-img-light {
-    display: block;
-  }
-</style>
