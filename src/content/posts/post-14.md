@@ -46,14 +46,14 @@ image:
 
 应该是去年年中这样？开始养了点绿植摆在家里，一开始还兴致勃勃地观察什么时候长了新叶，后面就有点怠懒了，不过好在除了最开始的小翡翠珠，其他绿植都还活得好好的。
 
-<img src="/images/post-14-1.jpg" role="presentation"  class='w-[250px] sm:w-[400px] h-auto pl-4 mx-auto my-3' decoding="async">
+![](/images/post-14-1.jpg)
 
-<img src="/images/post-14-2.jpg" role="presentation"  class='w-[250px] sm:w-[400px] h-auto pl-4 mx-auto my-3' decoding="async">
+![](/images/post-14-2.jpg)
 
 
 这个家整体上没什么缺点，我想要的它基本都能满足我……！阳光很好很充足，切菜的地方也足够，有两口灶，洗面台独立，干湿分离，甚至还有浴室暖风机。美中不足的可能还是它的房租吧，占了我到手收入的将近一半，每个月的开支还是有不小的压力……考虑过搬家，又舍不得离开这么好的房子，加上搬家的话重新找房子的初期费用又是不小的一笔，就这么一直拖着，住了快一年。
 
-<img src="/images/post-14-3.jpg" role="presentation"  class='w-[250px] sm:w-[400px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-14-3.jpg)
 
 后来之所以想搬家了，是因为跟小张聊到了他将来来日本定居的事情。虽然新冠结束后他每年都要来找我啦，但是都待不久，这次想说要不要来长待，反正他做独立游戏的话，这边也可以做这样。然后就想到如果跟他同居的话，那个房子就有点嫌小了，我在家办公的天数也不少，两个人同时在家的话，虽然他能将就在餐桌上办公，但是吃饭的时候挪来挪去，还是很不方便。倒不如换个大点的、便宜点的房子，这样他也有了自己的书桌，不用等我空出来或者被迫移到餐桌，我也能够节省掉一些开支。
 
@@ -67,8 +67,8 @@ image:
 <div class="divider my-3 mx-auto"></div>
 <p class='foreword'>虽然大家已经看腻了但是还是想放一下我家的照片！嘿嘿嘿嘿，我家怎么这么好看（羊羊大ego膨胀</p>
 
-<img src="/images/post-14-4.jpg" role="presentation"  class='w-[250px] sm:w-[400px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-14-4.jpg)
 
-<img src="/images/post-14-5.jpg" role="presentation"  class='w-[250px] sm:w-[400px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-14-5.jpg)
 
-<img src="/images/post-14-6.jpg" role="presentation"  class='w-[250px] sm:w-[400px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-14-6.jpg)

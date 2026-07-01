@@ -114,15 +114,15 @@ image:
 
 - 紫色裙边的桔梗，在阳光下很好看！
 
-<img src="/images/post-25-5.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-5.jpeg)
 
 - 两朵毛绒绒的花，现在都还开着，感觉可以做成干花。
 
-<img src="/images/post-25-7.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-7.jpeg)
 
 - 郁金香两朵，在家里放了一天不到就从花苞变成开着的状态了。
 
-<img src="/images/post-25-10.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-10.jpeg)
 
 #### 博客
 
@@ -136,37 +136,37 @@ image:
 
 - 买了落地灯，调过一次位置，原来放在餐桌旁边效果不是很理想，现在放在植物架子旁边，晚上打开之后照出植物的影子很棒。可惜想要配套使用的智能插座还没发货，依旧要手动按开……
 
-<img src="/images/post-25-4.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-4.jpeg)
 
 - 买了白色绒毛大地毯，还给墙上换了装饰画！现在我的卧室大概长这个样子，家里又多了一个可以休息的角落了，嘿嘿。
 
-<img src="/images/post-25-11.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-11.jpeg)
 
 - 在煤炉购入了烛台，烛光摇曳还是很治愈的。可惜我就点过一两次，暂时还是没有怎么培养起点蜡烛的习惯！也有可能是没买到香香的蜡烛，所以没啥动力。
 
-<img src="/images/post-25-1.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-1.jpeg)
 
 - 原来的包让小张带回去修了，现在新购入了个酒红色手提包，用来搭配冬天的大衣!
 
-<img src="/images/post-25-6.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-6.jpeg)
 
 - 项链2条，蓝色那条戴着去见皮皮被夸了！嘿嘿
 
-<img src="/images/post-25-9.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-9.jpeg)
 
 - 喜迎新成员扫拖机器人——鹤丸！每天一工，每次一个小时，其他时间都在充电，让朝九晚六的社畜很嫉妒……虽然如此，还是大方地给小机器人购入了新衣服！我是个大方的好主羊！哼哼
 
-<img src="/images/post-25-8.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-8.jpeg)
 
 - 柚子身体乳：刚换洗完床单但睡觉的时候身上发痒，经象友们提醒才发现可能是皮肤太干燥了！紧急下单了身体乳，用完之后果然没有再出现类似的症状……
 
 - 买了米菲的碗碟架，台面上的碗碟稍微收拾得有条理了一点，现在取用和沥水也更加方便了。
 
-<img src="/images/post-25-12.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-12.jpeg)
 
 - 买了按压可以出猫爪泡沫的洗手液！每次洗手都玩得很开心！
 
-<img src="/images/post-25-3.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-25-3.jpeg)
 
 #### 尝新
 

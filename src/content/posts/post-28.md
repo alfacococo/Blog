@@ -72,40 +72,40 @@ image:
 - 给小张发青椒炒蛋的照片的时候，被建议说炒蔫的青椒加豆豉会很香，试了试果然不错！
 - 在kaldi买到了好吃的打抛饭的酱，可以多多消耗家里的鸡肉碎了。
 
-<img src="/images/post-28-6.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-6.jpeg)
 
 #### 植物和插花
 
 - 每天早上起床吃早餐前后的时间，都会给植物喷水和浇水……嗯最近比较有闲心照顾和观察，希望这样的状态能够坚持得久一点！
 - 给发财树、龙血树、绿萝和虎尾兰换了盆，希望它们获得更多空间能长得更好……求求了！
 
-<img src="/images/post-28-4.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-4.jpeg)
 
 - 在 home center 买到了铁线蕨和一盆中文名不知道叫什么的绿植……但愿它们不会被我养死吧，昂哈。
 - 学会了用微波炉快速做押花，比夹在纸里压在书下面那种普通干燥要快，不过比较容易变色……感觉两种方法都可以试试，总之攒了一些干花的材料。还用这个做了三幅植物画！还有一些小型的也装进了画框里，很好看，每次看到都很开心。
 
-<img src="/images/post-28-12.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-12.jpeg)
 
-<img src="/images/post-28-10.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-10.jpeg)
 
-<img src="/images/post-28-1.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-1.jpeg)
 
 - 用干燥剂做的干花，一碰就扑簌簌地掉叶子，不过颜色和形态都保持得还可以！满意。
 
-<img src="/images/post-28-2.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-2.jpeg)
 
 - 大创买到了滴胶的药水，试了试用押花做滴胶，第一个成品看着感觉还行。打算之后有合适的押花再做新的，顺便再买点长柱状的模具回来，把用干燥剂做的、比较立体的干花封进去。
 - 逛超市看到种球，随便买了点种了下去，希望能顺利开花。
 - 买了液体肥料，准备实施松萝凤梨巨大化计划！快点变茂密！
 - 请欣赏近期卷毛羊插花成果~虽然有些是完全乱来 wwww
 
-<img src="/images/post-28-5.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-5.jpeg)
 
-<img src="/images/post-28-7.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-7.jpeg)
 
-<img src="/images/post-28-9.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-9.jpeg)
 
-<img src="/images/post-28-11.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-11.jpeg)
 
 #### 博客
 
@@ -120,11 +120,11 @@ image:
 - 第一次尝试淘宝集运东西过来，除了中间计算运费出了些小问题跟客服拉扯了一下之外，其余环节都很简单，而且买的东西我都挺满意的！尤其是氧净，有望取代我家里其他类型的清洁剂。
 - 新桌布也是集运过来的，换上了之后餐桌附近的色彩一下子鲜活了起来。而且跟各种餐具都很百搭，拍出来的饭菜也很好看。另外一个米色的花纹太密就有点不太合适，不过买俩能有一个惊艳已经让我很满意了。
 
-<img src="/images/post-28-14.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-14.jpeg)
 
 - 还买了长幅植物挂画，也很好看！买了三幅，挂了两幅。
 
-<img src="/images/post-28-13.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-13.jpeg)
 
 - 气温回升了，冬天的床品换成了春秋用的，也给衣柜换季了。
 - 意识到可以在封口夹背面贴上磁铁，这样直接贴冰箱上取用更方便，改造了三四个！
@@ -133,7 +133,7 @@ image:
 - 3coins的小手工套装，好像就是用毛线戳戳戳，下班没事做又不想动脑的时候用来打发时间就很好。就是最近没什么空，还剩了大概一半没有做完。
 - 剪了牛奶盒做成花器！虽然只是幼儿园水平的手工吧……
 
-<img src="/images/post-28-8.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-28-8.jpeg)
 
 #### 收支计划
 

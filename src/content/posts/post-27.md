@@ -63,59 +63,59 @@ image:
 - 池坊的插花杂志整理基本快结束了，打tag打得快累死了。短期内应该不会再购入池坊的过刊了，可能就是会有两个展想看，后期会再标注一下。小原流的过刊才开始看，后续可能会把煤炉上能买到的近几年的都翻过一遍，到时候还有照片需要整理。等都看完了可能才会考虑去买新杂志或者找别的书看。
 - 把周末买回来的花环和金合欢干花一起，做了个金合欢的整圈花环挂了起来，看样子还行。
 
-<img src="/images/post-27-2.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-2.jpeg)
 
 - 在花店买到了菜花，但是桃花好贵就放弃了，买了点桃花色的香豌豆，配在一起也还可以！
 
-<img src="/images/post-27-1.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-1.jpeg)
 
 - 给家里各处换上了樱花的明信片和立体卡片！
 
-<img src="/images/post-27-3.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-3.jpeg)
 
-<img src="/images/post-27-4.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-4.jpeg)
 
-<img src="/images/post-27-5.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-5.jpeg)
 
 - 原来水仙是插在水盘里的，有些蔫了，剪下来一部分做了押花，剩下的跟别的花材凑了一瓶。
 
-<img src="/images/post-27-6.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-6.jpeg)
 
 - 尝试做了圣诞玫瑰、香豌豆和水仙的押花，前两个还行，水仙的话变色和花瓣弯曲比较严重，不太好看……可能还是需要干燥剂来处理。
 
 - 煤炉买的樱花因为我周六不在家，在楼下放了两天，掉了很多。周日回来的时候勉强收拾出来一些，插了两瓶出来，还用上了新花瓶！
 
-<img src="/images/post-27-7.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-7.jpeg)
 
-<img src="/images/post-27-9.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-9.jpeg)
 
 - 花店买的，另外插了一瓶。这瓶还坚持了将近两周，后面又被我打散了插别的去了，很耐活！
 
-<img src="/images/post-27-8.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-8.jpeg)
 
 - 跟皮皮在植物展上买的植物们，希望都能坚持好好活着……
 
-<img src="/images/post-27-10.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-10.jpeg)
 
-<img src="/images/post-27-11.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-11.jpeg)
 
-<img src="/images/post-27-12.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-12.jpeg)
 
 - 原来是枝条斜着飞出来的金合欢小花环，看着看着有点不太顺眼，还是改成了整圈的。
 
-<img src="/images/post-27-13.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-13.jpeg)
 
 - 挑了很久的麻叶绣线菊，构图有参考杂志上的作品。
 
-<img src="/images/post-27-14.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-14.jpeg)
 
 - 上个作品用的六出花，剪掉了三朵，想着不能浪费，又插了一瓶。
 
-<img src="/images/post-27-15.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-15.jpeg)
 
 - 麻叶绣线菊蔫了之后，六出花看着还行，强行塞到了这个玻璃瓶里，阳光打下来看上去也很好看！
 
-<img src="/images/post-27-16.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-27-16.jpeg)
 
 #### SNS
 

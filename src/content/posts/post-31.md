@@ -86,27 +86,27 @@ image:
 * 把明信片收拾出来十几二十张，还有几件不穿的衣服挂煤炉了，骨折价卖出去了一些。两个木碗，裂开的那个用来做收纳了，另一个重新洗了一下，在想要不要拿来当香插。
 * 空气净化器和微波炉扔掉了，后者扔掉之前小张还把转盘拆了下来，留来装意面，意外挺好看也挺能装的。
 
-<img src="/images/post-31-1.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-1.jpeg)
 
 * 这次集运买的东西也很合心意！桌垫，桌布，餐垫，苹果餐具……每一样都很满意！
 
-<img src="/images/post-31-2.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-2.jpeg)
 
-<img src="/images/post-31-3.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-3.jpeg)
 
 * 依旧是惯例的插花时间！
 
-<img src="/images/post-31-4.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-4.jpeg)
 
-<img src="/images/post-31-5.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-5.jpeg)
 
-<img src="/images/post-31-6.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-6.jpeg)
 
-<img src="/images/post-31-7.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-7.jpeg)
 
-<img src="/images/post-31-8.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-8.jpeg)
 
-<img src="/images/post-31-9.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-31-9.jpeg)
 
 #### 尝新
 

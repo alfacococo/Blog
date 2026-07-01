@@ -79,19 +79,19 @@ image:
 
 像是这样，可能是中学寄宿被要求整理内务太多导致的反弹，我大学和住进第一个家的时候，根本不会考虑整理床铺或者说bed making之类的事情呀？当时想着的是，反正都还要睡回去，整理它做什么，这样放着也不会觉得乱或者不舒服，反而有种随时能够躺回去的安心感。
 
-<img src="/images/post-8-4.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-8-4.jpg)
 
 还有我的书桌，没有反面教材到很可怕的地步啦，在我看来也没法跟现在比。东西太多而且太杂了，色调也不统一，左下角纸箱取用需要弯下腰提出来再打开盖子，非常麻烦，其他收纳也没有很直观的提示，需要自己记住每个地方都有什么。那个时候主要是人不在床上就会在桌子前面，所以倒也不觉得有什么，现在看来问题真的很多呀。
 
-<img src="/images/post-8-3.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-8-3.jpg)
 
 嗯……可能只有对地板的爱是一如既往的……
 
-<img src="/images/post-8-2.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-8-2.jpg)
 
 这张是以前郁期的时候啦，点外卖和吃冰箱里的存货（饿到冰激凌也吃了），剩下一堆包装，就这么不处理，堆在桌上，不记得堆了多久，然后被拍了下来。也不知道我是出于什么想法拍的，不过可能只有这一张了……也不算太乱，比不上马俐管家那种，只是对我来说算是一种生活秩序的崩坏，羊羊也是会有这种时刻的！
 
-<img src="/images/post-8-1.jpg" role="presentation"  class='h-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-8-1.jpg)
 
 <h3 class='pl-4 border-l-4 mb-4 text-lg'>打理你们看到的现在这个羊圈需要耗费多大精力？</h3>
 

@@ -27,7 +27,7 @@ image:
 - 安排的每周两次的站立有氧运动还是稍微简单了些，购入了两个 1.5kg 的哑铃，打算提升点强度。试着把两个矿泉水瓶换成哑铃做动作之后，果然累了不少……但也不是每个动作都需要，所以还能坚持！这样的强度应该够我适应一阵子了。
 - 在铃师傅的推荐下买了新体重秤，可以蓝牙连 app 自动记录更新数据，能测的数值也还挺多的，十分满意！而且看整体数据感觉还可以，就是体脂可能有一点点高？接下来努力运动和调整饮食降降好了！
 
-<img src="/images/post-30-17.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-17.jpeg)
 
 - 5.11- 这周开始把原来的 HIIT 改成了上肢训练，用的是咚咚推荐的视频，期待能改善我的肩颈问题……
 
@@ -88,11 +88,11 @@ image:
 
 - 大厨接管了一切！吃饭吃到忘乎所以根本忘记偷师……来欣赏一下我最近的伙食质量。
 
-<img src="/images/post-30-3.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-3.jpeg)
 
-<img src="/images/post-30-4.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-4.jpeg)
 
-<img src="/images/post-30-6.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-6.jpeg)
 
 
 #### 植物和插花
@@ -104,27 +104,27 @@ image:
 - 然后就是近期的插花图片大放送啦——
 
 
-<img src="/images/post-30-15.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-15.jpeg)
 
-<img src="/images/post-30-14.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-14.jpeg)
 
-<img src="/images/post-30-13.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-13.jpeg)
 
-<img src="/images/post-30-12.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-12.jpeg)
 
-<img src="/images/post-30-10.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-10.jpeg)
 
-<img src="/images/post-30-9.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-9.jpeg)
 
-<img src="/images/post-30-8.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-8.jpeg)
 
-<img src="/images/post-30-7.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-7.jpeg)
 
-<img src="/images/post-30-5.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-5.jpeg)
 
-<img src="/images/post-30-2.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-2.jpeg)
 
-<img src="/images/post-30-1.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-1.jpg)
 
 #### 视频
 
@@ -140,14 +140,14 @@ image:
 
 - 做完了针戳小花！还有多余的毛线和布料，在想之后再买点毛线回来，自己试着画花样再戳新的。
 
-<img src="/images/post-30-16.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-16.jpeg)
 
 - 玩了玩涂色，前后应该快一个月？总算涂完了，远看着效果还行，但是除了这面蓝墙之外家里好像没有地方特别合适挂它的，就先暂时放在桌上了。
 - 总算开始重新泡澡了……！入浴剂稍微消耗了几个。
 - 把和室的被炉被子和地毯收起来了，只留了一个小桌在外面，看上去清爽很多。
 - 换上了集运的窗帘、纱帘，配上绿色的桌布和餐桌椅垫，更有春天的感觉了，喜欢！
 
-<img src="/images/post-30-11.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-30-11.jpeg)
 
 
 - 把鹤丸各个部件拆开来彻底清洗了一下，主要是跟污水相关的地方都好脏……怎么带了这么多灰尘和泥进来，绝望。但还算好洗，就是滤网感觉比较脏了也洗不掉，下单了新的准备直接换了。

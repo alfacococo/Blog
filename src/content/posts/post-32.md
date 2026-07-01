@@ -18,67 +18,67 @@ description: "做梦都想再去一次……"
 
 箱根汤本站附近有条河流过，可以听到水声潺潺很治愈，周围的叶子也渐渐变黄，景色意外很不错，如果酒店在这附近的话散散步感觉也很惬意。
 
-<img src="/images/post-32-1.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-1.jpeg)
 
-<img src="/images/post-32-2.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-2.jpeg)
 
 午饭的话我俩是随便溜达，看到了家咖喱店的招牌就进去吃了，味道也还可以。名字已经忘记了……在箱根吃到的饭好像没有踩雷的！很幸运！
 
-<img src="/images/post-32-3.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-3.jpeg)
 
 吃饱之后就坐箱根登山电车一路上到强罗站，车窗外也是树树皆秋色。如果能占到靠窗的位置的话坐下来慢慢看会很享受！不过一次抢不到也不要紧……因为基本上来去都要坐这趟车，我可能来回坐了有三四趟吧，到最后已经看腻了哈哈哈哈。
 
-<img src="/images/post-32-4.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-4.jpeg)
 
-<img src="/images/post-32-5.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-5.jpeg)
 
 强罗站再换乘缆车上到早云山，其实这两站之间地图上看距离也不远，但基本上一路上去都是很陡的坡，所以有车还是坐车会比较节省体力……早云山上有纪念品商店，选品还行，还有足汤和展望台。天气好的时候也可以在这稍微停一停欣赏远处的风景。
 
-<img src="/images/post-32-6.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-6.jpeg)
 
 不幸的是我跟小张到的那会儿这里已经挤满了坐缆车前往大涌谷的人……我俩也只好跟着排队。估计是因为三连休加上红叶季，出来的人特别多，排了估计得有一个小时吧……排队的体验真的很差。但是因为天气好！坐缆车还是挺开心的！特别是越过山峰看到大涌谷的那一刻，全车的人都情不自禁地哇了起来wwww此处没有照片，大家意会一下。下车后倒是拍了几张，烟雾缭绕的样子很壮观！
 
-<img src="/images/post-32-7.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-7.jpeg)
 
 不过因为排缆车下山的人太多，我也就只能在外面拍几张照然后立刻走人了……当初没把排队时间考虑进行程里是一大败笔。等到下到桃源台港的时候天色已经暗下来了，还好还能赶上最后一班船，可惜就是没能再在湖附近转几圈。
 
-<img src="/images/post-32-8.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-8.jpeg)
 
 后面下船后就换公交回箱根汤本了，晚饭也是小张随便选了家中华……因为很好奇麻婆茄子面是什么味道哈哈哈哈哈，结果号称最辣吃完一点都不辣，评价为日本人辣度。
 
-<img src="/images/post-32-9.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-9.jpeg)
 
-<img src="/images/post-32-10.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-10.jpeg)
 
 吃完就往订的民宿走了……当初图便宜订了，隔音很差，灯光很暗，什么都没有，连床也不太舒服……总之就是很糟糕很糟糕（擦汗）感觉以后出门玩还是要给住的地方多一点预算，是我以为自己太能吃苦了……硬要苦中作乐的话，只能说第二天起来看到日式纸门上的影子还挺好看的吧，哈哈。
 
-<img src="/images/post-32-11.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-11.jpeg)
 
 第二天起床继续坐登山电车跑到强罗，因为想去看看强罗公园里的红叶。门口就有一家便利店，在那里买好早餐，到公园门口的长椅上吃完就开始慢悠悠地逛了起来，一抬头就可以看到漂亮的红叶。
 
-<img src="/images/post-32-12.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-12.jpeg)
 
 整个公园都很不错，门票也不贵，光是进来散散步走两圈也挺开心的。箱根美术馆也在附近，门票比公园稍贵，我俩也去转了一下。对展品没什么印象了，只记得庭园还挺好看的。
 
-<img src="/images/post-32-13.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-13.jpeg)
 
-<img src="/images/post-32-15.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-15.jpeg)
 
-<img src="/images/post-32-16.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-16.jpeg)
 
 逛完我俩就又下山回到箱根汤本站觅食了，其实强罗站附近也有吃的，不过考虑到去温泉反正都要下来，就还是原路返回了。也是随便找了家空着的店，好像是两个老奶奶在做，就是家常菜的味道！嗯可能还有一点点咸……
 
-<img src="/images/post-32-17.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-17.jpeg)
 
-<img src="/images/post-32-18.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-18.jpeg)
 
-<img src="/images/post-32-19.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-19.jpeg)
 
 吃完后我们就前往此行的目的地也是终点站，箱根汤寮！包间不算小，感觉两个人合适，四个人也能坐下，特地选了能望到外面的！不过景色其实不算上佳，也就比全封闭的要好一些。就是隔音稍微差了一点，能很清楚听到隔壁家长和小孩的讲话声（aru0220
 
-<img src="/images/post-32-20.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-20.jpeg)
 
-<img src="/images/post-32-21.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-21.jpeg)
 
 一周目的体验差不多就到这里啦！总的感想就是人太多缆车排队太久第一天几乎一直都在赶车……然后选的民宿也不行住得不是太好。但是除开这两点之外都还可以，景色很漂亮，温泉也很舒服！回程的时候还想着绣球季再来一次，没想到竟然许愿成功了哈哈哈哈！
 
@@ -90,131 +90,131 @@ description: "做梦都想再去一次……"
 
 计划上只大概列了游玩的景点和出门的时间，我俩都是现找的饭店。汇合后也是临时搜了下，发现有家叫808 Monsmare的披萨店看上去还不错，离车站也不远，就拉着行李箱过去了。事实证明味道确实不错！甜点也很好吃！奶茶鼠甚至走之前还想再去一次，可惜那天早上被酒店早餐喂太饱没能成行www
 
-<img src="/images/post-32-22.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-22.jpg)
 
-<img src="/images/post-32-23.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-23.jpg)
 
 这次头两晚的酒店选在了强罗站附近的Hotel Marroad 箱根，吃完之后我们就从箱根汤本站坐登山电车上去了。确实一路都是开得正好的绣球，不过车速不慢，加上又下着雨，没有能拍到照片，只是随意看了一看。
 
 下车后还冒着雨走了一段距离……不到二十分钟吧，主要是上坡和台阶累得慌。抵达酒店后被门口的布置惊艳了一下！好漂亮www
 
-<img src="/images/post-32-26.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-26.jpeg)
 
 第一家酒店的话没有拍太多照片，一楼前台感觉整体比较昭和，但是楼上房间就感觉还挺新的，两个人住很宽敞，有沙发，放行李箱也不挤。窗外还可以看到山下的景色。
 
-<img src="/images/post-32-24.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-24.jpeg)
 
-<img src="/images/post-32-25.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-25.jpeg)
 
 计划上是安排的第一天下午去雕刻之森的，只是外面还下着雨，两个人歇了会儿已经不太想出门了。奶茶鼠翻了下地图说强罗公园就在附近，要不去这里吧，反正这家酒店不包餐食，吃饭也得出门，于是很灵活地调整了计划，去公园里晃悠了一圈。打着伞也没怎么拍照，不过月季开了不少，还蛮好看的，纪念品商店也有点吸引人……不过我还是忍住了！
 
 回来路上随便找了家店解决晚饭，看了眼地图的收藏，是叫DONBURI&CAFE ZEN，味道也不错……唉我觉得都很好吃啊！好吃，味道不错，还行……形容词就很匮乏，当然也有可能是我不怎么挑……估计是下雨天，店里人很少，除了我俩之外就只有一桌客人。噢对店里随处可见插座，在附近逛发现没电的话感觉也可以进来坐坐充电应应急……
 
-<img src="/images/post-32-27.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-27.jpg)
 
-<img src="/images/post-32-28.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-28.jpeg)
 
 吃完我俩就回酒店吃免费冰激凌了！酒店好像是下午三点到晚上七点半都可以来拿一份，很好吃，还会特地摆盘装在小杯子里，造福我这种喜欢看摆盘和拍照的人……本来说是还有免费饮料可以喝的，但是只到六点，我们两天回得都有点晚，遗憾错过。
 
-<img src="/images/post-32-40.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-40.jpg)
 
 第二天早上大概八点起床九点出发，跟我第一次来箱根的行程差不多，先是坐缆车到早云山，再从早云山坐到大涌谷。这次可能因为我俩来得比较早，加上不是什么节假日，所以排队的人意外很少，买完票就能直接坐缆车。可惜天气实在恶劣……基本上什么都看不到，雾茫茫一片。
 
-<img src="/images/post-32-31.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-31.jpeg)
 
 下到大涌谷也是一样，根本分不清是雨雾还是地上冒出来的烟雾……我俩稍微转了一圈就回早云山换公交前往成川美术馆了，路上很不幸坐反了方向，在风雨里等了好久的车才终于抵达成川美术馆附近的公交站……也已经快到午饭的点了，就稍微看了几家店，挑了其中一家解决午饭。这家店叫あしのこ茶屋，小菜很不错！我特别喜欢那个猪肉炖萝卜，像我这种讨厌萝卜的选手居然吃得津津有味……还挺神奇的……
 
-<img src="/images/post-32-29.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-29.jpg)
 
-<img src="/images/post-32-30.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-30.jpg)
 
 吃完稍坐了会儿，雨就已经停了。跑去成川美术馆看了看里面藏的日本画……好像整体画风加上纪念品商店的陈列都比较上世纪，唔，我俩都没啥兴趣。倒是有个展望台的风景很不错，那里也摆了好多凳子，可以坐在那里欣赏远处的湖景。馆里的咖啡厅也有位置，不过我俩研究了一下菜单发现好像没啥兴趣，就只是在外面转了转。
 
-<img src="/images/post-32-32.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-32.jpg)
 
 从成川美术馆出来之后，奶茶鼠说是附近有个箱根神社，就一路走到了那边，离得也不远，印象里走路的话也就十分钟多一点？路上的参天大树很漂亮，神社里面倒是没注意到有什么，奶茶鼠去盖了个朱印之后，我俩略转了转就出来了。
 
-<img src="/images/post-32-33.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-33.jpg)
 
 返程的时候是我导航，看了下换了条路，沿着湖走了回去。正好天也放晴了，在湖边吹吹风散散步很舒服！其实现在想起来去的时候也可以走这一条的，当然穿过街市也是另外一种感觉啦！
 
-<img src="/images/post-32-34.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-34.jpeg)
 
 本来第二天的行程就到这里了，但是我俩一看距离晚饭还有一段时间，就想要不再追加个行程。一开始是想把第三天的pola美术馆或者玻璃之森美术馆调过来的，但这俩美术馆离得也不远，只去一个留下另一个第三天再去好像也很奇怪……最后就决定去第一天没去成的雕刻之森！
 
 谢天谢地我们到的时候已经放晴了……雕刻之森大部分展品都在户外，晴天去感觉观赏体验会更佳。
 
-<img src="/images/post-32-35.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-35.jpeg)
 
-<img src="/images/post-32-36.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-36.jpeg)
 
-<img src="/images/post-32-37.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-37.jpeg)
 
 雕刻之森还挺大的，我俩这还只是走马观花没有细看，感觉也花了一个多小时……正好四点多快五点了，歇歇脚的同时搜了一下，发现强罗站附近有家うなぎ元長的鳗鱼饭还挺想吃的！奶茶鼠虽然对鳗鱼饭没啥兴趣，但翻到菜单上有寿喜锅，于是也欣然同意，我俩就坐了一站路回去了。
 
 店很大很空（再次感谢错峰出游的自己），服务员态度很好（看到我加衣服体贴地调高了空调），鳗鱼饭很好吃，总之就是，完美！
 
-<img src="/images/post-32-39.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-39.jpg)
 
-<img src="/images/post-32-38.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-38.jpeg)
 
 第三天依旧是九点出门，这次是拉着行李箱退房，坐公交去了pola美术馆。万幸馆内有存行李箱的地方，不过位置不多，不知道人多的时候存起来方不方便……不论展品但看pola美术馆的建筑本身就很赏心悦目！只可惜我不太会拍……
 
-<img src="/images/post-32-41.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-41.jpeg)
 
-<img src="/images/post-32-42.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-42.jpeg)
 
 当初错过了都内的莫奈展，没想到能在这里看到……感谢英明神武的奶茶鼠大人的安排🙏让我大饱眼福……去过的美术馆很有限，但感觉这里的动线也设计得挺合理的，分了好几个展区，但意外没有被绕晕的感觉。
 
-<img src="/images/post-32-43.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-43.jpeg)
 
-<img src="/images/post-32-44.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-44.jpeg)
 
 午饭是在馆内的咖啡馆解决的，其实也有餐厅，不过前一天晚上我俩看预约的时候已经没有空位了……附近好像也没啥饭店，看了看咖啡店的菜单，觉得在这里吃点轻食也可以。就是逛完展的时候也才十点半不到，稍微等了会儿咖啡馆才开门。
 
-<img src="/images/post-32-45.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-45.jpg)
 
-<img src="/images/post-32-46.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-46.jpg)
 
-<img src="/images/post-32-47.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-47.jpeg)
 
 吃完就坐公交移动到了玻璃之森美术馆，这边存包位稍微多一点，也有能存行李箱的地方，就是要走楼梯下去，稍微有点不太方便……不过能存已经是帮了我们这种换酒店的人的大忙了。馆内随处可见以假乱真的玻璃制品，特别是玻璃做的绣球花混在真绣球里面我差点没分出来……植物也都打理得很好！漂亮的西洋式小花园！
 
-<img src="/images/post-32-48.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-48.jpg)
 
-<img src="/images/post-32-49.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-49.jpg)
 
-<img src="/images/post-32-50.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-50.jpg)
 
-<img src="/images/post-32-51.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-51.jpg)
 
-<img src="/images/post-32-52.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-52.jpeg)
 
-<img src="/images/post-32-54.jpeg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-54.jpeg)
 
 跟奶茶鼠运气好，正好赶上馆里安排的小提琴独奏的时间段，听完了才接着赶路前往界箱根酒店……也是我们此次旅行最期待的环节！可以说整场旅行都是为了它存在的！50平米的五人大房间，窗外正对着山和溪流，能听到水声，早起还可以看到晨雾……幸福……而且因为日本这边的酒店是按人头来收钱的，就算是五人间也没有再额外多收我们三个人的钱，就很快乐……
 
-<img src="/images/post-32-55.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-55.jpg)
 
-<img src="/images/post-32-56.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-56.jpg)
 
 酒店还有免费的咖啡可以拿，下面也有茶寮，可以边吃团子喝茶边看风景……
 
-<img src="/images/post-32-57.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-57.jpg)
 
-<img src="/images/post-32-58.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-58.jpg)
 
 因为酒店在比较犄角旮旯的地方，我俩当初商量了下还是决定订带早晚饭的套餐……于是又快乐地吃了两顿美食🤤不得不说这个决定真的做得很对……我现在还在回味晚饭最后的黑豆提拉米苏……
 
-<img src="/images/post-32-59.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-59.jpg)
 
 吃完之后回到房间，奶茶鼠因为来月经躺平了，只有我一个人去了大浴场。那里景色也不错！旁边围了一圈绣球，可以看到远处的山和下面的溪流……泡完澡后的柠檬水也很好喝，虽然奶茶鼠给出的评价是有点酸wwww但是我觉得很好喝！！！
 
 第二天起来的时候吃了一顿饱腹感极强的酒店豪华早饭，撑得我俩都不想吃午饭了……本来还想去吃来的时候吃的那家披萨的，临时换成了去咖啡店坐坐，吃点小食。我就现场搜了家叫Timuny的咖啡馆，跟奶茶鼠过去坐了一下，吃点东西，聊天吹水，然后就各自告别了（呜
 
-<img src="/images/post-32-60.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-60.jpg)
 
-<img src="/images/post-32-61.jpg" role="presentation"  class='w-[200px] md:w-[300px] pl-4 mx-auto my-3' decoding="async">
+![](/images/post-32-61.jpg)
 
 <div class="divider my-3 mx-auto"></div>
 <p class='foreword'>越写越想出门玩……而且是想用年假错峰出门玩，人越少越好……唉谢谢你看我的流水账！但愿对来箱根玩的朋友有帮助吧！</p>
