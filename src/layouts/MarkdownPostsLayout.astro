@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "./Layout.astro";
-import HeroImage from "../components/HeroImage.astro";
-import "../styles/waline.css";
+import BaseLayout from './Layout.astro';
+import HeroImage from '../components/HeroImage.astro';
+import '../styles/waline.css';
 const { frontmatter, wordCount, readingTime } = Astro.props;
 ---
 
@@ -48,37 +48,37 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 </style>
 
 <script>
-  import mediumZoom from "medium-zoom";
+  import mediumZoom from 'medium-zoom';
 
   function initImageZoom() {
-    mediumZoom(".prose img", {
-      background: "rgba(0, 0, 0, 0.8)",
+    mediumZoom('.prose img', {
+      background: 'rgba(0, 0, 0, 0.8)',
       margin: 24, // 放大后图片跟屏幕边缘留一点呼吸空间
     });
   }
 
   initImageZoom();
-  document.addEventListener("astro:page-load", initImageZoom);
+  document.addEventListener('astro:page-load', initImageZoom);
 
   // 查找所有代码块
-  const blocks = document.querySelectorAll("pre");
+  const blocks = document.querySelectorAll('pre');
 
   blocks.forEach((block) => {
-    const button = document.createElement("button");
-    button.innerText = "COPY";
-    button.className = "copy-btn";
+    const button = document.createElement('button');
+    button.innerText = 'COPY';
+    button.className = 'copy-btn';
 
     // 点击复制逻辑
-    button.addEventListener("click", () => {
-      const code = block.querySelector("code")?.innerText;
+    button.addEventListener('click', () => {
+      const code = block.querySelector('code')?.innerText;
       if (code) {
         navigator.clipboard.writeText(code);
-        button.innerText = "Success!";
-        setTimeout(() => (button.innerText = "COPY"), 2000);
+        button.innerText = 'Success!';
+        setTimeout(() => (button.innerText = 'COPY'), 2000);
       }
     });
 
-    block.style.position = "relative";
+    block.style.position = 'relative';
     block.prepend(button);
   });
 </script>

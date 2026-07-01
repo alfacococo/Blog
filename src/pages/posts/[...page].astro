@@ -1,12 +1,12 @@
 ---
-import type { GetStaticPathsOptions, Page } from "astro";
-import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import Paginator from "../../components/Paginator.astro";
-import HeroImage from "../../components/HeroImage.astro";
+import type { GetStaticPathsOptions, Page } from 'astro';
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Paginator from '../../components/Paginator.astro';
+import HeroImage from '../../components/HeroImage.astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const allPosts = (await getCollection("posts")).sort(
+  const allPosts = (await getCollection('posts')).sort(
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
   );
 
@@ -14,7 +14,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 }
 
 const { page } = Astro.props;
-const pageTitle = "Posts";
+const pageTitle = 'Posts';
 ---
 
 <Layout pageTitle={pageTitle}>
