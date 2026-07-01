@@ -205,9 +205,21 @@
     );
   }
 
-  window.addEventListener('load', () => {
-    requestIdleCallback(() => {
-      loadMisskeyNote();
-    });
-  });
+  // 使用 IntersectionObserver 监听组件是否出现在视口中
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadMisskeyNote();
+          observer.unobserve(entry.target); // 加载完成后停止监听，避免重复触发
+        }
+      });
+    },
+    { threshold: 0.1 },
+  ); // 只要组件显示 10% 就开始加载
+
+  const noteElement = document.getElementById('misskey-note');
+  if (noteElement) {
+    observer.observe(noteElement);
+  }
 </script>
