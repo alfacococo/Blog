@@ -1,9 +1,8 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import ScrollToTop from "../components/ScrollToTop.astro";
-import "../styles/global.css";
-import "../styles/waline.css";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import '../styles/global.css';
 const { pageTitle } = Astro.props;
 ---
 
@@ -13,6 +12,7 @@ const { pageTitle } = Astro.props;
     <meta charset="utf-8" />
     <meta name="description" content="卷毛羊的赛博羊圈！" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#1e1e2e" />
     <link rel="icon" href="/images/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,36 +30,36 @@ const { pageTitle } = Astro.props;
     <script is:inline data-astro-rerun>
       const theme = (() => {
         if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
+          typeof localStorage !== 'undefined' &&
+          localStorage.getItem('theme')
         ) {
-          return localStorage.getItem("theme");
+          return localStorage.getItem('theme');
         }
-        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-          return "light";
+        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          return 'light';
         }
-        return "dark";
+        return 'dark';
       })();
 
-      if (theme === "dark") {
-        document.documentElement.classList.remove("light");
+      if (theme === 'dark') {
+        document.documentElement.classList.remove('light');
       } else {
-        document.documentElement.classList.add("light");
+        document.documentElement.classList.add('light');
       }
 
-      window.localStorage.setItem("theme", theme);
+      window.localStorage.setItem('theme', theme);
 
-      document.addEventListener("astro:before-swap", (event) => {
-        const isLight = document.documentElement.classList.contains("light");
+      document.addEventListener('astro:before-swap', (event) => {
+        const isLight = document.documentElement.classList.contains('light');
         if (isLight) {
-          event.newDocument.documentElement.classList.add("light");
+          event.newDocument.documentElement.classList.add('light');
         }
       });
 
       function initTitleEffect() {
         const originalTitle = document.title;
-        const awayTitle = "(つ•̀ω•́)つ 羊等你回来~";
-        const backTitle = "欢迎回来！ヽ(・∀・)ﾉ ";
+        const awayTitle = '(つ•̀ω•́)つ 羊等你回来~';
+        const backTitle = '欢迎回来！ヽ(・∀・)ﾉ ';
 
         let hasHidden = false;
         let timer = null;
@@ -67,7 +67,7 @@ const { pageTitle } = Astro.props;
         if (window.__titleEffectBound) return;
         window.__titleEffectBound = true;
 
-        document.addEventListener("visibilitychange", () => {
+        document.addEventListener('visibilitychange', () => {
           if (document.hidden) {
             hasHidden = true;
 
@@ -88,7 +88,7 @@ const { pageTitle } = Astro.props;
           }
         });
 
-        window.addEventListener("pageshow", () => {
+        window.addEventListener('pageshow', () => {
           clearTimeout(timer);
           document.title = originalTitle;
         });
@@ -96,11 +96,11 @@ const { pageTitle } = Astro.props;
 
       initTitleEffect();
 
-      document.addEventListener("pjax:complete", () => {
+      document.addEventListener('pjax:complete', () => {
         window.__titleEffectBound = false;
 
         setTimeout(() => {
-          document.title = document.querySelector("title").innerText;
+          document.title = document.querySelector('title').innerText;
 
           initTitleEffect();
         }, 0);
@@ -115,38 +115,60 @@ const { pageTitle } = Astro.props;
       <Footer />
     </main>
     <script type="module">
-      import { init } from "https://unpkg.com/@waline/client@v3/dist/waline.js";
+      function attachWalineObserver() {
+        const container = document.getElementById('waline');
+        if (!container || window.__walineInitialized) return;
 
-      init({
-        el: "#waline",
-        serverURL:
-          "https://curly-sheeps-comments.netlify.app/.netlify/functions/comment",
-        locale: {
-          placeholder: "跟卷毛羊打个招呼再走吧！",
-          sofa: "还没有评论，来说第一句话吧～",
-          submit: "咩咩",
-          login: "登录",
-          admin: "博主",
-          anonymous: "路过羊",
-          // ...其他你想改的
-        },
-      });
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+            if (!entry?.isIntersecting) return;
+
+            window.__walineInitialized = true;
+            observer.disconnect();
+
+            import('https://unpkg.com/@waline/client@v3/dist/waline.js').then(
+              ({ init }) => {
+                init({
+                  el: '#waline',
+                  serverURL:
+                    'https://curly-sheeps-comments.netlify.app/.netlify/functions/comment',
+                  locale: {
+                    placeholder: '跟卷毛羊打个招呼再走吧！',
+                    sofa: '还没有评论，来说第一句话吧～',
+                    submit: '咩咩',
+                    login: '登录',
+                    admin: '博主',
+                    anonymous: '路过羊',
+                  },
+                });
+              },
+            );
+          },
+          { rootMargin: '300px 0px' },
+        );
+
+        observer.observe(container);
+      }
+
+      attachWalineObserver();
+      document.addEventListener('astro:page-load', attachWalineObserver);
     </script>
     <script>
       function colorMode() {
         if (
-          localStorage.theme === "light" ||
-          (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: light)").matches)
+          localStorage.theme === 'light' ||
+          (!('theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: light)').matches)
         ) {
-          document.documentElement.classList.add("light");
+          document.documentElement.classList.add('light');
         } else {
-          document.documentElement.classList.remove("light");
+          document.documentElement.classList.remove('light');
         }
       }
 
       colorMode();
-      document.addEventListener("astro:after-swap", colorMode);
+      document.addEventListener('astro:after-swap', colorMode);
     </script>
   </body>
 </html>
