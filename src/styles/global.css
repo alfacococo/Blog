@@ -33,7 +33,7 @@
   --text-link-light: #375a7f;
   --underline: #375a7f;
   --header: 'Pacifico', "Noto Sans SC", cursive;
-  --body: 'Josefin Sans',"Noto Sans SC", sans-serif;
+  --body: 'Josefin Sans', "Noto Sans SC", sans-serif;
   --pagefind-ui-text: var(--text) !important;
 }
 
@@ -136,20 +136,20 @@ p {
 
 .prose p code,
 .prose li code {
-    background: #f3f4f5;
-    color: #476582;
-    padding: 0.2em 0;
-    border-radius: 3px;
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-    font-size: 0.85em;
-  }
-
-  .prose pre {
-  margin: 1rem 0;
-border-radius: 16px;
+  background: #f3f4f5;
+  color: #476582;
+  padding: 0.2em 0;
+  border-radius: 3px;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.85em;
 }
 
-.prose pre code{
+.prose pre {
+  margin: 1rem 0;
+  border-radius: 16px;
+}
+
+.prose pre code {
   display: block;
   padding: 1rem;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -217,7 +217,7 @@ li {
 /* Badge */
 .badge {
   background-color: #584966;
-  color:white;
+  color: white;
   border-radius: 6px;
   font-family: var(--body);
   font-weight: 600;
@@ -241,7 +241,7 @@ li {
   font-size: 14px;
   margin-right: 5px;
   padding: 0.5em 0.3em 0.3em 0.3em;
-  color:white
+  color: white
 }
 
 .badge__link {
@@ -421,7 +421,7 @@ html.light body {
   border-color: var(--text-link-light);
 }
 
-html.light .masterdon-icon  {
+html.light .masterdon-icon {
   fill: var(--text-light);
 }
 
@@ -484,15 +484,20 @@ html.light .masterdon-icon  {
 
 .prose img {
   display: block;
-  max-width: 300px; /* 对应你原来 md:w-[300px] 这个"桌面端默认宽度" */
-  width: 100%; /* 在容器允许范围内尽量撑满，但不超过 max-width */
-  margin: 0.75rem auto; /* 上下间距 + 水平居中，对应你原来的 mx-auto my-3 */
-  border-radius: 6px; /* 可选，看你喜不喜欢圆角 */
+  max-width: 300px;
+  /* 对应你原来 md:w-[300px] 这个"桌面端默认宽度" */
+  width: 100%;
+  /* 在容器允许范围内尽量撑满，但不超过 max-width */
+  margin: 0.75rem auto;
+  /* 上下间距 + 水平居中，对应你原来的 mx-auto my-3 */
+  border-radius: 6px;
+  /* 可选，看你喜不喜欢圆角 */
 }
 
 @media (max-width: 768px) {
   .prose img {
-    max-width: 200px; /* 对应你原来手机端的 w-[200px] */
+    max-width: 200px;
+    /* 对应你原来手机端的 w-[200px] */
   }
 }
 
