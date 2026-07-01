@@ -89,39 +89,39 @@
 
 <script>
   async function loadMisskeyNote() {
-    const textEl = document.getElementById("misskey-note-text");
+    const textEl = document.getElementById('misskey-note-text');
     const linkEl = document.getElementById(
-      "misskey-note-link",
+      'misskey-note-link',
     ) as HTMLAnchorElement | null;
-    const dotEl = document.getElementById("status-dot");
+    const dotEl = document.getElementById('status-dot');
     if (!textEl || !linkEl) return;
 
     try {
-      const userRes = await fetch("https://stelpolva.moe/api/users/show", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: "bipolar" }),
+      const userRes = await fetch('https://stelpolva.moe/api/users/show', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: 'bipolar' }),
       });
       const user = await userRes.json();
 
       // 更新在线状态徽章
       if (dotEl) {
-        dotEl.classList.remove("online", "active", "offline");
-        if (user.onlineStatus === "online") {
-          dotEl.classList.add("online");
-          dotEl.title = "现在在线";
-        } else if (user.onlineStatus === "active") {
-          dotEl.classList.add("active");
-          dotEl.title = "最近活跃过";
+        dotEl.classList.remove('online', 'active', 'offline');
+        if (user.onlineStatus === 'online') {
+          dotEl.classList.add('online');
+          dotEl.title = '现在在线';
+        } else if (user.onlineStatus === 'active') {
+          dotEl.classList.add('active');
+          dotEl.title = '最近活跃过';
         } else {
-          dotEl.classList.add("offline");
-          dotEl.title = "目前离线";
+          dotEl.classList.add('offline');
+          dotEl.title = '目前离线';
         }
       }
 
-      const notesRes = await fetch("https://stelpolva.moe/api/users/notes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const notesRes = await fetch('https://stelpolva.moe/api/users/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId: user.id,
           limit: 30,
@@ -140,27 +140,33 @@
       );
 
       if (!textNotes.length) {
-        textEl.textContent = "暂时没有可以显示的嘟文。";
+        textEl.textContent = '暂时没有可以显示的嘟文。';
         return;
       }
 
       const randomNote =
         textNotes[Math.floor(Math.random() * textNotes.length)];
 
-      textEl.innerHTML = await renderTextWithEmojis(randomNote.text);
+      // 把 fetch 逻辑改成先显示文字，再异步更新表情（提升用户感知速度）
+      textEl.textContent = randomNote.text; // 先展示文字，让用户能立刻看到内容
+
+      // 然后再进行表情的异步处理
+      const rendered = await renderTextWithEmojis(randomNote.text);
+      textEl.innerHTML = rendered; // 之后再替换为带表情的 HTML
+
       linkEl.href = `https://stelpolva.moe/notes/${randomNote.id}`;
     } catch (err) {
-      if (textEl) textEl.textContent = "嘟文加载失败，请稍后再试。";
-      console.error("Misskey note fetch error:", err);
+      if (textEl) textEl.textContent = '嘟文加载失败，请稍后再试。';
+      console.error('Misskey note fetch error:', err);
     }
   }
 
   function escapeHtml(str: string) {
     return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   async function renderTextWithEmojis(text: string) {
@@ -199,6 +205,9 @@
     );
   }
 
-  loadMisskeyNote();
-  document.addEventListener("astro:page-load", loadMisskeyNote);
+  window.addEventListener('load', () => {
+    requestIdleCallback(() => {
+      loadMisskeyNote();
+    });
+  });
 </script>
