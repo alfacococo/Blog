@@ -13,11 +13,6 @@ const totalWordCount = posts.reduce((sum, post) => {
 // 设定博客搭建日期
 const earliestDate = new Date(2025, 4, 9);
 
-// 计算从最早那篇文章到今天，一共多少天
-const daysSinceStart = Math.floor(
-  (new Date().getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24),
-);
-
 // 字数转换成"千字"为单位，保留一位小数
 const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
 ---
@@ -67,9 +62,8 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
       </li>
     </ul>
     <p class="footer-stats">
-      卷毛羊<del>登基</del>圈地已经 {daysSinceStart} 天，<br />咩咩了 {
-        wordCountInThousands
-      } 千字的废话
+      卷毛羊<del>登基</del>圈地已经 <span id="days-count">0</span> 天，<br
+      />咩咩了 {wordCountInThousands} 千字的废话
     </p>
     <small>&copy; {year} Curly Sheep by 卷毛羊. All Rights Reserved.</small>
   </div>
@@ -82,3 +76,12 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
     margin: 0.5rem 0;
   }
 </style>
+
+<script is:inline define:vars={{ earliestDate }}>
+  // 在客户端运行的脚本
+  const start = new Date(earliestDate);
+  const now = new Date();
+  // 计算从最早那篇文章到今天，一共多少天
+  const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+  document.getElementById('days-count').innerText = diff;
+</script>
