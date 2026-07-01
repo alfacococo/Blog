@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-import { getWordCount } from "../utils/wordCount";
+import { getCollection } from 'astro:content';
+import { getWordCount } from '../utils/wordCount';
 const year = new Date().getFullYear();
 // 拿到所有文章
-const posts = await getCollection("posts");
+const posts = await getCollection('posts');
 
 // 计算总字数（复用你已有的 getWordCount 工具函数）
 const totalWordCount = posts.reduce((sum, post) => {
@@ -11,7 +11,7 @@ const totalWordCount = posts.reduce((sum, post) => {
 }, 0);
 
 // 设定博客搭建日期
-const earliestDate = new Date(2025,4,9);
+const earliestDate = new Date(2025, 4, 9);
 
 // 计算从最早那篇文章到今天，一共多少天
 const daysSinceStart = Math.floor(
@@ -30,6 +30,7 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
           class="icon__link"
           href="https://stelpolva.moe/@bipolar"
           target="_blank"
+          aria-label="星屑"
           ><!--?xml version="1.0" encoding="utf-8"?--><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +50,7 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
           href="/rss.xml"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="RSS"
           ><!--?xml version="1.0" encoding="utf-8"?--><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
           <svg
             fill="#fff"
@@ -65,7 +67,9 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
       </li>
     </ul>
     <p class="footer-stats">
-      卷毛羊<del>登基</del>圈地已经 {daysSinceStart} 天，<br />咩咩了 {wordCountInThousands} 千字的废话
+      卷毛羊<del>登基</del>圈地已经 {daysSinceStart} 天，<br />咩咩了 {
+        wordCountInThousands
+      } 千字的废话
     </p>
     <small>&copy; {year} Curly Sheep by 卷毛羊. All Rights Reserved.</small>
   </div>
