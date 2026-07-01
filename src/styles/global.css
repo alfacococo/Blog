@@ -1,5 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400&display=swap');
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Pacifico-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/JosefinSans-Regular.ttf') format('truetype');
+  font-display: swap;
+}
 
 * {
   overflow-wrap: break-word;
@@ -35,13 +50,13 @@ sup {
 }
 
 html {
-  background-image: url(/images/background-dark.png);
+  background-image: url(/images/background-dark.webp);
   background-attachment: fixed;
   color: var(--text);
 }
 
 html.light {
-  background-image: url(/images/background.png);
+  background-image: url(/images/background.webp);
 }
 
 body {
@@ -530,12 +545,12 @@ html.light .masterdon-icon  {
 
 /* 默认是深色模式的图片 */
 .hero-image {
-  content: url('/images/mv-dark.png');
+  content: url('/images/mv-dark.webp');
   width: 400px;
   height: auto;
 }
 
 /* 当 html 拥有 light 类时，切换图片 */
 html.light .hero-image {
-  content: url('/images/mv.png');
+  content: url('/images/mv.webp');
 }

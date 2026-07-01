@@ -14,4 +14,10 @@ const {
 } = Astro.props;
 ---
 
-<div class:list={['mx-auto hero-image', className]}></div>
+<img
+  class:list={['mx-auto hero-image', className]}
+  alt={alt}
+  width={width}
+  height={height}
+  fetchpriority="high"
+/>
