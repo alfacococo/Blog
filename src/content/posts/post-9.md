@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-20'
 tags: ["生活日常"]
 description: "不是一篇讲如何高效率管理时间的文章，只是维持羊羊自己生活所需要用到的一些小工具和小方法！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>我也不是什么高效率的羊啦，做手帐和日程管理的技能也是来到日本之后才慢慢点上的。在日本生活总有不少需要预约的场面，那么如何提醒自己就显得很有必要了。这篇会讲羊羊生活中常用的一些提醒工具，顺带讲讲羊羊流的手帐。</p>

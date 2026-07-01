@@ -4,9 +4,6 @@ author: Curly Sheep
 date: "2025-11-22"
 tags: ["卷毛羊观察报告"]
 description: "咦，订的不是月刊吗？怎么变成双月刊了？"
-image:
-  url: "/images/blog-post.webp"
-  alt: "Post Thumbnail"
 ---
 
 <p class='foreword my-3'>似乎又恢复了刚开通博客时的那种更新的热情！短短两天我就搓出了双月份的总结，我卷毛羊也太厉害了吧！双月份的总结废话也会变多（可能错别字也会变多），看到了就假装没看到吧（？</p>

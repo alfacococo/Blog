@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-13'
 tags: ["收纳"]
 description: "我怎么能有这么多收纳！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>要是上班的内容是写博客或者装修博客就好了……</p>

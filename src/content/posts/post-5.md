@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-14'
 tags: ["记账和省钱"]
 description: "回顾一下自己是怎么养成记账和省钱的习惯的。相信点进来的你一定不会抱有从里面学到什么的期待吧……？"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>回顾一下自己是怎么养成记账和省钱的习惯的。相信点进来的你一定不会抱有从里面学到什么的期待吧……？羊羊的宗旨是，絮絮叨叨，生产废话！</p>

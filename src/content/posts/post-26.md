@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2026-02-22'
 tags: ["卷毛羊观察报告"]
 description: "东拼西凑用自己的嘟嘟凑了个双月刊！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>上一条博文还想着能保持好状态，没想到马上就跌下去了……还好没有持续多久！我又支棱起来了嘿嘿嘿。简单回顾了一下手帐和自己的长毛象，拼了一下这两个月的月总结。感觉其实也没干什么……</p>

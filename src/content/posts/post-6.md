@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-16'
 tags: ["生活日常"]
 description: "应象友之邀随便写写！不过大多数已经习惯了，想不出来太多特殊的地方……"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>应象友之邀随便写写！不过大多数已经习惯了，想不出来太多特殊的地方……</p>

@@ -4,9 +4,6 @@ author: Curly Sheep
 date: "2025-12-02"
 tags: ["生活日常"]
 description: "我怎么学日语都超过十年了？震惊！"
-image:
-  url: "/images/blog-post.webp"
-  alt: "Post Thumbnail"
 ---
 
 <p class='foreword my-3'>之前其实有想过要不要写个怎么学日语之类的博文或者嘟嘟的，但一来我已经很久没有主动、系统地学习日语了，当初的心境和使用的资料都已经忘了大半；二来我感觉日语学得好的大有人在，就不出来贻笑大方了……所以这篇还是延续一贯的流水帐风格，讲讲这十多年来学日语的经历。</p>

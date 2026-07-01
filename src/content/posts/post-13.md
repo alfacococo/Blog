@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-27'
 tags: ["卷毛羊观察报告"]
 description: "你将获得饲养在时间线上的卷毛羊的近况！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>原本是习惯看医生前回顾一下最近一个月的活动的，做法就是刷刷长毛象翻翻手帐，有时候会形成文字有时候不会。正好马上就要看医生了，让我用这个来水一期博客！</p>

@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-22'
 tags: ["生活日常"]
 description: "相信点进来的大家可能是想吃瓜，但可能没多少瓜……！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>羊羊是怎么想到要跑路的呢？这可能就要从大学开始说起了。不过因为年代久远，记忆缺失，加上需要保护一下我本来就没多少的隐私……爹校瓜的含量可能不会太多，只会大概讲一下我觉得不舒服的那些点。</p>

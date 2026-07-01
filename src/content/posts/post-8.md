@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-19'
 tags: ["生活日常"]
 description: "打理羊圈怎么就这么难呢？"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>之所以想到写这篇文章，是昨晚跟我妈视频电话的时候，我妈很好奇地问我日本那边的家都是这么干净的吗？你在想什么呀妈咪！这么干净当然是因为我打扫得这么干净！为了让大家知道羊羊平时打理羊圈付出了多大努力，所以这篇博文诞生了！</p>

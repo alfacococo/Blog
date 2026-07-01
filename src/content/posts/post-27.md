@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2026-03-17'
 tags: ["卷毛羊观察报告"]
 description: "好像已经恢复到原来的日常了~！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>这个月的状态出奇的好！虽然还说不上是全盛，不过感觉已经恢复有八九成了。希望能够一直保持下去，稳定期持续久一点，让我再多享受享受现在的生活……！</p>

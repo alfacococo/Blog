@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2026-04-13'
 tags: ["卷毛羊观察报告"]
 description: "这个月的每个周末好像都过得很充实？？"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>完全回到了之前正常的生活节奏，而且刚好是赶在春天樱花开之前好起来的，所以完全没有往年冬季陷入郁期那种，好不容易从谷底里爬出来发现外面换了天地的惆怅……这一整个月都比较有活力（本人水准）地蹦蹦跳跳外出玩耍！希望这样的时间能够延长再延长！</p>

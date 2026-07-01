@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-13'
 tags: ["收纳"]
 description: "玄关/洗面池篇！终于要完结了嘿嘿。"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>我以前怎么没发现写博客是这么好玩的东西，好上头……一天两更也是我没想到的……</p>

@@ -5,9 +5,6 @@ date: '2025-05-12'
 updateDate: '2025-05-13'
 tags: ["收纳"]
 description: "我怎么能有这么多收纳！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>太多了感觉这个窄窄的版式不适合！所以打算拆成2-3篇发，今天先讲，厨房/吧台篇！</p>

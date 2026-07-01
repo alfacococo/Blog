@@ -4,9 +4,6 @@ author: Curly Sheep
 date: "2025-08-10"
 tags: ["卷毛羊观察报告"]
 description: "今年的7月刊是否迟到了太久？？"
-image:
-  url: "/images/blog-post.webp"
-  alt: "Post Thumbnail"
 ---
 
 <p class='foreword my-3'>终于决定重启博客，从草稿箱里面翻出了之前写到一半的7月观察报告，先改改发出来。8月和9月注定开天窗了，10月和11月合刊等我三连休憋一憋……！</p>

@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2026-05-16'
 tags: ["卷毛羊观察报告"]
 description: "都怪破工吞噬我精力……恨……"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>这个月状态依旧很不错！后半小张来了之后伙食质量更是直线上升……啊，好想一直过这种下完班就有饭吃的生活……</p>

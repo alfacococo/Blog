@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2024-03-03'
 tags: ["生活日常"]
 description: "刚住进新家后的一周的碎碎念。"
-image:
-    url: '/.netlify/images?url=/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>前言：一时之间不知道该从哪里开始，便跑去翻了翻其他人的博客。大家好像也只是随心所欲地写，并没有那么多固定的格式。思来想去，要是没一个起头的地方的话，倒不如循着时间顺序慢慢梳理下来，思路应当会比较顺畅。再芟除多余的枝蔓，也足以成一篇文章了。</p>

@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-06-29'
 tags: ["购物和好物分享"]
 description: "平常喜欢拍吃饭喝下午茶的照片，但还没给家里餐具杯具什么的正经拍过照呢，让我来数一数！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>最近不是翻了好多讲餐桌布置和餐具挑选的书嘛，也想趁此机会看看家里面到底都有哪些餐具，数数看我最爱用的有哪些，还缺了哪些可以考虑进货的，所以就有了这篇！图片很多注意流量噢！</p>

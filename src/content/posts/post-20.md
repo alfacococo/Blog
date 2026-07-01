@@ -4,9 +4,6 @@ author: Curly Sheep
 date: "2025-11-28"
 tags: ["生活日常"]
 description: "好端端的我怎么就变成程序员了？？"
-image:
-  url: "/images/blog-post.webp"
-  alt: "Post Thumbnail"
 ---
 
 <p class='foreword my-3'>距离写跑路记（上）已经过去半年了啊……现在其实还是没想好这个下篇要怎么写，因为我也不是很懂自己为什么就刚好在升博的那年郁期大爆发。可不写的话平常我也不会怎么去思考这个问题，就还是按照时间顺序写写到日本后又怎么从上学上到一半跑路当程序员的好了。</p>

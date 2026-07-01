@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-06-14'
 tags: ["生活日常"]
 description: "竟然已经搬过三次家了呢！羊羊！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>感觉我永远也写不成攻略类型的文章了……想到哪儿写到哪儿可能就是我的宿命吧……</p>

@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-21'
 tags: ["购物和好物分享"]
 description: "羊羊的购物心得！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>前两天T看了我那篇家务博文之后，我们发现各自愿意花钱的点居然很不一样，这种感受上的差异让我觉得还挺有趣的。于是就想写一写自己过去买过的一些东西，顺便梳理一下我自己在花钱时的判断标准。</p>

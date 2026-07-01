@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-05-25'
 tags: ["购物和好物分享"]
 description: "羊羊平常都是在哪里买东西的呀？想知道的朋友让我看到你们的双手！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>蝴蝶问我平常都是在哪里淘东西的，就稍微整理了一下……！附上图片可能会更好看一些，可是我懒哈哈……将就看吧大家！</p>

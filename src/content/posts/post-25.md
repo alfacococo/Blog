@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-12-22'
 tags: ["卷毛羊观察报告"]
 description: "好快啊，怎么今年就这么过去了？"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>不错不错！卷毛羊的良好状态已经保持了两个月，真希望能够一直这么保持下去啊……</p>

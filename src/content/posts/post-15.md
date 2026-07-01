@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2025-06-28'
 tags: ["卷毛羊观察报告"]
 description: "卷毛羊观察报告6月刊，投递！"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 <p class='foreword my-3'>叮咚！你订阅的卷毛羊观察报告6月刊已送达！废话量超多，跟毛象嘟嘟或有重复，欢迎在如厕时候随意乱翻！</p>

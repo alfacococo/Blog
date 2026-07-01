@@ -4,9 +4,6 @@ author: Curly Sheep
 date: '2026-04-14'
 tags: ["生活日常"]
 description: "一些插花的碎碎念"
-image:
-    url: '/images/blog-post.webp'
-    alt: 'Post Thumbnail'
 ---
 
 ### 目前为止的插花经历
