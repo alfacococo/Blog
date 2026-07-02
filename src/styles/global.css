@@ -24,7 +24,7 @@
 
 /* Global styles */
 :root {
-  --background: #1e1e2edd;
+  --background: #1e1e2eee;
   --background-light: #ffffffdd;
   --button: #78c2ad;
   --text: #eff1f5;
@@ -52,6 +52,7 @@ sup {
 html {
   background-image: url(/images/background-dark.webp);
   background-attachment: fixed;
+  background-size: cover;
   color: var(--text);
 }
 
