@@ -134,14 +134,18 @@ const pageURL = new URL(Astro.url.pathname, Astro.site);
     <script type="module">
       function attachWalineObserver() {
         const container = document.getElementById('waline');
-        if (!container || window.__walineInitialized) return;
+        // 用 dataset 标记标记当前这个容器是否已经绑过 observer，
+        // 而不是用 window 上的全局标记。因为每次切换页面后，Astro 都会重新渲染一个
+        // 全新的 #waline 容器，它的 dataset 自然是空的，不需要手动重置，
+        // 也就不会像之前那样“第一次初始化过之后就永远不再初始化了”。
+        if (!container || container.dataset.walineBound) return;
+        container.dataset.walineBound = 'true';
 
         const observer = new IntersectionObserver(
           (entries) => {
             const entry = entries[0];
             if (!entry?.isIntersecting) return;
 
-            window.__walineInitialized = true;
             observer.disconnect();
 
             import('https://unpkg.com/@waline/client@v3/dist/waline.js').then(
@@ -168,7 +172,8 @@ const pageURL = new URL(Astro.url.pathname, Astro.site);
         observer.observe(container);
       }
 
-      attachWalineObserver();
+      // astro:page-load 在首次加载和之后每次导航都会触发，所以不需要额外再手动调用一次，
+      // 也避免了首次加载时被直接调用 + 事件触发双重触发的情况
       document.addEventListener('astro:page-load', attachWalineObserver);
     </script>
     <script>
