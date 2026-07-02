@@ -559,3 +559,7 @@ html.light .masterdon-icon {
 html.light .hero-image {
   content: url('/images/mv.webp');
 }
+
+ul,ol {
+margin-bottom: 1rem;
+}
