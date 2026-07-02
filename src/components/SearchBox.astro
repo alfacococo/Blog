@@ -1,58 +1,6 @@
 <div id="search-container">
   <button id="search-trigger" aria-label="搜索文章">Search</button>
-  <div id="search-modal" class="search-modal hidden">
-    <div class="search-modal-content">
-      <div id="search"></div>
-      <button id="search-close" aria-label="关闭搜索">✕</button>
-    </div>
-  </div>
 </div>
-
-<style>
-  .search-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 3000;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 10vh;
-  }
-
-  .search-modal.hidden {
-    display: none;
-  }
-
-  .search-modal-content {
-    background: var(--background);
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    width: 90%;
-    max-width: 500px;
-    max-height: 70vh;
-    overflow-y: auto;
-    position: relative;
-  }
-
-  #search-close {
-    position: absolute;
-    top: 2.5rem;
-    transform: translateY(-50%);
-    right: 0.5rem; /* 原来是 0rem，贴着边缘也不太好看，建议留一点呼吸空间 */
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    line-height: 1; /* 关键：避免默认行高把符号挤偏 */
-    padding: 0;
-  }
-</style>
 
 <script>
   function initSearch() {
@@ -61,9 +9,15 @@
     const closeBtn = document.getElementById('search-close');
     if (!trigger || !modal || !closeBtn) return;
 
-    if (modal.parentElement !== document.body) {
-      document.body.appendChild(modal);
-    }
+    // modal 现在直接写在 Layout.astro 里作为 Header 的同级兄弟节点，
+    // 不再嵌套在持久化的 nav 里面了，所以不需要再用 JS 把它挑到 body 下面，
+    // 它自己的 transition:persist 能直接稳定生效
+
+    // trigger 在持久化的 nav 里面，SPA 导航中不会被销毁重建，是同一个节点一直活到现在；
+    // modal/closeBtn 现在也能正确持久化了，事件监听器只需要绑一次，
+    // 用 dataset 标记避免每次切页都叠加一个新的监听器
+    if (trigger.dataset.searchBound) return;
+    trigger.dataset.searchBound = 'true';
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
@@ -77,13 +31,6 @@
       modal.classList.remove('hidden');
 
       if (!uiLoaded) {
-        // 1. 动态注入 CSS (避免阻塞首屏)
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = '/pagefind/pagefind-ui.css';
-        document.head.appendChild(link);
-
-        // 2. 动态注入 JS
         const script = document.createElement('script');
         script.src = '/pagefind/pagefind-ui.js';
         script.onload = () => {

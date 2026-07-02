@@ -53,6 +53,11 @@ const pageURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
+    <!-- pagefind 搜索组件的样式表。固定写在 head 里而不是用 JS 动态注入，
+         这样新旧页面的 head 里 href 能对上，Astro 切页时才会自动保留它，
+         不会像之前那样切一次页就丢一次。体积很小，常驻也不影响首屏。 -->
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+
     <script is:inline data-astro-rerun>
       const theme = (() => {
         if (
@@ -126,6 +131,57 @@ const pageURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body class="mt-[78px] mx-auto">
     <Header />
+    <div id="search-modal" class="search-modal hidden" transition:persist>
+      <div class="search-modal-content">
+        <div id="search"></div>
+        <button id="search-close" aria-label="关闭搜索">✕</button>
+      </div>
+    </div>
+    <style>
+      .search-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 3000;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 10vh;
+      }
+
+      .search-modal.hidden {
+        display: none;
+      }
+
+      .search-modal-content {
+        background: var(--background);
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        width: 90%;
+        max-width: 500px;
+        max-height: 70vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      #search-close {
+        position: absolute;
+        top: 2.5rem;
+        transform: translateY(-50%);
+        right: 0.5rem;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        line-height: 1;
+        padding: 0;
+      }
+    </style>
     <main>
       <slot />
       <ScrollToTop />
