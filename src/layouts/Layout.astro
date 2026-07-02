@@ -1,21 +1,58 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 import '../styles/global.css';
-const { pageTitle } = Astro.props;
+
+interface Props {
+  pageTitle: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  pageTitle,
+  description = '羊星居羊卷卷。喜欢嘟囔一些日常小事，很少进行大思考的赛博羊圈。',
+  image = '/images/favicon.ico',
+  type = 'website',
+} = Astro.props;
+
+// 用于 og:url 和 og:image 的绝对地址，这些平台拉取卡片预览时需要绝对路径
+const ogImageURL = new URL(image, Astro.site);
+const pageURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <html transition:animate="none" lang="zh-cmn-Hans">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content="卷毛羊的赛博羊圈！" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#1e1e2e" />
     <link rel="icon" href="/images/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+
+    <!-- 不希望被搜索引擎收录，根本不参与索引/追踪链接，配合 public/robots.txt 一起生效 -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Open Graph （分享到 Misskey / 长毛象等联邦宇宙时用于生成预览卡片） -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Curly Sheep" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="zh_CN" />
+
+    <!-- Twitter Card（一些联邦实例/客户端也会参考这套标签） -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <script is:inline data-astro-rerun>
       const theme = (() => {
         if (
@@ -84,17 +121,8 @@ const { pageTitle } = Astro.props;
       }
 
       initTitleEffect();
-
-      document.addEventListener('pjax:complete', () => {
-        window.__titleEffectBound = false;
-
-        setTimeout(() => {
-          document.title = document.querySelector('title').innerText;
-
-          initTitleEffect();
-        }, 0);
-      });
     </script>
+    <ClientRouter />
   </head>
   <body class="mt-[78px] mx-auto">
     <Header />

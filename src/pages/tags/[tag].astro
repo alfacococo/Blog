@@ -1,22 +1,14 @@
 ---
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const allPosts = Object.entries(import.meta.glob('../../content/posts/*.md', { eager: true })).map(
-  ([path, post]: [string, any]) => {
-    const slug = path.split('/').pop();
-    return {
-      ...post,
-      slug,
-      url: `/posts/${slug}`,
-    };
-  }
-);
+  const allPosts = await getCollection('posts');
 
-  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags ?? []))];
 
   return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+    const filteredPosts = allPosts.filter((post) => post.data.tags?.includes(tag));
     return {
       params: { tag },
       props: { posts: filteredPosts },
@@ -24,15 +16,23 @@ export async function getStaticPaths() {
   });
 }
 
+type Props = {
+  posts: CollectionEntry<'posts'>[];
+};
+
 const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { posts } = Astro.props as Props;
 ---
 <BaseLayout pageTitle={tag}>
   <h3 class="my-8 text-xl">包含「{tag}」标签的文章</h3>
   <ul class="list-disc pl-4 ">
-    {posts.map((post: any) => <li class="mb-4"><a href={post.url}>
-      <h4 class="text-lg font-medium border-b-2 inline border-[#375a7f]">{post.frontmatter.title}</h4>
-      <p class="text-[#333333] text-base">{post.frontmatter.description}</p>
-      </a></li>)}
+    {posts.map((post) => (
+      <li class="mb-4">
+        <a href={`/posts/${post.id}/`}>
+          <h4 class="text-lg font-medium border-b-2 inline border-[#375a7f]">{post.data.title}</h4>
+          <p class="text-[#333333] text-base">{post.data.description}</p>
+        </a>
+      </li>
+    ))}
   </ul>
 </BaseLayout>

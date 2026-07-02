@@ -1,31 +1,23 @@
 ---
-import BaseLayout from "../../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/Layout.astro';
 
-const allPosts = Object.values(
-  import.meta.glob("../../content/posts/*.md", { eager: true }),
-);
+const allPosts = await getCollection('posts');
 
 // ✅ 标签计数对象
 const tagCountMap: Record<string, number> = {};
 
-const tags = [
-  ...new Set(
-    allPosts
-      .map((post: any) => {
-        const tags = post.frontmatter?.tags || [];
-        tags.forEach((tag: string) => {
-          if (typeof tag === "string" && tag.trim() !== "") {
-            tagCountMap[tag] = (tagCountMap[tag] || 0) + 1;
-          }
-        });
-        return tags;
-      })
-      .flat()
-      .filter((tag) => typeof tag === "string" && tag.trim() !== ""),
-  ),
-];
+allPosts.forEach((post) => {
+  (post.data.tags ?? []).forEach((tag) => {
+    if (typeof tag === 'string' && tag.trim() !== '') {
+      tagCountMap[tag] = (tagCountMap[tag] || 0) + 1;
+    }
+  });
+});
 
-const pageTitle = "标签索引";
+const tags = Object.keys(tagCountMap);
+
+const pageTitle = '标签索引';
 ---
 
 <BaseLayout pageTitle={pageTitle}>

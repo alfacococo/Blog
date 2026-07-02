@@ -206,20 +206,26 @@
   }
 
   // 使用 IntersectionObserver 监听组件是否出现在视口中
-  const observer = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          loadMisskeyNote();
-          observer.unobserve(entry.target); // 加载完成后停止监听，避免重复触发
-        }
-      });
-    },
-    { threshold: 0.1 },
-  ); // 只要组件显示 10% 就开始加载
+  function initMisskeyNote() {
+    const noteElement = document.getElementById('misskey-note');
+    if (!noteElement) return;
 
-  const noteElement = document.getElementById('misskey-note');
-  if (noteElement) {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadMisskeyNote();
+            observer.unobserve(entry.target); // 加载完成后停止监听，避免重复触发
+          }
+        });
+      },
+      { threshold: 0.1 },
+    ); // 只要组件显示 10% 就开始加载
+
     observer.observe(noteElement);
   }
+
+  // astro:page-load 在首次加载和之后每次 View Transitions 导航完成后都会触发，
+  // 这样每次回到首页（DOM 被重新替换）都能重新绑定 observer、重新抓取嘟文
+  document.addEventListener('astro:page-load', initMisskeyNote);
 </script>

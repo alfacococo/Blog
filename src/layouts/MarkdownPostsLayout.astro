@@ -5,7 +5,12 @@ import '../styles/waline.css';
 const { frontmatter, wordCount, readingTime } = Astro.props;
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout
+  pageTitle={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image?.url}
+  type="article"
+>
   <div class="gif">
     <HeroImage className="theme-img" />
   </div>
