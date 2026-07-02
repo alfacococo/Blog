@@ -45,21 +45,40 @@
   </svg>
 </button>
 
-<script type="module">
-  const btn = document.getElementById('scroll-top-button');
-
-  window.addEventListener('scroll', () => {
+<script>
+  function updateScrollToTopVisibility() {
+    const btn = document.getElementById('scroll-top-button');
+    if (!btn) return;
     if (window.scrollY > 300) {
       btn.classList.add('visible');
     } else {
       btn.classList.remove('visible');
     }
-  });
+  }
 
-  btn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  function initScrollToTop() {
+    const btn = document.getElementById('scroll-top-button');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
-  });
+
+    // 每次进入页面时，根据当前滚动位置立刻校正一次按钮显隐状态
+    // （不然切换页面后它会一直停留在刚进入页面时的隐藏状态，直到下次滚动才会更新）
+    updateScrollToTopVisibility();
+  }
+
+  // scroll 监听器只需要绑定一次：window 对象在 SPA 导航过程中不会被替换，
+  // 每次触发时都重新查询当前页面的按钮，就不会有“引用到已经被替换掉的旧节点”的问题
+  if (!window.__scrollToTopBound) {
+    window.__scrollToTopBound = true;
+    window.addEventListener('scroll', updateScrollToTopVisibility);
+  }
+
+  initScrollToTop();
+  document.addEventListener('astro:page-load', initScrollToTop);
 </script>

@@ -77,7 +77,7 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
   }
 </style>
 
-<script is:inline define:vars={{ earliestDate }}>
+<script is:inline data-astro-rerun define:vars={{ earliestDate }}>
   // 在客户端运行的脚本
   const start = new Date(earliestDate);
   const now = new Date();
