@@ -15,7 +15,7 @@ allPosts.forEach((post) => {
   });
 });
 
-const tags = Object.keys(tagCountMap);
+const tags = Object.keys(tagCountMap).sort((a, b) => tagCountMap[b] - tagCountMap[a]);
 
 const pageTitle = '标签索引';
 ---
