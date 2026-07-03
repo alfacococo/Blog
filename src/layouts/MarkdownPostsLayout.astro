@@ -17,14 +17,14 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
   <h2 style="text-decoration:none" class="postshome">{frontmatter.title}</h2>
   <ul class="badge__list">
     <li>
-      <span class="badge badge--item whitespace-nowrap min-w-[87px]"
-        >PUBLISHED</span
+      <span class="badge badge--item whitespace-nowrap "
+        >发布于</span
       >{frontmatter.date}{
         frontmatter.updateDate && `(更新于 ${frontmatter.updateDate})`
       }
     </li>
     <li>
-      <span class="badge badge--item">TAGS</span>
+      <span class="badge badge--item">分类</span>
       {
         frontmatter.tags.map((tag: string) => (
           <span class="tag-text mr-2">
@@ -34,10 +34,10 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
       }
     </li>
     <li>
-      <span class="badge badge--item">Total Word Count</span>{wordCount} 字
+      <span class="badge badge--item">总字数</span>{wordCount} 字
     </li>
     <li>
-      <span class="badge badge--item">Reading Time</span>{readingTime} 分钟
+      <span class="badge badge--item">阅读时间</span>{readingTime} 分钟
     </li>
   </ul>
   <div class="prose">
