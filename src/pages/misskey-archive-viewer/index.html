@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嘟文档案 · Misskey Archive Viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E7E8DC;
+    --paper-deep:#DEDFCF;
+    --card:#F2F2E8;
+    --ink:#232A28;
+    --ink-soft:#5B665F;
+    --ink-faint:#8A9189;
+    --seal:#9C7A2E;
+    --seal-soft:#C9AD6E;
+    --jade:#4F6B5C;
+    --jade-soft:#7C9787;
+    --line:#C7C9B5;
+    --line-soft:#D7D8C8;
+    --danger:#8C4A3A;
+    --radius:10px;
+    --serif:'Shippori Mincho','Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif;
+    --sans:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Microsoft Yahei',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+  }
+  ::selection{background:var(--seal-soft);color:#1a1a16;}
+
+  /* ---------- Header ---------- */
+  header.top{
+    position:sticky; top:0; z-index:30;
+    background:linear-gradient(to bottom, var(--paper) 80%, transparent);
+    backdrop-filter: blur(6px);
+    padding:18px 24px 8px;
+    border-bottom:1px solid var(--line);
+  }
+  .title-row{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;}
+  .title-row h1{
+    font-family:var(--serif); font-weight:700; font-size:1.5rem; margin:0;
+    letter-spacing:.02em;
+  }
+  .title-row .sub{font-size:.78rem; color:var(--ink-soft); font-family:var(--mono); letter-spacing:.02em;}
+  .stats-line{
+    margin-top:6px; font-size:.82rem; color:var(--ink-soft);
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .stats-line b{color:var(--ink); font-family:var(--mono); font-weight:600;}
+
+  /* ---------- Drop zone ---------- */
+  .dropzone-wrap{
+    max-width:680px; margin:8vh auto; padding:0 20px;
+  }
+  .dropzone{
+    border:1.5px dashed var(--jade-soft);
+    border-radius:14px;
+    padding:48px 32px;
+    text-align:center;
+    background:var(--card);
+    transition:border-color .2s, background .2s;
+    cursor:pointer;
+  }
+  .dropzone.drag{border-color:var(--seal); background:#F6F2E2;}
+  .dropzone h2{font-family:var(--serif); font-size:1.3rem; margin:0 0 10px;}
+  .dropzone p{color:var(--ink-soft); font-size:.92rem; line-height:1.7; margin:6px 0;}
+  .dropzone .seal-icon{
+    width:54px; height:54px; border-radius:50%;
+    border:2px solid var(--seal); color:var(--seal);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:1.5rem; margin:0 auto 18px;
+  }
+  .file-input{display:none;}
+  .privacy-note{
+    margin-top:22px; font-size:.78rem; color:var(--jade);
+    display:flex; gap:8px; align-items:flex-start; text-align:left;
+    background:rgba(124,151,135,.12); padding:10px 14px; border-radius:8px;
+  }
+  .privacy-note .dot{width:6px;height:6px;border-radius:50%;background:var(--jade);margin-top:6px;flex-shrink:0;}
+
+  /* ---------- Controls ---------- */
+  .controls{
+    display:flex; gap:10px; align-items:center; padding:10px 24px;
+    flex-wrap:wrap; border-bottom:1px solid var(--line);
+    background:var(--paper);
+    position:sticky; top:116px; z-index:25;
+    transition:transform .22s ease, opacity .18s ease;
+    will-change:transform, opacity;
+  }
+  .search-box{
+    flex:1; min-width:180px; position:relative;
+  }
+  .search-box input{
+    width:100%; padding:8px 12px 8px 32px; border:1px solid var(--line);
+    border-radius:8px; background:var(--card); font-size:.88rem; color:var(--ink);
+    font-family:var(--sans);
+  }
+  .search-box input:focus{outline:none; border-color:var(--jade-soft);}
+  .search-box::before{
+    content:'⌕'; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+    color:var(--ink-faint); font-size:1rem;
+  }
+  .chip{
+    font-size:.78rem; padding:6px 12px; border-radius:20px;
+    border:1px solid var(--line); background:var(--card); color:var(--ink-soft);
+    cursor:pointer; white-space:nowrap; user-select:none;
+    transition:all .15s;
+  }
+  .chip.active{background:var(--jade); border-color:var(--jade); color:#F2F2E8;}
+  .chip:hover{border-color:var(--jade-soft);}
+  .sort-btn{
+    font-size:.78rem; padding:6px 12px; border-radius:8px;
+    border:1px solid var(--line); background:var(--card); color:var(--ink-soft);
+    cursor:pointer; font-family:var(--mono);
+  }
+  .page-size-wrap{ width:100%; display:flex; justify-content:flex-end; margin-top:6px; }
+  .page-size-wrap .sort-btn{ padding:6px 10px; }
+  .controls.collapsed{ transform: translateY(-110%); opacity:0; pointer-events:none; }
+  .back-top{
+    position:fixed; right:18px; bottom:18px; width:48px; height:48px; border-radius:50%;
+    background:var(--seal); color:#fff; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,.18); font-size:1.15rem; cursor:pointer; z-index:40;
+    opacity:0; transform:translateY(10px); transition:opacity .18s ease, transform .22s ease;
+    pointer-events:none;
+  }
+  .back-top.visible{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .back-top:hover{ filter:brightness(.95); }
+  }
+
+  /* ---------- Heatmap ---------- */
+  .heatmap-wrap{
+    padding:10px 24px 14px; border-bottom:1px solid var(--line);
+    overflow-x:auto; white-space:nowrap;
+  }
+  .heatmap-row{display:inline-flex; gap:3px; align-items:flex-end;}
+  .hm-cell{
+    width:9px; height:22px; border-radius:2px; cursor:pointer;
+    background:var(--line-soft); flex-shrink:0;
+  }
+  .hm-cell:hover{outline:1.5px solid var(--seal);}
+
+  /* ---------- Layout ---------- */
+  .layout{
+    display:flex; max-width:980px; margin:0 auto; align-items:flex-start;
+  }
+  .year-nav{
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .year-nav button{
+    background:none; border:none; color:var(--ink-faint);
+    font-family:var(--mono); font-size:.82rem; text-align:left;
+    cursor:pointer; padding:3px 6px; border-radius:6px;
+  }
+  .year-nav button:hover{color:var(--seal); background:rgba(156,122,46,.08);}
+  .year-nav button.current{color:var(--ink); font-weight:600;}
+
+  .feed{padding:24px 24px 20px 8px; min-width:0;}
+
+  .date-divider{
+    font-family:var(--serif); font-size:1.05rem; color:var(--ink);
+    margin:34px 0 14px; padding-bottom:6px; border-bottom:1px solid var(--line);
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .date-divider .count{font-family:var(--mono); font-size:.72rem; color:var(--ink-faint);}
+  .feed > .date-divider:first-child{margin-top:0;}
+
+  .thread{position:relative; padding-left:34px;}
+  .thread::before{
+    content:''; position:absolute; left:11px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+
+  .note-card{
+    position:relative; background:var(--card); border:1px solid var(--line-soft);
+    border-radius:var(--radius); padding:14px 16px 12px; margin-bottom:12px;
+  }
+  .seal-node{
+    position:absolute; left:-34px; top:14px;
+    width:24px; height:24px; border-radius:50%;
+    background:var(--paper); border:1.5px solid var(--seal);
+    color:var(--seal); font-family:var(--mono); font-size:.66rem; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .note-meta{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    font-size:.74rem; color:var(--ink-faint); font-family:var(--mono); margin-bottom:8px;
+  }
+  .badge{
+    font-family:var(--sans); font-size:.68rem; padding:2px 7px; border-radius:5px;
+    background:var(--paper-deep); color:var(--ink-soft);
+  }
+  .badge.renote{color:var(--jade); background:rgba(124,151,135,.18);}
+  .badge.reply{color:#5C6E8C; background:rgba(92,110,140,.13);}
+  .badge.cw{color:var(--danger); background:rgba(140,74,58,.13);}
+
+  .note-text{font-size:.94rem; line-height:1.75; white-space:pre-wrap; word-break:break-word;}
+  .note-text .tag{color:var(--jade); font-weight:600;}
+  .note-text .mention{color:var(--seal); font-weight:600;}
+
+  .cw-reveal{
+    font-size:.78rem; color:var(--danger); border:1px solid currentColor;
+    border-radius:6px; padding:4px 10px; background:none; cursor:pointer; margin-top:4px;
+  }
+  .cw-body{display:none; margin-top:8px;}
+  .cw-body.shown{display:block;}
+
+  .files-row{display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;}
+  .file-chip{
+    font-size:.72rem; color:var(--ink-soft); background:var(--paper-deep);
+    border-radius:6px; padding:4px 8px; display:flex; align-items:center; gap:5px;
+  }
+
+  .quote-card{
+    margin-top:10px; padding:8px 12px; border-left:2px solid var(--line);
+    background:var(--paper-deep); border-radius:6px; font-size:.85rem; color:var(--ink-soft);
+  }
+  .quote-card .qlabel{font-size:.68rem; font-family:var(--mono); color:var(--ink-faint); margin-bottom:4px;}
+
+  .reactions-row{display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;}
+  .reaction-pill{
+    font-size:.72rem; background:var(--paper-deep); border-radius:12px; padding:2px 8px;
+    color:var(--ink-soft);
+  }
+
+  .empty-state{
+    text-align:center; padding:60px 20px; color:var(--ink-faint); font-size:.9rem;
+  }
+
+  .hidden{display:none !important;}
+
+  /* ---------- Sidebar / Calendar ---------- */
+  .sidebar{
+    flex-shrink:0; position:sticky; top:150px;
+    padding:18px 12px 40px 12px; display:flex; flex-direction:column; gap:18px;
+    max-height:calc(100vh - 150px); overflow-y:auto;
+  }
+  .calendar-box{
+    background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius);
+    padding:12px 24px;
+    display:flex; flex-direction:column;
+  }
+  .cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .cal-title{font-family:var(--serif); font-size:.92rem; font-weight:700; color:var(--ink);margin:0 10px}
+  .cal-arrow{
+    background:none; border:1px solid var(--line); border-radius:6px; color:var(--ink-soft);
+    width:24px; height:24px; cursor:pointer; font-size:.9rem; line-height:1;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .cal-arrow:hover:not(:disabled){border-color:var(--seal-soft); color:var(--seal);}
+  .cal-arrow:disabled{opacity:.3; cursor:default;}
+  .cal-weekrow{
+    display:grid; grid-template-columns:repeat(7,1fr); text-align:center;
+    font-size:.66rem; color:var(--ink-faint); font-family:var(--mono); margin-bottom:4px;
+  }
+   .cal-title{ display:flex; gap:8px; align-items:center; margin:0 10px}
+   .cal-select{ background:var(--card); border:1px solid var(--line); border-radius:6px; font-size:.75rem; }
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:2px;}
+  .cal-day{
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    font-size:.72rem; font-family:var(--mono); border-radius:5px; color:var(--ink-faint);
+  }
+  .cal-day.empty{visibility:hidden;}
+  .cal-day.has-note{
+    background:rgba(156,122,46,.14); color:var(--ink); cursor:pointer; font-weight:600;
+  }
+  .cal-day.has-note:hover{background:var(--seal-soft); color:#1a1a16;}
+  .cal-day.active{outline:1.5px solid var(--seal); background:var(--seal-soft); color:#1a1a16;}
+  .cal-empty-note{font-size:.72rem; color:var(--ink-faint); text-align:center; padding:8px 0 2px;}
+
+  /* ---------- Pagination ---------- */
+  .feed-col{flex:1; min-width:0; display:flex; flex-direction:column;}
+  .pager-info{
+    text-align:center; font-size:.75rem; color:var(--ink-faint); font-family:var(--mono);
+    margin-bottom:10px;
+  }
+  .pager{
+    display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;
+    padding:10px 0 60px;
+  }
+  .pager button{
+    min-width:32px; height:32px; padding:0 8px; border-radius:7px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink-soft); font-family:var(--mono); font-size:.8rem;
+    cursor:pointer;
+  }
+  .pager button:hover:not(:disabled):not(.active){border-color:var(--seal-soft); color:var(--seal);}
+  .pager button.active{background:var(--jade); border-color:var(--jade); color:#F2F2E8; cursor:default;}
+  .pager button:disabled{opacity:.35; cursor:default;}
+  .pager .ellipsis{color:var(--ink-faint); padding:0 4px; font-family:var(--mono);}
+
+  .note-card.flash{animation:flashHi 1.6s ease;}
+  @keyframes flashHi{
+    0%{box-shadow:0 0 0 2px var(--seal);}
+    100%{box-shadow:0 0 0 0 rgba(156,122,46,0);}
+  }
+
+  @media (max-width: 760px){
+    .sidebar{display:none;}
+    .feed{padding:18px 14px 20px 6px;}
+    .controls{top:141px;}
+    header.top{padding:14px 16px 6px;}
+    .pager button{min-width:28px; height:28px; font-size:.74rem;}
+    .stats-line{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="title-row">
+    <h1>嘟文档案</h1>
+    <span class="sub">Misskey Archive Viewer</span>
+  </div>
+  <div class="stats-line" id="statsLine"></div>
+</header>
+
+<div id="dropArea" class="dropzone-wrap">
+  <div class="dropzone" id="dropzone">
+    <div class="seal-icon">嘟</div>
+    <h2>拖入或选择导出的 JSON 文件</h2>
+    <p>从 Misskey「设置 → 数据导出」得到的嘟文存档（notes.json）。</p>
+    <p>支持标准 JSON 数组，也兼容逐行 JSON（JSONL）格式。</p>
+    <input type="file" id="fileInput" class="file-input" accept=".json,application/json">
+  </div>
+</div>
+
+<div id="controls" class="controls hidden">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="搜索嘟文内容…">
+  </div>
+  <button class="chip" id="chipRenote" data-key="hideRenote">隐藏转嘟</button>
+  <button class="chip" id="chipReply" data-key="hideReply">隐藏回复</button>
+  <button class="chip" id="chipCW" data-key="onlyCW">仅含 CW</button>
+  <button class="chip" id="chipFiles" data-key="onlyFiles">仅含附件</button>
+  <button class="sort-btn" id="sortBtn">最新优先 ▾</button>
+  <div class="page-size-wrap">
+    <select class="sort-btn" id="pageSizeSelect" title="每页显示条数">
+    <option value="30">30条/页</option>
+    <option value="50" selected>50条/页</option>
+    <option value="100">100条/页</option>
+    <option value="200">200条/页</option>
+    </select>
+  </div>
+</div>
+
+<div id="heatmapWrap" class="heatmap-wrap hidden">
+  <div class="heatmap-row" id="heatmapRow"></div>
+</div>
+
+<div id="layout" class="layout hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="calendar-box">
+      <div class="cal-head">
+        <button class="cal-arrow" id="calPrev" title="上个月">‹</button>
+        <div class="cal-title">
+          <select id="calYearSelect" class="cal-select" aria-label="选择年份"></select>
+          <select id="calMonthSelect" class="cal-select" aria-label="选择月份"></select>
+        </div>
+        <button class="cal-arrow" id="calNext" title="下个月">›</button>
+      </div>
+      <div class="cal-weekrow">
+        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+    <nav class="year-nav" id="yearNav"></nav>
+  </aside>
+  <div class="feed-col">
+    <div class="feed" id="feed"></div>
+    <div class="pager-info" id="pagerInfo"></div>
+    <div class="pager" id="pager"></div>
+  </div>
+</div>
+
+<button id="backTop" class="back-top" title="回到顶部" aria-label="回到顶部">▲</button>
+
+<script>
+(function(){
+  const dropArea = document.getElementById('dropArea');
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const controls = document.getElementById('controls');
+  const heatmapWrap = document.getElementById('heatmapWrap');
+  const heatmapRow = document.getElementById('heatmapRow');
+  const layout = document.getElementById('layout');
+  const feed = document.getElementById('feed');
+  const yearNav = document.getElementById('yearNav');
+  const statsLine = document.getElementById('statsLine');
+  const searchInput = document.getElementById('searchInput');
+  const sortBtn = document.getElementById('sortBtn');
+  const pageSizeSelect = document.getElementById('pageSizeSelect');
+  const pager = document.getElementById('pager');
+  const pagerInfo = document.getElementById('pagerInfo');
+  const sidebar = document.getElementById('sidebar');
+  const calYearSelect = document.getElementById('calYearSelect');
+  const calMonthSelect = document.getElementById('calMonthSelect');
+  const calGrid = document.getElementById('calGrid');
+  const calPrev = document.getElementById('calPrev');
+  const calNext = document.getElementById('calNext');
+
+  let allNotes = [];      // normalized, sorted ascending by date
+  let displayList = [];   // current filtered+sorted-for-display list
+  let sortDesc = true;
+  let filters = { hideRenote:false, hideReply:false, onlyCW:false, onlyFiles:false };
+  let searchTerm = '';
+  let monthBuckets = {}; // 'YYYY-MM' -> count (全部数据，用于热力图)
+  let dayBuckets = {};   // 'YYYY-MM-DD' -> count (当前筛选结果，用于日历)
+
+  // 分页
+  let pageSize = 50;
+  let currentPage = 1;
+  let totalPages = 1;
+
+  // 日历
+  let calYear = null, calMonth = null; // calMonth: 0-indexed
+  let minYM = null, maxYM = null;      // {y,m(1-indexed)} 数据范围边界
+  let activeDayKey = null;
+
+  // ---------- File loading ----------
+  dropzone.addEventListener('click', ()=> fileInput.click());
+  ['dragenter','dragover'].forEach(ev=>{
+    dropzone.addEventListener(ev, e=>{ e.preventDefault(); dropzone.classList.add('drag'); });
+  });
+  ['dragleave','drop'].forEach(ev=>{
+    dropzone.addEventListener(ev, e=>{ e.preventDefault(); dropzone.classList.remove('drag'); });
+  });
+  dropzone.addEventListener('drop', e=>{
+    const f = e.dataTransfer.files[0];
+    if(f) handleFile(f);
+  });
+  fileInput.addEventListener('change', e=>{
+    const f = e.target.files[0];
+    if(f) handleFile(f);
+  });
+
+  function handleFile(file){
+    dropzone.querySelector('h2').textContent = '正在读取 ' + file.name + ' …';
+    const reader = new FileReader();
+    reader.onload = function(e){
+      try{
+        const parsed = parseJsonFlexible(e.target.result);
+        const notes = extractNotesArray(parsed);
+        if(!notes.length){
+          dropzone.querySelector('h2').textContent = '没有在文件中找到可识别的嘟文条目';
+          return;
+        }
+        bootstrap(notes);
+      }catch(err){
+        console.error(err);
+        dropzone.querySelector('h2').textContent = '解析失败，请确认这是 Misskey 导出的 JSON 文件';
+      }
+    };
+    reader.onerror = function(){
+      dropzone.querySelector('h2').textContent = '读取文件时出错，请重试';
+    };
+    reader.readAsText(file);
+  }
+
+  function parseJsonFlexible(text){
+    text = text.trim();
+    try{ return JSON.parse(text); }
+    catch(e){
+      // try JSONL: one JSON object per line
+      const lines = text.split('\n').map(l=>l.trim()).filter(Boolean);
+      const out = [];
+      for(const line of lines){
+        try{ out.push(JSON.parse(line)); }catch(_){ /* skip bad line */ }
+      }
+      if(out.length) return out;
+      throw e;
+    }
+  }
+
+  function extractNotesArray(parsed){
+    if(Array.isArray(parsed)) return parsed;
+    if(parsed && typeof parsed === 'object'){
+      for(const key of ['notes','data','items','posts','results']){
+        if(Array.isArray(parsed[key])) return parsed[key];
+      }
+    }
+    return [];
+  }
+
+  // ---------- Normalize ----------
+  function normalize(raw){
+    const createdAt = raw.createdAt || raw.created_at || raw.date || null;
+    const d = createdAt ? new Date(createdAt) : null;
+    const files = Array.isArray(raw.files) ? raw.files : (Array.isArray(raw.media) ? raw.media : []);
+    const renoteObj = raw.renote || null;
+    const replyObj = raw.reply || null;
+    return {
+      id: raw.id || raw.noteId || Math.random().toString(36).slice(2),
+      date: (d && !isNaN(d)) ? d : null,
+      text: raw.text || '',
+      cw: raw.cw || null,
+      visibility: raw.visibility || null,
+      files: files.map(f=>({
+        name: f.name || f.filename || '未命名文件',
+        type: f.type || f.contentType || '',
+        comment: f.comment || f.caption || ''
+      })),
+      isRenote: !!(raw.renoteId || renoteObj) && !raw.text,
+      renoteText: renoteObj ? (renoteObj.text || '') : (raw.renoteId ? null : null),
+      isReply: !!(raw.replyId || replyObj),
+      replyText: replyObj ? (replyObj.text || '') : null,
+      reactions: raw.reactions && typeof raw.reactions === 'object' ? raw.reactions : null
+    };
+  }
+
+  function bootstrap(rawNotes){
+    allNotes = rawNotes.map(normalize)
+      .filter(n => n.date)
+      .sort((a,b)=> a.date - b.date);
+
+    if(!allNotes.length){
+      dropzone.querySelector('h2').textContent = '条目中未找到有效的时间字段（createdAt）';
+      return;
+    }
+
+    monthBuckets = {};
+    let renoteCount=0, cwCount=0, fileCount=0;
+    for(const n of allNotes){
+      const key = n.date.getFullYear()+'-'+String(n.date.getMonth()+1).padStart(2,'0');
+      monthBuckets[key] = (monthBuckets[key]||0)+1;
+      if(n.isRenote) renoteCount++;
+      if(n.cw) cwCount++;
+      if(n.files.length) fileCount++;
+    }
+
+    const first = allNotes[0].date, last = allNotes[allNotes.length-1].date;
+    statsLine.innerHTML =
+      '共 <b>'+allNotes.length+'</b> 条 　·　 '+
+      '<b>'+fmtDate(first)+'</b> 至 <b>'+fmtDate(last)+'</b> 　·　 '+
+      '转嘟 <b>'+renoteCount+'</b> 　·　 含CW <b>'+cwCount+'</b> 　·　 含附件 <b>'+fileCount+'</b>';
+
+    const monthKeys = Object.keys(monthBuckets).sort();
+    minYM = ymFromKey(monthKeys[0]);
+    maxYM = ymFromKey(monthKeys[monthKeys.length-1]);
+    calYear = last.getFullYear();
+    calMonth = last.getMonth();
+
+    dropArea.classList.add('hidden');
+    controls.classList.remove('hidden');
+    heatmapWrap.classList.remove('hidden');
+    layout.classList.remove('hidden');
+
+    renderHeatmap();
+    renderYearNav();
+    applyFiltersAndRender(true);
+
+    searchInput.addEventListener('input', debounce(()=>{
+      searchTerm = searchInput.value.trim().toLowerCase();
+      applyFiltersAndRender(true);
+    }, 180));
+
+    document.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        const key = chip.dataset.key;
+        filters[key] = !filters[key];
+        chip.classList.toggle('active', filters[key]);
+        applyFiltersAndRender(true);
+      });
+    });
+
+    sortBtn.addEventListener('click', ()=>{
+      sortDesc = !sortDesc;
+      sortBtn.textContent = sortDesc ? '最新优先 ▾' : '最早优先 ▴';
+      applyFiltersAndRender(true);
+    });
+
+    pageSizeSelect.addEventListener('change', ()=>{
+      pageSize = parseInt(pageSizeSelect.value, 10) || 50;
+      applyFiltersAndRender(true);
+    });
+
+    calPrev.addEventListener('click', ()=> shiftCalMonth(-1));
+    calNext.addEventListener('click', ()=> shiftCalMonth(1));
+    // 滚动时向下隐藏 controls，向上显示；并控制右下角回到顶部按钮的显示
+    (function(){
+      const backTop = document.getElementById('backTop');
+      let lastScrollY = window.scrollY || 0;
+      const thresh = 8;
+      function onScroll(){
+        const y = window.scrollY || 0;
+        if(y < 80){
+          controls.classList.remove('collapsed');
+          if(backTop) backTop.classList.remove('visible');
+        } else if(y > lastScrollY + thresh){
+          controls.classList.add('collapsed');
+          if(backTop) backTop.classList.add('visible');
+        } else if(y < lastScrollY - thresh){
+          controls.classList.remove('collapsed');
+          if(backTop) backTop.classList.remove('visible');
+        }
+        lastScrollY = y;
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      if(backTop){
+        backTop.addEventListener('click', ()=>{
+          window.scrollTo({top:0, behavior:'smooth'});
+          controls.classList.remove('collapsed');
+          backTop.classList.remove('visible');
+        });
+      }
+    })();
+  }
+
+  function ymFromKey(key){
+    const [y,m] = key.split('-');
+    return { y: parseInt(y,10), m: parseInt(m,10) };
+  }
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  function fmtDate(d){
+    return d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');
+  }
+
+  // ---------- Heatmap ----------
+  function renderHeatmap(){
+    const keys = Object.keys(monthBuckets).sort();
+    const max = Math.max(...Object.values(monthBuckets));
+    heatmapRow.innerHTML = '';
+    for(const key of keys){
+      const c = monthBuckets[key];
+      const intensity = c / max;
+      const cell = document.createElement('div');
+      cell.className = 'hm-cell';
+      const [y,m] = key.split('-');
+      cell.title = y+'年'+parseInt(m)+'月：'+c+'条';
+      cell.style.background = mixColor(intensity);
+      cell.addEventListener('click', ()=> jumpToMonth(y, m));
+      heatmapRow.appendChild(cell);
+    }
+  }
+  function mixColor(t){
+    // interpolate between line-soft and seal
+    const a = [0xD7,0xD8,0xC8], b=[0x9C,0x7A,0x2E];
+    const c = a.map((v,i)=> Math.round(v + (b[i]-v)*t));
+    return 'rgb('+c.join(',')+')';
+  }
+
+  // ---------- Year nav ----------
+  function renderYearNav(){
+    const years = [...new Set(allNotes.map(n=>n.date.getFullYear()))].sort((a,b)=>b-a);
+    yearNav.innerHTML = '';
+    for(const y of years){
+      const btn = document.createElement('button');
+      btn.textContent = y+'年';
+      btn.addEventListener('click', ()=> jumpToYear(y));
+      yearNav.appendChild(btn);
+    }
+  }
+
+  // ---------- Filtering / rendering ----------
+  function getFiltered(){
+    return allNotes.filter(n=>{
+      if(filters.hideRenote && n.isRenote) return false;
+      if(filters.hideReply && n.isReply) return false;
+      if(filters.onlyCW && !n.cw) return false;
+      if(filters.onlyFiles && !n.files.length) return false;
+      if(searchTerm){
+        const hay = ((n.text||'') + ' ' + (n.cw||'')).toLowerCase();
+        if(!hay.includes(searchTerm)) return false;
+      }
+      return true;
+    });
+  }
+
+  function computeDayBuckets(list){
+    const buckets = {};
+    for(const n of list){
+      const key = n.date.getFullYear()+'-'+pad2(n.date.getMonth()+1)+'-'+pad2(n.date.getDate());
+      buckets[key] = (buckets[key]||0)+1;
+    }
+    return buckets;
+  }
+
+  function applyFiltersAndRender(reset){
+    const filtered = getFiltered();
+    dayBuckets = computeDayBuckets(filtered);
+    displayList = sortDesc ? filtered.slice().reverse() : filtered.slice();
+    if(reset) currentPage = 1;
+    totalPages = Math.max(1, Math.ceil(displayList.length / pageSize));
+    if(currentPage > totalPages) currentPage = totalPages;
+    renderCalendar();
+    if(!displayList.length){
+      feed.innerHTML = '<div class="empty-state">没有符合条件的嘟文</div>';
+      pager.innerHTML = '';
+      pagerInfo.textContent = '';
+      return;
+    }
+    renderPage(currentPage, {scrollToTop:false});
+  }
+
+  function renderPage(page, opts){
+    opts = opts || {};
+    currentPage = Math.min(Math.max(1, page), totalPages);
+    const start = (currentPage - 1) * pageSize;
+    const end = Math.min(start + pageSize, displayList.length);
+
+    feed.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    let currentThread = null;
+    let lastMonthKey = null;
+
+    for(let i = start; i < end; i++){
+      const n = displayList[i];
+      const mKey = n.date.getFullYear()+'年'+(n.date.getMonth()+1)+'月';
+      if(mKey !== lastMonthKey){
+        lastMonthKey = mKey;
+        currentThread = null;
+        const div = document.createElement('div');
+        div.className = 'date-divider';
+        div.dataset.monthkey = n.date.getFullYear()+'-'+String(n.date.getMonth()+1).padStart(2,'0');
+        div.innerHTML = mKey + ' <span class="count"></span>';
+        frag.appendChild(div);
+      }
+      if(!currentThread){
+        currentThread = document.createElement('div');
+        currentThread.className = 'thread';
+        frag.appendChild(currentThread);
+      }
+      currentThread.appendChild(renderNoteCard(n, i));
+    }
+    feed.appendChild(frag);
+    renderPager();
+    if(opts.scrollToTop){
+      requestAnimationFrame(()=> feed.scrollIntoView({behavior:'smooth', block:'start'}));
+    }
+  }
+
+  function renderPager(){
+    pagerInfo.textContent = '第 '+currentPage+' / '+totalPages+' 页　共 '+displayList.length+' 条';
+    pager.innerHTML = '';
+    if(totalPages <= 1) return;
+
+    const mkBtn = (label, page, opts)=>{
+      opts = opts || {};
+      const b = document.createElement('button');
+      b.textContent = label;
+      if(opts.active) b.classList.add('active');
+      if(opts.disabled) b.disabled = true;
+      if(!opts.disabled && !opts.active){
+        b.addEventListener('click', ()=> gotoPage(page));
+      }
+      return b;
+    };
+    const mkEllipsis = ()=>{
+      const s = document.createElement('span');
+      s.className = 'ellipsis';
+      s.textContent = '…';
+      return s;
+    };
+
+    pager.appendChild(mkBtn('‹ 上一页', currentPage-1, {disabled: currentPage===1}));
+
+    const pages = new Set([1, totalPages, currentPage, currentPage-1, currentPage+1]);
+    const sorted = [...pages].filter(p=> p>=1 && p<=totalPages).sort((a,b)=>a-b);
+    let prev = 0;
+    for(const p of sorted){
+      if(prev && p - prev > 1) pager.appendChild(mkEllipsis());
+      pager.appendChild(mkBtn(String(p), p, {active: p===currentPage}));
+      prev = p;
+    }
+
+    pager.appendChild(mkBtn('下一页 ›', currentPage+1, {disabled: currentPage===totalPages}));
+  }
+
+  function gotoPage(n){
+    if(n < 1 || n > totalPages || n === currentPage) return;
+    renderPage(n, {scrollToTop:true});
+  }
+
+  // ---------- Calendar ----------
+  function shiftCalMonth(delta){
+    let m = calMonth + delta, y = calYear;
+    if(m < 0){ m = 11; y--; }
+    if(m > 11){ m = 0; y++; }
+    if(minYM && (y < minYM.y || (y===minYM.y && m+1 < minYM.m))) return;
+    if(maxYM && (y > maxYM.y || (y===maxYM.y && m+1 > maxYM.m))) return;
+    calYear = y; calMonth = m;
+    renderCalendar();
+  }
+
+  function renderCalendar(){
+    if(calYear === null) return;
+    // 填充年份下拉（基于所有数据中的年份）和当年可选的月份
+    if(calYearSelect){
+      const years = [...new Set(allNotes.map(n=>n.date.getFullYear()))].sort((a,b)=>a-b);
+      calYearSelect.innerHTML = '';
+      for(const y of years){
+        const o = document.createElement('option'); o.value = String(y); o.textContent = y + '年';
+        if(y === calYear) o.selected = true;
+        calYearSelect.appendChild(o);
+      }
+      if(!calYearSelect._bound){
+        calYearSelect.addEventListener('change', ()=>{
+          const newY = parseInt(calYearSelect.value,10);
+          if(!isNaN(newY)){
+            calYear = newY; // update month options below will correct calMonth if needed
+            renderCalendar();
+          }
+        });
+        calYearSelect._bound = true;
+      }
+    }
+    if(calMonthSelect){
+      // months present in this year according to monthBuckets
+      const prefix = String(calYear) + '-';
+      const months = Object.keys(monthBuckets).filter(k=>k.startsWith(prefix)).map(k=> parseInt(k.split('-')[1],10)).sort((a,b)=>a-b);
+      // if no months (unlikely) default to 1..12
+      const monthsToUse = months.length ? months : Array.from({length:12},(_,i)=>i+1);
+      if(!monthsToUse.includes(calMonth+1)){
+        // set to first available month in that year
+        calMonth = monthsToUse[0] - 1;
+      }
+      calMonthSelect.innerHTML = '';
+      for(const m of monthsToUse){
+        const o = document.createElement('option'); o.value = String(m); o.textContent = m + '月';
+        if(m-1 === calMonth) o.selected = true;
+        calMonthSelect.appendChild(o);
+      }
+      if(!calMonthSelect._bound){
+        calMonthSelect.addEventListener('change', ()=>{
+          const newM = parseInt(calMonthSelect.value,10);
+          if(!isNaN(newM)){
+            calMonth = newM - 1;
+            renderCalendar();
+          }
+        });
+        calMonthSelect._bound = true;
+      }
+    }
+
+    const atMin = minYM && calYear===minYM.y && (calMonth+1)===minYM.m;
+    const atMax = maxYM && calYear===maxYM.y && (calMonth+1)===maxYM.m;
+    calPrev.disabled = !!atMin;
+    calNext.disabled = !!atMax;
+
+    calGrid.innerHTML = '';
+    const firstWeekday = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+
+    for(let i=0; i<firstWeekday; i++){
+      const cell = document.createElement('div');
+      cell.className = 'cal-day empty';
+      calGrid.appendChild(cell);
+    }
+    for(let d=1; d<=daysInMonth; d++){
+      const key = calYear+'-'+pad2(calMonth+1)+'-'+pad2(d);
+      const cell = document.createElement('div');
+      cell.className = 'cal-day';
+      cell.textContent = d;
+      if(dayBuckets[key]){
+        cell.classList.add('has-note');
+        cell.title = key + '：' + dayBuckets[key] + '条';
+        cell.addEventListener('click', ()=> jumpToDate(calYear, calMonth+1, d));
+      }
+      if(key === activeDayKey) cell.classList.add('active');
+      calGrid.appendChild(cell);
+    }
+  }
+
+  function jumpToDate(y, m, d){
+    // 找到 displayList 中该日期所有匹配条目的索引，选择时间最早（date 最小）的一项
+    const indices = [];
+    for(let i=0;i<displayList.length;i++){
+      const n = displayList[i];
+      if(n.date.getFullYear()===y && (n.date.getMonth()+1)===m && n.date.getDate()===d){
+        indices.push(i);
+      }
+    }
+    if(indices.length === 0) return;
+    let earliestIdx = indices[0];
+    for(let k=1;k<indices.length;k++){
+      const i = indices[k];
+      if(displayList[i].date < displayList[earliestIdx].date) earliestIdx = i;
+    }
+    activeDayKey = y+'-'+pad2(m)+'-'+pad2(d);
+    calYear = y; calMonth = m - 1;
+    const page = Math.floor(earliestIdx / pageSize) + 1;
+    renderPage(page, {scrollToTop:false});
+    renderCalendar();
+    scrollToNoteIdx(earliestIdx);
+  }
+
+  function scrollToNoteIdx(idx){
+    requestAnimationFrame(()=>{
+      const el = document.getElementById('note-g'+idx);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.classList.add('flash');
+      setTimeout(()=> el.classList.remove('flash'), 1700);
+    });
+  }
+
+  function renderNoteCard(n, globalIdx){
+    const card = document.createElement('div');
+    card.className = 'note-card';
+    if(globalIdx !== undefined) card.id = 'note-g' + globalIdx;
+
+    const seal = document.createElement('div');
+    seal.className = 'seal-node';
+    seal.textContent = n.date.getDate();
+    card.appendChild(seal);
+
+    const meta = document.createElement('div');
+    meta.className = 'note-meta';
+    let metaHtml = '<span>'+fmtTime(n.date)+'</span>';
+    if(n.visibility && n.visibility !== 'public') metaHtml += '<span class="badge">'+visLabel(n.visibility)+'</span>';
+    if(n.isRenote) metaHtml += '<span class="badge renote">转嘟</span>';
+    if(n.isReply) metaHtml += '<span class="badge reply">回复</span>';
+    if(n.cw) metaHtml += '<span class="badge cw">CW</span>';
+    meta.innerHTML = metaHtml;
+    card.appendChild(meta);
+
+    if(n.cw){
+      const revealBtn = document.createElement('button');
+      revealBtn.className = 'cw-reveal';
+      revealBtn.textContent = '⚠ ' + escapeHtml(n.cw) + ' — 点击查看内容';
+      const body = document.createElement('div');
+      body.className = 'cw-body';
+      body.innerHTML = renderText(n.text);
+      revealBtn.addEventListener('click', ()=>{
+        body.classList.toggle('shown');
+        revealBtn.style.display = body.classList.contains('shown') ? 'none' : 'block';
+      });
+      card.appendChild(revealBtn);
+      card.appendChild(body);
+    } else {
+      const textEl = document.createElement('div');
+      textEl.className = 'note-text';
+      textEl.innerHTML = renderText(n.text) || '<span style="color:var(--ink-faint)">（无文字内容）</span>';
+      card.appendChild(textEl);
+    }
+
+    if(n.replyText){
+      const q = document.createElement('div');
+      q.className = 'quote-card';
+      q.innerHTML = '<div class="qlabel">回复内容</div>' + renderText(n.replyText);
+      card.appendChild(q);
+    }
+    if(n.renoteText){
+      const q = document.createElement('div');
+      q.className = 'quote-card';
+      q.innerHTML = '<div class="qlabel">转嘟内容</div>' + renderText(n.renoteText);
+      card.appendChild(q);
+    }
+
+    if(n.files.length){
+      const row = document.createElement('div');
+      row.className = 'files-row';
+      for(const f of n.files){
+        const chip = document.createElement('span');
+        chip.className = 'file-chip';
+        chip.textContent = (f.type && f.type.startsWith('image') ? '🖼 ' : f.type.startsWith('video') ? '🎞 ' : '📎 ') + f.name;
+        if(f.comment) chip.title = f.comment;
+        row.appendChild(chip);
+      }
+      card.appendChild(row);
+    }
+
+    if(n.reactions){
+      const entries = Object.entries(n.reactions);
+      if(entries.length){
+        const row = document.createElement('div');
+        row.className = 'reactions-row';
+        for(const [emoji, count] of entries){
+          const pill = document.createElement('span');
+          pill.className = 'reaction-pill';
+          pill.textContent = emoji + ' ' + count;
+          row.appendChild(pill);
+        }
+        card.appendChild(row);
+      }
+    }
+
+    return card;
+  }
+
+  function fmtTime(d){
+    return fmtDate(d) + '　' + String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  }
+  function visLabel(v){
+    return {home:'仅首页', followers:'仅关注者', specified:'私信'}[v] || v;
+  }
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function renderText(t){
+    if(!t) return '';
+    let s = escapeHtml(t);
+    s = s.replace(/(#[^\s#]+)/g, '<span class="tag">$1</span>');
+    s = s.replace(/(@[A-Za-z0-9_.\-]+)/g, '<span class="mention">$1</span>');
+    return s;
+  }
+  function debounce(fn, ms){
+    let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); };
+  }
+
+  // ---------- Jump helpers (heatmap / year-nav) ----------
+  function jumpToYear(year){
+    const idx = displayList.findIndex(n=> n.date.getFullYear() === year);
+    if(idx === -1) return;
+    const n = displayList[idx];
+    calYear = n.date.getFullYear();
+    calMonth = n.date.getMonth();
+    activeDayKey = null;
+    const page = Math.floor(idx / pageSize) + 1;
+    renderPage(page, {scrollToTop:false});
+    renderCalendar();
+    scrollToNoteIdx(idx);
+  }
+  function jumpToMonth(y, m){
+    const idx = displayList.findIndex(n=> n.date.getFullYear()===parseInt(y) && (n.date.getMonth()+1)===parseInt(m));
+    if(idx === -1) return;
+    calYear = parseInt(y,10);
+    calMonth = parseInt(m,10) - 1;
+    activeDayKey = null;
+    const page = Math.floor(idx / pageSize) + 1;
+    renderPage(page, {scrollToTop:false});
+    renderCalendar();
+    scrollToNoteIdx(idx);
+  }
+})();
+</script>
+</body>
+</html>
