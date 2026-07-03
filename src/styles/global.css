@@ -95,6 +95,10 @@ h2 {
   font-size: 36px;
 }
 
+.posthome {
+  font-family: var(--body);
+}
+
 p {
   font-family: var(--body);
   hyphens: auto;
@@ -221,7 +225,7 @@ li {
   color: white;
   border-radius: 6px;
   font-family: var(--body);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   padding: 0.3em 0.6em 0.2em;
 }
@@ -322,10 +326,12 @@ footer {
   width: 20px;
   border-radius: 50%;
   border: 2px solid #fdebf3;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s;
 }
 
 .icon__link:hover {
   border-color: var(--text-link);
+  transform: translateY(-6px);
 }
 
 .masterdon-icon {
@@ -561,6 +567,7 @@ html.light .hero-image {
   content: url('/images/mv.webp');
 }
 
-ul,ol {
-margin-bottom: 1rem;
+ul,
+ol {
+  margin-bottom: 1rem;
 }
