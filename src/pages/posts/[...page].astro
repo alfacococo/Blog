@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Paginator from '../../components/Paginator.astro';
 import HeroImage from '../../components/HeroImage.astro';
+import PostCardList from '../../components/PostCardList.astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts = (await getCollection('posts')).sort(
@@ -21,28 +22,10 @@ const pageTitle = 'Posts';
   <div class="gif">
     <HeroImage className="theme-img" />
   </div>
-  <h2 class="text-2xl font-bold underline decoration-[var(--underline)]">Blog</h2>
-  <ul role="list" class="timeline">
-    {
-      page.data.map((post, index) => (
-        <li class="flex justify-start items-start mb-4 sm:pl-8">
-          <time class="post-date badge--item badge w-[82px] block whitespace-nowrap">
-            {post.data.date}
-          </time>
-          <div class="inline-block">
-            <a href={`/posts/${post.id}/`} class="post-title">
-              {post.data.title}
-            </a>
-            {page.currentPage === 1 && index === 0 && (
-              <sup class="text-[12px] text-white bg-red-400 rounded px-1 py-px">
-                NEW
-              </sup>
-            )}
-          </div>
-        </li>
-      ))
-    }
-  </ul>
+  <h2 class="text-2xl font-bold underline decoration-[var(--underline)]">
+    Blog
+  </h2>
+  <PostCardList posts={page.data} showNewBadgeOnFirstItem={page.currentPage === 1} />
 
   <!-- ✅ 分页控件 -->
   <Paginator page={page} basePath="/posts" />

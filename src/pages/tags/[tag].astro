@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/Layout.astro';
+import PostCardList from '../../components/PostCardList.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
@@ -25,14 +26,5 @@ const { posts } = Astro.props as Props;
 ---
 <BaseLayout pageTitle={tag}>
   <h3 class="my-8 text-xl">包含「{tag}」标签的文章</h3>
-  <ul class="list-disc pl-4 ">
-    {posts.map((post) => (
-      <li class="mb-4">
-        <a href={`/posts/${post.id}/`}>
-          <h4 class="text-lg font-medium border-b-2 inline border-[#375a7f]">{post.data.title}</h4>
-          <p class="text-[#333333] text-base">{post.data.description}</p>
-        </a>
-      </li>
-    ))}
-  </ul>
+  <PostCardList posts={posts} />
 </BaseLayout>
