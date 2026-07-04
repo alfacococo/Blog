@@ -1,4 +1,6 @@
 ---
+import { navigate } from 'astro:transitions/client';
+
 interface Props {
   page: {
     currentPage: number;
@@ -15,88 +17,203 @@ const { page, basePath } = Astro.props;
 const current = page.currentPage;
 const total = page.lastPage;
 
-// ✅ 构建分页页码数组（1, 2, '…', N 形式）
-function getPageItems(current: number, total: number): (number | string)[] {
+// ✅ 构建分页页码数组（1, 2, '…', N-1, N 形式）
+function getPageItems(total: number): (number | string)[] {
   const pages: (number | string)[] = [];
 
   if (total <= 5) {
     for (let i = 1; i <= total; i++) pages.push(i);
-  } else if (current <= 3) {
-    pages.push(1, 2, 3, '...', total);
-  } else if (current >= total - 2) {
-    pages.push(1, '...', total - 2, total - 1, total);
   } else {
-    pages.push(1, '...', current, '...', total);
+    pages.push(1, 2, '...', total - 1, total);
   }
 
   return pages;
 }
 
-const pageItems = getPageItems(current, total);
+const pageItems = getPageItems(total);
+
+function getPageHref(pageNumber: number): string {
+  return pageNumber === 1 ? basePath : `${basePath}/${pageNumber}/`;
+}
 ---
+
 <nav aria-label="Page navigation example" class="mt-10">
   <ul class="flex items-center -space-x-px h-10 text-base justify-center">
-
     <!-- Prev Button -->
     <li>
-      {page.url.prev ? (
-        <a href={page.url.prev} class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Previous</span>
-          <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
-          </svg>
-        </a>
-      ) : (
-        <span class="flex items-center justify-center px-4 h-10 ms-0 text-gray-400 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed">
-          <svg class="w-3 h-3" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 1 1 5l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-      )}
+      {
+        page.url.prev ? (
+          <a
+            href={page.url.prev}
+            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <span class="sr-only">Previous</span>
+            <svg
+              class="w-3 h-3 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 1 1 5l4 4"
+              />
+            </svg>
+          </a>
+        ) : (
+          <span class="flex items-center justify-center px-4 h-10 ms-0 text-gray-400 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed">
+            <svg
+              class="w-3 h-3"
+              viewBox="0 0 6 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 1 1 5l4 4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        )
+      }
     </li>
 
     <!-- Page Numbers -->
-    {pageItems.map((p) => {
-      if (p === '...') {
-        return <li><span class="px-4 h-10 flex items-center justify-center text-gray-400">…</span></li>;
-      }
+    {
+      pageItems.map((p) => {
+        if (p === '...') {
+          return (
+            <li>
+              <form
+                data-page-jump-form
+                data-base-path={basePath}
+                class="flex items-center h-10"
+              >
+                <input
+                  type="number"
+                  name="page"
+                  min="1"
+                  max={total}
+                  inputmode="numeric"
+                  class="w-10 h-10 border border-gray-300 bg-white px-2 text-center text-sm text-gray-700 outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                  placeholder={String(current)}
+                />
+                <button
+                  type="submit"
+                  class="h-10 border border-l-0 border-gray-300 bg-white w-10 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                >
+                  Go
+                </button>
+              </form>
+            </li>
+          );
+        }
 
-      const href = p === 1 ? `${basePath}` : `${basePath}/${p}/`;
-      const isActive = p === current;
+        const href = getPageHref(p as number);
+        const isActive = p === current;
 
-      return (
-        <li>
-          <a
-            href={href}
-            aria-current={isActive ? 'page' : undefined}
-            class={`flex items-center justify-center px-4 h-10 leading-tight border ${
-              isActive
-                ? 'z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
-                : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-            }`}
-          >
-            {p}
-          </a>
-        </li>
-      );
-    })}
+        return (
+          <li>
+            <a
+              href={href}
+              aria-current={isActive ? 'page' : undefined}
+              class={`flex items-center justify-center px-4 h-10 leading-tight border ${
+                isActive
+                  ? 'z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
+                  : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+              }`}
+            >
+              {p}
+            </a>
+          </li>
+        );
+      })
+    }
 
     <!-- Next Button -->
     <li>
-      {page.url.next ? (
-        <a href={page.url.next} class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Next</span>
-          <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-          </svg>
-        </a>
-      ) : (
-        <span class="flex items-center justify-center px-4 h-10 text-gray-400 bg-white border border-gray-300 rounded-e-lg cursor-not-allowed">
-          <svg class="w-3 h-3" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-      )}
+      {
+        page.url.next ? (
+          <a
+            href={page.url.next}
+            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <span class="sr-only">Next</span>
+            <svg
+              class="w-3 h-3 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </a>
+        ) : (
+          <span class="flex items-center justify-center px-4 h-10 text-gray-400 bg-white border border-gray-300 rounded-e-lg cursor-not-allowed">
+            <svg
+              class="w-3 h-3"
+              viewBox="0 0 6 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m1 9 4-4-4-4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        )
+      }
     </li>
   </ul>
 </nav>
+
+<script is:inline>
+  const attachPageJumpHandlers = () => {
+    document.querySelectorAll('[data-page-jump-form]').forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = form.querySelector('input[name="page"]');
+        if (!input) return;
+
+        const value = Number(input.value);
+        const min = Number(input.min);
+        const max = Number(input.max);
+
+        if (!Number.isInteger(value) || value < min || value > max) {
+          return;
+        }
+
+        const basePath = form.getAttribute('data-base-path') || '/';
+        const target = value === 1 ? basePath : `${basePath}/${value}/`;
+
+        if (window.history && window.history.pushState) {
+          window.history.pushState({}, '', target);
+          window.dispatchEvent(new Event('popstate'));
+        } else {
+          window.location.assign(target);
+        }
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', attachPageJumpHandlers);
+  document.addEventListener('DOMContentLoaded', attachPageJumpHandlers);
+</script>
