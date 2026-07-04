@@ -6,10 +6,14 @@ import PostCardList from '../../components/PostCardList.astro';
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
 
-  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags ?? []))];
+  const uniqueTags = [
+    ...new Set(allPosts.flatMap((post) => post.data.tags ?? [])),
+  ];
 
   return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) => post.data.tags?.includes(tag));
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags?.includes(tag),
+    );
     return {
       params: { tag },
       props: { posts: filteredPosts },
@@ -24,6 +28,7 @@ type Props = {
 const { tag } = Astro.params;
 const { posts } = Astro.props as Props;
 ---
+
 <BaseLayout pageTitle={tag}>
   <h3 class="my-8 text-xl">包含「{tag}」标签的文章</h3>
   <PostCardList posts={posts} />
