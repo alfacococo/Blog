@@ -15,7 +15,9 @@ allPosts.forEach((post) => {
   });
 });
 
-const tags = Object.keys(tagCountMap).sort((a, b) => tagCountMap[b] - tagCountMap[a]);
+const tags = Object.keys(tagCountMap).sort(
+  (a, b) => tagCountMap[b] - tagCountMap[a],
+);
 
 const pageTitle = '标签索引';
 ---
@@ -30,7 +32,8 @@ const pageTitle = '标签索引';
         <p>
           <a
             href={`/tags/${tag}`}
-            class="tag text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8]  bg-[#584966] transition duration-300 ease-in-out"
+            data-tag-link
+            class="tag text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] transition duration-300 ease-in-out"
           >
             {tag}({tagCountMap[tag]})
           </a>
@@ -38,4 +41,46 @@ const pageTitle = '标签索引';
       ))
     }
   </div>
+  <style>
+    .tag {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .tag.is-pressed {
+      background-color: #9076a8;
+      transform: scale(0.97);
+    }
+  </style>
+
+  <script>
+    import { navigate } from 'astro:transitions/client';
+
+    const attachTagTapFeedback = () => {
+      document.querySelectorAll('a[data-tag-link]').forEach((link) => {
+        const handlePressStart = () => link.classList.add('is-pressed');
+        const handlePressEnd = () => link.classList.remove('is-pressed');
+
+        link.addEventListener('pointerdown', handlePressStart);
+        link.addEventListener('pointerup', handlePressEnd);
+        link.addEventListener('pointerleave', handlePressEnd);
+        link.addEventListener('pointercancel', handlePressEnd);
+
+        link.addEventListener('click', (event) => {
+          const href = link.getAttribute('href');
+          if (!href) return;
+
+          event.preventDefault();
+          link.classList.add('is-pressed');
+
+          window.setTimeout(() => {
+            navigate(href);
+          }, 120);
+        });
+      });
+    };
+
+    document.addEventListener('astro:page-load', attachTagTapFeedback);
+    document.addEventListener('DOMContentLoaded', attachTagTapFeedback);
+  </script>
 </BaseLayout>
