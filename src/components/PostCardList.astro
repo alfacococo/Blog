@@ -4,9 +4,14 @@ import type { CollectionEntry } from 'astro:content';
 interface Props {
   posts: CollectionEntry<'posts'>[];
   showNewBadgeOnFirstItem?: boolean;
+  showTags?: boolean;
 }
 
-const { posts, showNewBadgeOnFirstItem = false } = Astro.props;
+const {
+  posts,
+  showNewBadgeOnFirstItem = false,
+  showTags = false,
+} = Astro.props;
 ---
 
 <ul role="list" class="mt-6 space-y-4">
@@ -18,15 +23,26 @@ const { posts, showNewBadgeOnFirstItem = false } = Astro.props;
           class="timeline-card group block rounded-2xl border-[var(--line-color)] bg-[var(--bg)]/80 p-5 shadow-sm transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md"
         >
           <div class="flex flex-col gap-3 sm:items-start sm:justify-between">
-            <div class="flex items-center gap-2 sm:min-w-[110px]">
-              <time class="whitespace-nowrap text-sm text-[var(--text-light)] badge">
-                {post.data.date}
-              </time>
-              {showNewBadgeOnFirstItem && index === 0 && (
-                <span class="rounded-full bg-red-400 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
-                  NEW
-                </span>
-              )}
+            <div class="flex flex-col gap-2 sm:min-w-[110px]">
+              <div class="flex items-center gap-2">
+                <time class="whitespace-nowrap text-sm text-[var(--text-light)] badge">
+                  {post.data.date}
+                </time>
+                {showTags && post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags.map((tag) => (
+                      <span class="rounded-full border border-[var(--line-color)] px-2 py-0.5 text-[11px] text-[var(--text-light)]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {showNewBadgeOnFirstItem && index === 0 && (
+                  <span class="rounded-full bg-red-400 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
+                    NEW
+                  </span>
+                )}
+              </div>
             </div>
             <div class="flex-1">
               <h3 class="text-lg font-semibold text-[var(--text)] transition-colors duration-300 group-hover:text-[var(--underline)]">
