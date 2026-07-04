@@ -473,8 +473,12 @@ html.light .masterdon-icon {
   text-indent: 0;
 }
 
-.tag-text {
+html.light .tag-text {
   color: #375a7f;
+}
+
+.tag-text {
+  color: var(--text-link);
 }
 
 /* Posts' List/ Timeline */
