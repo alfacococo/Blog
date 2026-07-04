@@ -26,14 +26,14 @@ const pageTitle = '标签索引';
   <div class="my-8 text-xl border-l-4 pl-4">
     <h3>也可以通过以下标签来查看博文~</h3>
   </div>
-  <div class="tags gap-4 flex flex-wrap">
+  <div class="tags gap-1 flex flex-wrap">
     {
       tags.map((tag) => (
         <p>
           <a
             href={`/tags/${tag}`}
             data-tag-link
-            class="tag text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] transition duration-300 ease-in-out"
+            class="tag text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] transition-colors duration-300 ease-in-out"
           >
             {tag}({tagCountMap[tag]})
           </a>
@@ -43,6 +43,10 @@ const pageTitle = '标签索引';
   </div>
   <style>
     .tag {
+      display: inline-block;
+      line-height: 1.2;
+      font-size: 1rem;
+      box-sizing: border-box;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
