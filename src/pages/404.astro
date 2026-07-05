@@ -1,33 +1,17 @@
 ---
-const description = "404";
-import "../styles/global.css";
-import Layout from "../layouts/Layout.astro";
+const description = '404';
+import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import HeroImage from '../components/HeroImage.astro';
 ---
 
 <Layout>
   <div class="lost">
     <div class="gif">
-      <img
-        src="/images/mv-dark.png"
-        role="presentation"
-        width="400"
-        height="259"
-        decoding="async"
-        class="mx-auto theme-img theme-img-dark"
-      />
-      <img
-        src="/images/mv.png"
-        role="presentation"
-        width="400"
-        height="259"
-        decoding="async"
-        class="mx-auto theme-img theme-img-light"
-      />
+      <HeroImage className="theme-img" />
     </div>
     <h1 class="lost__header">{description}</h1>
-    <p class="lost__body">
-      好像你迷路了呢……卷毛羊的羊圈里没有这个页面哦。
-    </p>
+    <p class="lost__body">好像你迷路了呢……卷毛羊的羊圈里没有这个页面哦。</p>
     <p>
       <a class="lost__link" href="/">回到首页</a>
     </p>
@@ -38,14 +22,7 @@ import Layout from "../layouts/Layout.astro";
   .lost {
     margin: 0 auto;
   }
-  .theme-img-light {
-    display: none;
-  }
-
-  :global(.light) .theme-img-dark {
-    display: none;
-  }
-  :global(.light) .theme-img-light {
-    display: block;
+  .lost__body {
+    color: var(--text);
   }
 </style>
