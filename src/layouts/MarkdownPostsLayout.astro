@@ -17,11 +17,9 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
   <h2 style="text-decoration:none" class="postshome">{frontmatter.title}</h2>
   <ul class="badge__list">
     <li>
-      <span class="badge badge--item whitespace-nowrap "
-        >发布于</span
-      >{frontmatter.date}{
-        frontmatter.updateDate && `(更新于 ${frontmatter.updateDate})`
-      }
+      <span class="badge badge--item whitespace-nowrap">发布于</span>{
+        frontmatter.date
+      }{frontmatter.updateDate && `(更新于 ${frontmatter.updateDate})`}
     </li>
     <li>
       <span class="badge badge--item">分类</span>
@@ -50,20 +48,48 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
   .tag {
     margin-right: 15px;
   }
+
+  :global(.medium-zoom-overlay),
+  :global(.medium-zoom-image--opened) {
+    z-index: 9999;
+  }
 </style>
 
 <script>
   import mediumZoom from 'medium-zoom';
 
+  let zoomInstance: ReturnType<typeof mediumZoom> | null = null;
+  let zoomInitQueued = false;
+
   function initImageZoom() {
-    mediumZoom('.prose img', {
+    const images = Array.from(document.querySelectorAll('.prose img'));
+    if (!images.length) return;
+
+    if (zoomInstance) {
+      zoomInstance.detach();
+    }
+
+    zoomInstance = mediumZoom(images, {
       background: 'rgba(0, 0, 0, 0.8)',
-      margin: 24, // 放大后图片跟屏幕边缘留一点呼吸空间
+      margin: 24,
+      scrollOffset: 0,
     });
   }
 
-  initImageZoom();
-  document.addEventListener('astro:page-load', initImageZoom);
+  function queueImageZoomInit() {
+    if (zoomInitQueued) return;
+
+    zoomInitQueued = true;
+    requestAnimationFrame(() => {
+      zoomInitQueued = false;
+      initImageZoom();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', queueImageZoomInit);
+  document.addEventListener('astro:page-load', queueImageZoomInit);
+  document.addEventListener('astro:after-swap', queueImageZoomInit);
+  window.addEventListener('load', queueImageZoomInit);
 
   // 查找所有代码块
   const blocks = document.querySelectorAll('pre');
