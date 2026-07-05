@@ -49,7 +49,9 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     margin-right: 15px;
   }
 
-  :global(.medium-zoom-overlay),
+  :global(.medium-zoom-overlay) {
+    z-index: 9998;
+  }
   :global(.medium-zoom-image--opened) {
     z-index: 9999;
   }
@@ -58,38 +60,20 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 <script>
   import mediumZoom from 'medium-zoom';
 
-  let zoomInstance: ReturnType<typeof mediumZoom> | null = null;
-  let zoomInitQueued = false;
+  let zoomInstance = null;
 
-  function initImageZoom() {
-    const images = Array.from(document.querySelectorAll('.prose img'));
-    if (!images.length) return;
-
+  function init() {
     if (zoomInstance) {
       zoomInstance.detach();
     }
-
-    zoomInstance = mediumZoom(images, {
-      background: 'rgba(0, 0, 0, 0.8)',
-      margin: 24,
-      scrollOffset: 0,
-    });
+    const images = document.querySelectorAll('.prose img');
+    if (images.length > 0) {
+      zoomInstance = mediumZoom(images, { background: 'rgba(0, 0, 0, 0.8)' });
+    }
   }
 
-  function queueImageZoomInit() {
-    if (zoomInitQueued) return;
-
-    zoomInitQueued = true;
-    requestAnimationFrame(() => {
-      zoomInitQueued = false;
-      initImageZoom();
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', queueImageZoomInit);
-  document.addEventListener('astro:page-load', queueImageZoomInit);
-  document.addEventListener('astro:after-swap', queueImageZoomInit);
-  window.addEventListener('load', queueImageZoomInit);
+  // 仅使用这一个事件监听
+  document.addEventListener('astro:page-load', init);
 
   // 查找所有代码块
   const blocks = document.querySelectorAll('pre');
