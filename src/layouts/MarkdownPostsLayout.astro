@@ -58,9 +58,9 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 </style>
 
 <script>
-  import mediumZoom from 'medium-zoom';
+  import mediumZoom, { type Zoom } from 'medium-zoom';
 
-  let zoomInstance = null;
+  let zoomInstance: Zoom | null = null;
 
   function init() {
     if (zoomInstance) {
