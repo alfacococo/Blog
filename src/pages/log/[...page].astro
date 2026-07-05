@@ -1,20 +1,15 @@
 ---
+import type { GetStaticPathsOptions } from 'astro';
 import BaseLayout from '../../layouts/Layout.astro';
 import TimelineItem from '../../components/TimelineItem.astro';
 import Paginator from '../../components/Paginator.astro';
 import { changelogEntries } from '../../data/changelog';
 
-const pageSize = 5;
-const totalPages = Math.ceil(changelogEntries.length / pageSize);
-const page = {
-  data: changelogEntries.slice(0, pageSize),
-  currentPage: 1,
-  lastPage: totalPages,
-  url: {
-    prev: undefined,
-    next: totalPages > 1 ? '/log/2/' : undefined,
-  },
-};
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  return paginate(changelogEntries, { pageSize: 5 });
+}
+
+const { page } = Astro.props;
 ---
 
 <BaseLayout>

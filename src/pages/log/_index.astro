@@ -1,0 +1,40 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import BaseLayout from '../../layouts/Layout.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+import Paginator from '../../components/Paginator.astro';
+import { changelogEntries } from '../../data/changelog';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  return paginate(changelogEntries, { pageSize: 5 });
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout>
+  <div class="my-8 text-xl border-l-4 pl-4">
+    <h3>赛博羊圈装修日志</h3>
+  </div>
+  <div class="changelog">
+    <ul role="list" class="timeline">
+      {page.data.map((entry) => (
+        <TimelineItem time={entry.time}>
+          <ul class="space-y-2">
+            {entry.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </TimelineItem>
+      ))}
+    </ul>
+  </div>
+
+  <Paginator page={page} basePath="/log" />
+</BaseLayout>
+
+<style>
+  .timeline li {
+    text-indent: 1em;
+  }
+</style>
