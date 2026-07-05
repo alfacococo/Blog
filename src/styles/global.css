@@ -166,6 +166,15 @@ p {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.prose p a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.prose .toc a {
+  color: var(--text)
+}
+
 /* medium-zoom fallback styles: keep these static so route transitions never lose zoom CSS */
 .medium-zoom-overlay {
   position: fixed;
