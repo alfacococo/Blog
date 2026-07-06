@@ -59,7 +59,7 @@ async function main() {
       `${file} → ${newName} (${(beforeSize / 1024).toFixed(0)}KB → ${(afterSize / 1024).toFixed(0)}KB, 省了 ${savedPercent}%)`
     );
 
-    markdownLines.push(`![](images/${newName})`);
+    markdownLines.push(`![](/images/${newName})`);
   }
 
   const output = markdownLines.join("\n\n");
