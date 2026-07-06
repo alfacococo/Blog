@@ -15,3 +15,29 @@ import SearchBox from "./SearchBox.astro";
     <ThemeIcon />
   </div>
 </div>
+
+<script>
+  import { onNavigate } from '../scripts/onNavigate';
+
+  function updateActiveNavLink() {
+    const path = window.location.pathname;
+    const links = document.querySelectorAll<HTMLAnchorElement>(
+      '.navbar__title > a, .navbar__menu > a',
+    );
+
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      // 首页只有完全匹配才算命中（不然每个页面都以 "/" 开头会全部命中），
+      // 其他链接用前缀匹配，这样 /posts/post-40/ 、/posts/2/ 这类子页面
+      // 也能让 Posts 保持高亮。
+      const isHome = href === '/';
+      const isActive = isHome ? path === '/' : path.startsWith(href);
+
+      link.classList.toggle('active', isActive);
+    });
+  }
+
+  onNavigate(updateActiveNavLink);
+</script>

@@ -56,6 +56,14 @@
 .navbar__title>a:hover::after,
 .navbar__menu>a:hover::after,
 #search-container:hover::after,
-.navbar__menu>a:focus::after {
+.navbar__menu>a:focus::after,
+.navbar__title>a.active::after,
+.navbar__menu>a.active::after {
   transform: scaleX(1);
+}
+
+/* 当前页面对应的导航链接，文字颜色也跟着改变，不只靠下划线提示 */
+.navbar__title>a.active,
+.navbar__menu>a.active {
+  color: var(--underline);
 }
