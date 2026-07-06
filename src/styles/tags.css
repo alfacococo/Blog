@@ -6,6 +6,14 @@
   flex-wrap: wrap;
 }
 
+html.light .tag-text {
+  color: #375a7f;
+}
+
+.tag-text {
+  color: var(--text-link);
+}
+
 .tag {
   margin: 0.25em;
   border: dotted 1px #a1a1a1;
@@ -13,12 +21,15 @@
   padding: .5em 1em;
   font-size: 20px;
   text-indent: 0;
+  display: inline-block;
+  line-height: 1.2;
+  font-size: 1rem;
+  box-sizing: border-box;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-html.light .tag-text {
-  color: #375a7f;
-}
-
-.tag-text {
-  color: var(--text-link);
+.tag.is-pressed {
+  background-color: #9076a8;
+  transform: scale(0.97);
 }
