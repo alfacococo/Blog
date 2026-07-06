@@ -45,7 +45,7 @@ function getPageHref(pageNumber: number): string {
         page.url.prev ? (
           <a
             href={page.url.prev}
-            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-[var(--background)] border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-[var(--underline)]"
           >
             <span class="sr-only">Previous</span>
             <svg
@@ -65,7 +65,7 @@ function getPageHref(pageNumber: number): string {
             </svg>
           </a>
         ) : (
-          <span class="flex items-center justify-center px-4 h-10 ms-0 text-gray-400 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed">
+          <span class="flex items-center justify-center px-4 h-10 ms-0 text-gray-400 bg-[var(--background)] border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed">
             <svg
               class="w-3 h-3"
               viewBox="0 0 6 10"
@@ -102,12 +102,12 @@ function getPageHref(pageNumber: number): string {
                   min="1"
                   max={total}
                   inputmode="numeric"
-                  class="w-10 h-10 border border-gray-300 bg-white px-2 text-center text-sm text-gray-700 outline-none"
+                  class="w-10 h-10 border border-gray-300 bg-[var(--background)] px-2 text-center text-sm text-gray-700 outline-none"
                   placeholder={String(current)}
                 />
                 <button
                   type="submit"
-                  class="h-10 border border-l-0 border-gray-300 bg-white w-10 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-700 "
+                  class="h-10 border border-l-0 border-gray-300 bg-[var(--background)] w-10 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-700 "
                 >
                   Go
                 </button>
@@ -126,8 +126,8 @@ function getPageHref(pageNumber: number): string {
               aria-current={isActive ? 'page' : undefined}
               class={`flex items-center justify-center px-4 h-10 leading-tight border ${
                 isActive
-                  ? 'z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 '
-                  : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700 '
+                  ? 'z-10 [color:var(--text-link)] border-[var(--text-link)] bg-[var(--background)] hover:bg-gray-100 hover:text-[var(--underline)] '
+                  : 'text-gray-500 bg-[var(--background)] border-gray-300 hover:bg-gray-100 hover:text-[var(--underline)] '
               }`}
             >
               {p}
@@ -143,7 +143,7 @@ function getPageHref(pageNumber: number): string {
         page.url.next ? (
           <a
             href={page.url.next}
-            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
+            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-[var(--background)] border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
           >
             <span class="sr-only">Next</span>
             <svg
@@ -163,7 +163,7 @@ function getPageHref(pageNumber: number): string {
             </svg>
           </a>
         ) : (
-          <span class="flex items-center justify-center px-4 h-10 text-gray-400 bg-white border border-gray-300 rounded-e-lg cursor-not-allowed">
+          <span class="flex items-center justify-center px-4 h-10 text-gray-400 bg-[var(--background)] border border-gray-300 rounded-e-lg cursor-not-allowed">
             <svg
               class="w-3 h-3"
               viewBox="0 0 6 10"
