@@ -63,7 +63,7 @@ html.light {
 body {
   width: 100%;
   min-height: 100vh;
-  max-width: 600px;
+  max-width: 650px;
   background-color: var(--background);
   padding: 20px;
   text-align: justify;
