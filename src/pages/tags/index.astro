@@ -1,23 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/Layout.astro';
+import { getTagCounts, getSortedTags } from '../../utils/tags';
 
 const allPosts = await getCollection('posts');
-
-// ✅ 标签计数对象
-const tagCountMap: Record<string, number> = {};
-
-allPosts.forEach((post) => {
-  (post.data.tags ?? []).forEach((tag) => {
-    if (typeof tag === 'string' && tag.trim() !== '') {
-      tagCountMap[tag] = (tagCountMap[tag] || 0) + 1;
-    }
-  });
-});
-
-const tags = Object.keys(tagCountMap).sort(
-  (a, b) => tagCountMap[b] - tagCountMap[a],
-);
+const tagCountMap = getTagCounts(allPosts);
+const tags = getSortedTags(tagCountMap);
 
 const pageTitle = '标签索引';
 ---
