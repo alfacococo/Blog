@@ -35,9 +35,6 @@ const pageURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
 
-    <!-- 不希望被搜索引擎收录，根本不参与索引/追踪链接，配合 public/robots.txt 一起生效 -->
-    <meta name="robots" content="noindex, nofollow" />
-
     <!-- Open Graph （分享到 Misskey / 长毛象等联邦宇宙时用于生成预览卡片） -->
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="Curly Sheep" />
