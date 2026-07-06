@@ -1,0 +1,11 @@
+/* 默认是深色模式的图片 */
+.hero-image {
+  content: url('/images/mv-dark.webp');
+  width: 400px;
+  height: auto;
+}
+
+/* 当 html 拥有 light 类时，切换图片 */
+html.light .hero-image {
+  content: url('/images/mv.webp');
+}

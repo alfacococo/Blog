@@ -1,0 +1,34 @@
+/* Media Query */
+@media only screen and (max-width: 600px) {
+  body {
+    width: 100%;
+  }
+
+  .pro-img,
+  .post-img {
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+  }
+
+  .navbar {
+    display: initial;
+  }
+
+  .navbar__title {
+    text-align: center;
+  }
+
+  .navbar__menu {
+    text-align: center;
+  }
+
+  .navbar__menu>a {
+    margin: 0 11px;
+  }
+
+  .badge__list {
+    font-size: 16px;
+    text-indent: 0;
+  }
+}

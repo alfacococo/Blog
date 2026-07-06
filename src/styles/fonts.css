@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Pacifico-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/JosefinSans-Regular.ttf') format('truetype');
+  font-display: swap;
+}

@@ -1,0 +1,58 @@
+/* Footer */
+footer {
+  margin: 4rem 0;
+}
+
+.footer__link {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.footer {
+  cursor: default;
+  list-style: none;
+  padding: 0;
+}
+
+.icon__btn {
+  display: inline-block;
+  padding: 0 0.5rem;
+}
+
+.icon__link {
+  position: relative;
+  display: block;
+  padding: 15px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 2px solid #fdebf3;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s;
+}
+
+.icon__link:hover {
+  border-color: var(--text-link);
+  transform: translateY(-6px);
+}
+
+.masterdon-icon {
+  /* content: url("/images/mastodon.svg"); */
+  position: absolute;
+  vertical-align: top;
+  top: 5px;
+  left: 5px;
+}
+
+.rss-icon {
+  /* content: url("/images/rss.svg"); */
+  position: absolute;
+  vertical-align: top;
+  top: 5px;
+  left: 5px;
+}
+
+.footer-stats {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin: 0.5rem 0;
+}

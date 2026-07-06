@@ -1,0 +1,41 @@
+/* Posts' List/ Timeline */
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  position: relative;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.timeline li {
+  text-indent: 1em;
+}
+
+.post-title {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.post-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background-color: var(--underline);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.post-title:hover::after {
+  transform: scaleX(1);
+}

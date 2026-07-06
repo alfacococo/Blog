@@ -1,0 +1,61 @@
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.8rem;
+}
+
+.navbar__title {
+  font-family: var(--header);
+  font-size: 24px;
+}
+
+.navbar__menu {
+  font-family: var(--body);
+  font-size: 20px;
+  text-align: right;
+}
+
+#search-container {
+  display: inline-flex;
+}
+
+#search-trigger {
+  cursor: pointer;
+}
+
+.navbar__title>a,
+.navbar__menu>a,
+#search-container {
+  color: var(--text);
+  text-decoration: none;
+  position: relative;
+}
+
+.navbar__menu>a,
+#search-containe {
+  margin: 0 10px;
+}
+
+/* 悬停下划线动画：默认宽度为 0，悬停时从中心向两侧展开 */
+.navbar__title>a::after,
+.navbar__menu>a::after,
+#search-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background-color: var(--underline);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.navbar__title>a:hover::after,
+.navbar__menu>a:hover::after,
+#search-container:hover::after,
+.navbar__menu>a:focus::after {
+  transform: scaleX(1);
+}

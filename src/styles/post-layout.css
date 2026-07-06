@@ -1,0 +1,35 @@
+/* Post Layout */
+.foreword {
+  font-size: 16px;
+  color: var(--text);
+}
+
+.divider {
+  border-top: 2px dotted #5C5B77;
+  width: 8%;
+}
+
+/* 博文图片 */
+
+.prose img {
+  display: block;
+  max-width: 300px;
+  /* 对应你原来 md:w-[300px] 这个"桌面端默认宽度" */
+  width: 100%;
+  /* 在容器允许范围内尽量撑满，但不超过 max-width */
+  margin: 0.75rem auto;
+  /* 上下间距 + 水平居中，对应你原来的 mx-auto my-3 */
+  border-radius: 6px;
+  /* 可选，看你喜不喜欢圆角 */
+}
+
+@media (max-width: 768px) {
+  .prose img {
+    max-width: 200px;
+    /* 对应你原来手机端的 w-[200px] */
+  }
+}
+
+.wl-meta-foot {
+  display: none;
+}

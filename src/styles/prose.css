@@ -1,0 +1,103 @@
+/* 博文内部样式 */
+
+.prose p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  text-indent: 1rem;
+}
+
+.prose h3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: solid 4px var(--text);
+  font-size: 1.15rem;
+}
+
+.prose h4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: solid 4px var(--text);
+  font-size: 1rem;
+}
+
+.prose li {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+.prose p code,
+.prose li code {
+  background: #f3f4f5;
+  color: #476582;
+  padding: 0.2em 0;
+  border-radius: 3px;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.85em;
+}
+
+.prose pre {
+  margin: 1rem 0;
+  border-radius: 16px;
+}
+
+.prose pre code {
+  display: block;
+  padding: 1rem;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.prose p a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.prose .toc a {
+  color: var(--text)
+}
+
+/* medium-zoom fallback styles: keep these static so route transitions never lose zoom CSS */
+.medium-zoom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity .3s;
+  will-change: opacity;
+}
+
+.medium-zoom--opened .medium-zoom-overlay {
+  cursor: pointer;
+  cursor: zoom-out;
+  opacity: 1;
+}
+
+.medium-zoom-image {
+  cursor: pointer;
+  cursor: zoom-in;
+  transition: transform .3s cubic-bezier(.2, 0, .2, 1) !important;
+}
+
+.medium-zoom-image--hidden {
+  visibility: hidden;
+}
+
+.medium-zoom-image--opened {
+  position: relative;
+  cursor: pointer;
+  cursor: zoom-out;
+  will-change: transform;
+  z-index: 9999;
+}
+
+.medium-zoom-overlay {
+  z-index: 9998;
+}
+
+small,
+li {
+  font-family: var(--body);
+}

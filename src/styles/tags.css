@@ -1,0 +1,24 @@
+/* Tags */
+
+.tags {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin: 0.25em;
+  border: dotted 1px #a1a1a1;
+  border-radius: .5em;
+  padding: .5em 1em;
+  font-size: 20px;
+  text-indent: 0;
+}
+
+html.light .tag-text {
+  color: #375a7f;
+}
+
+.tag-text {
+  color: var(--text-link);
+}

@@ -1,0 +1,74 @@
+/* Gifs */
+.gif {
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
+/* Badge */
+.badge {
+  background-color: #584966;
+  color: white;
+  border-radius: 6px;
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0.3em 0.6em 0.2em;
+}
+
+.badge__list {
+  list-style: none;
+  padding: 0;
+}
+
+.badge__list>li {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 0 20px;
+}
+
+.badge--item {
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 5px;
+  padding: 0.5em 0.3em 0.3em 0.3em;
+  color: white
+}
+
+.badge__link {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.badge__link:hover {
+  text-decoration: underline;
+}
+
+
+
+/* Button */
+.btn {
+  text-align: center;
+  background: rgba(0, 0, 0, 0);
+  border: 2px solid var(--button);
+  border-radius: 8px;
+  color: var(--text);
+  font: 600 16px var(--body);
+  padding: 8px 16px;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+.btn:hover {
+  background-color: var(--button);
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+/* Items */
+.center {
+  text-align: center;
+}
+
+.pro-img {
+  border-radius: 16px;
+  margin-top: 10px;
+}

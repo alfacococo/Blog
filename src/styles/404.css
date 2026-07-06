@@ -1,0 +1,23 @@
+/* 404 */
+.lost {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.lost__header {
+  margin: 0 auto 30px;
+  text-align: center;
+  border: 0;
+  line-height: 1;
+  font-size: 7.5rem;
+  letter-spacing: 10px;
+}
+
+.lost__body {
+  color: var(--text);
+}
+
+.lost__link {
+  color: var(--text-link);
+  text-decoration: none;
+}
