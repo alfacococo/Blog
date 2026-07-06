@@ -59,6 +59,7 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 
 <script>
   import mediumZoom, { type Zoom } from 'medium-zoom';
+  import { onNavigate } from '../scripts/onNavigate';
 
   let zoomInstance: Zoom | null = null;
 
@@ -72,30 +73,36 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     }
   }
 
-  // 仅使用这一个事件监听
-  document.addEventListener('astro:page-load', init);
+  onNavigate(init);
 
-  // 查找所有代码块
-  const blocks = document.querySelectorAll('pre');
+  // 查找所有代码块，给每个都加个复制按钮
+  function initCopyButtons() {
+    const blocks = document.querySelectorAll('pre');
 
-  blocks.forEach((block) => {
-    const button = document.createElement('button');
-    button.innerText = 'COPY';
-    button.className = 'copy-btn';
+    blocks.forEach((block) => {
+      // 保险起见：避免同一个 pre 块被重复插入按钮
+      if (block.querySelector('.copy-btn')) return;
 
-    // 点击复制逻辑
-    button.addEventListener('click', () => {
-      const code = block.querySelector('code')?.innerText;
-      if (code) {
-        navigator.clipboard.writeText(code);
-        button.innerText = 'Success!';
-        setTimeout(() => (button.innerText = 'COPY'), 2000);
-      }
+      const button = document.createElement('button');
+      button.innerText = 'COPY';
+      button.className = 'copy-btn';
+
+      // 点击复制逻辑
+      button.addEventListener('click', () => {
+        const code = block.querySelector('code')?.innerText;
+        if (code) {
+          navigator.clipboard.writeText(code);
+          button.innerText = 'Success!';
+          setTimeout(() => (button.innerText = 'COPY'), 2000);
+        }
+      });
+
+      block.style.position = 'relative';
+      block.prepend(button);
     });
+  }
 
-    block.style.position = 'relative';
-    block.prepend(button);
-  });
+  onNavigate(initCopyButtons);
 </script>
 
 <style>

@@ -88,6 +88,8 @@
 </style>
 
 <script>
+  import { onNavigate } from '../scripts/onNavigate';
+
   async function loadMisskeyNote() {
     const textEl = document.getElementById('misskey-note-text');
     const linkEl = document.getElementById(
@@ -227,5 +229,5 @@
 
   // astro:page-load 在首次加载和之后每次 View Transitions 导航完成后都会触发，
   // 这样每次回到首页（DOM 被重新替换）都能重新绑定 observer、重新抓取嘟文
-  document.addEventListener('astro:page-load', initMisskeyNote);
+  onNavigate(initMisskeyNote);
 </script>

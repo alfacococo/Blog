@@ -46,6 +46,8 @@
 </button>
 
 <script>
+  import { onNavigate } from '../scripts/onNavigate';
+
   function updateScrollToTopVisibility() {
     const btn = document.getElementById('scroll-top-button');
     if (!btn) return;
@@ -74,11 +76,7 @@
 
   // scroll 监听器只需要绑定一次：window 对象在 SPA 导航过程中不会被替换，
   // 每次触发时都重新查询当前页面的按钮，就不会有“引用到已经被替换掉的旧节点”的问题
-  if (!window.__scrollToTopBound) {
-    window.__scrollToTopBound = true;
-    window.addEventListener('scroll', updateScrollToTopVisibility);
-  }
+  onNavigate(() => window.addEventListener('scroll', updateScrollToTopVisibility), { once: true });
 
-  initScrollToTop();
-  document.addEventListener('astro:page-load', initScrollToTop);
+  onNavigate(initScrollToTop);
 </script>

@@ -179,6 +179,8 @@ const readingTime = getReadingTime(wordCount);
 </style>
 
 <script>
+  import { onNavigate } from '../../scripts/onNavigate';
+
   function initProgressBar() {
     const bar = document.getElementById('progress-bar');
     if (!bar) return;
@@ -240,8 +242,6 @@ const readingTime = getReadingTime(wordCount);
     });
   }
 
-  initProgressBar();
-  initArticleNavAnimations();
-  document.addEventListener('astro:page-load', initProgressBar);
-  document.addEventListener('astro:page-load', initArticleNavAnimations);
+  onNavigate(initProgressBar);
+  onNavigate(initArticleNavAnimations);
 </script>

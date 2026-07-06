@@ -60,6 +60,8 @@ const { slug } = Astro.props;
 </style>
 
 <script>
+  import { onNavigate } from '../scripts/onNavigate';
+
   function initLikeButton() {
     const wrapper = document.querySelector(".like-button") as HTMLElement;
     if (!wrapper) return;
@@ -108,6 +110,5 @@ const { slug } = Astro.props;
     });
   }
 
-  initLikeButton();
-  document.addEventListener("astro:page-load", initLikeButton);
+  onNavigate(initLikeButton);
 </script>

@@ -27,51 +27,63 @@ import Navigation from "./Navigation.astro";
 </style>
 
 <script>
-  function initSmartHeader() {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-    let upScrollAccum = 0; // 累计上滑距离
-    const SHOW_THRESHOLD = 80; // 累计上滑超过这个距离才显示，可以自己调
-    const header = document.querySelector(".site-header") as HTMLElement;
+  import { onNavigate } from '../scripts/onNavigate';
 
+  let lastScrollY = window.scrollY;
+  let upScrollAccum = 0; // 累计上滑距离
+  let ticking = false;
+  const SHOW_THRESHOLD = 80; // 累计上滑超过这个距离才显示，可以自己调
+
+  function updateHeader() {
+    // 每次触发都重新查询：.site-header 本身没有标 transition:persist（只有它里面的
+    // nav 标了），每次导航都会被换成一个新节点，不能缓存旧引用
+    const header = document.querySelector('.site-header') as HTMLElement | null;
     if (!header) return;
 
-    function updateHeader() {
-      const currentScrollY = window.scrollY;
-      const delta = currentScrollY - lastScrollY; // 正数=往下滑，负数=往上滑
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - lastScrollY; // 正数=往下滑，负数=往上滑
 
-      if (delta > 0) {
-        // 往下滑：重置累计值，隐藏 header
-        upScrollAccum = 0;
-        if (currentScrollY > 80) {
-          header.classList.add("header-hidden");
-        }
-      } else if (delta < 0) {
-        // 往上滑：累加上滑距离
-        upScrollAccum += Math.abs(delta);
-        if (upScrollAccum > SHOW_THRESHOLD) {
-          header.classList.remove("header-hidden");
-        }
+    if (delta > 0) {
+      // 往下滑：重置累计值，隐藏 header
+      upScrollAccum = 0;
+      if (currentScrollY > 80) {
+        header.classList.add('header-hidden');
       }
-
-      // 滚动到顶部附近时，无论方向都强制显示
-      if (currentScrollY <= 80) {
-        header.classList.remove("header-hidden");
-        upScrollAccum = 0;
+    } else if (delta < 0) {
+      // 往上滑：累加上滑距离
+      upScrollAccum += Math.abs(delta);
+      if (upScrollAccum > SHOW_THRESHOLD) {
+        header.classList.remove('header-hidden');
       }
-
-      lastScrollY = currentScrollY;
-      ticking = false;
     }
 
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(updateHeader);
-        ticking = true;
-      }
-    });
+    // 滚动到顶部附近时，无论方向都强制显示
+    if (currentScrollY <= 80) {
+      header.classList.remove('header-hidden');
+      upScrollAccum = 0;
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
   }
 
-  initSmartHeader();
-  document.addEventListener("astro:page-load", initSmartHeader);
+  function resetHeaderScrollState() {
+    // 每次导航后从当前滚动位置重新开始计算，避免延续上一页遗留下来的滚动状态
+    lastScrollY = window.scrollY;
+    upScrollAccum = 0;
+  }
+
+  onNavigate(resetHeaderScrollState);
+
+  // scroll 监听器只需要绑定一次：window 对象在 SPA 导航过程中不会被替换，
+  // 之前每次导航都重新绑一次的话，旧监听器里引用的旧 header 节点早就被替换掉了，
+  // 只会白白累积、什么效果也没有，updateHeader 里每次重新查询当前的 header 就能避开这个问题
+  onNavigate(() => {
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateHeader);
+      }
+    });
+  }, { once: true });
 </script>
