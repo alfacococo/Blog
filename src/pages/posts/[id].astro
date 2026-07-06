@@ -30,10 +30,29 @@ const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
 const wordCount = getWordCount(post.body, { onlyChinese: true }); // 中文为主可启用此选项
 const readingTime = getReadingTime(wordCount);
+
+const firstMarkdownImageMatch = post.body.match(
+  /!\[[^\]]*\]\((\/ ?images\/[^)\s]+|images\/[^)\s]+)/,
+);
+const firstMarkdownImage = firstMarkdownImageMatch?.[1]?.replace(
+  /^images\//,
+  '/images/',
+);
+const resolvedFrontmatter = {
+  ...post.data,
+  image:
+    post.data.image ??
+    (firstMarkdownImage
+      ? {
+          url: firstMarkdownImage,
+          alt: post.data.title,
+        }
+      : undefined),
+};
 ---
 
 <MarkdownPostsLayout
-  frontmatter={post.data}
+  frontmatter={resolvedFrontmatter}
   wordCount={wordCount}
   readingTime={readingTime}
 >
