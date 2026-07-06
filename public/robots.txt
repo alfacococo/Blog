@@ -1,2 +1,70 @@
-User-agent: *
+# 只挡常见搜索引擎爬虫的收录，不影响社交平台/联邦宇宙实例抓取 Open Graph 生成链接预览卡片。
+# 没有被下面列出来的 User-agent，默认视为不受限制（未被禁止的都是允许的）。
+
+User-agent: Googlebot
 Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Baiduspider-image
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+User-agent: Sogou inst spider
+Disallow: /
+
+User-agent: 360Spider
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# 下面这些是社交平台 / 即时通讯 / 联邦宇宙实例用来抓取 Open Graph 生成预览卡片的机器人，
+# 明确放行，方便贴链接的时候能正常显示标题、简介和图片。
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: SkypeUriPreview
+Allow: /
+
+User-agent: Mastodon
+Allow: /
+
+User-agent: *
+Allow: /
