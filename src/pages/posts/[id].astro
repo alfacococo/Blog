@@ -4,6 +4,8 @@ import MarkdownPostsLayout from '../../layouts/MarkdownPostsLayout.astro';
 import { getWordCount, getReadingTime } from '../../utils/wordCount';
 import TableOfContents from '../../components/TableOfContents.astro';
 import LikeButton from '../../components/LikeButton.astro';
+import PostNavigation from '../../components/PostNavigation.astro';
+import ReadingProgressBar from '../../components/ReadingProgressBar.astro';
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -23,8 +25,8 @@ export async function getStaticPaths() {
 
 type Props = {
   post: CollectionEntry<'posts'>;
-  prevPost: CollectionEntry<'posts'>;
-  nextPost: CollectionEntry<'posts'>;
+  prevPost: CollectionEntry<'posts'> | null;
+  nextPost: CollectionEntry<'posts'> | null;
 };
 const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
@@ -38,210 +40,8 @@ const readingTime = getReadingTime(wordCount);
   readingTime={readingTime}
 >
   <TableOfContents headings={headings} />
-  <div class="progress-bar" id="progress-bar"></div>
+  <ReadingProgressBar />
   <Content />
   <LikeButton slug={post.id} />
-  {
-    (prevPost || nextPost) && (
-      <div class="my-6 flex justify-between gap-[20px]">
-        {prevPost ? (
-          <div class="flex-1">
-            <a
-              data-nav-link="prev"
-              class="nav-link nav-link--prev mb-4 inline-block pb-[10px] text-lg sm:mb-6 sm:text-xl"
-              href={`/posts/${prevPost.id}/`}
-            >
-              <span class="mr-1">←</span>
-              <span>上一篇</span>
-            </a>{' '}
-            <div>
-              <a
-                class="article-title-link"
-                data-title-link="prev"
-                href={`/posts/${prevPost.id}/`}
-              >
-                {prevPost.data.title}
-              </a>
-              <p />
-            </div>
-          </div>
-        ) : (
-          <div />
-        )}
-        {nextPost && (
-          <div class="flex flex-col items-end flex-1">
-            <a
-              data-nav-link="next"
-              class="nav-link nav-link--next mb-4 inline-block pb-[10px] text-lg text-right sm:mb-6 sm:text-xl"
-              href={`/posts/${nextPost.id}/`}
-            >
-              <span>下一篇</span>
-              <span class="ml-1">→</span>
-            </a>
-            <div>
-              <a
-                class="article-title-link"
-                data-title-link="next"
-                href={`/posts/${nextPost.id}/`}
-              >
-                {nextPost.data.title}
-              </a>
-              <p />
-            </div>
-          </div>
-        )}
-      </div>
-    )
-  }
+  <PostNavigation prevPost={prevPost} nextPost={nextPost} />
 </MarkdownPostsLayout>
-
-<style>
-  .progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    width: 0%;
-    background: var(--text, #375a7f);
-    z-index: 2000;
-    transition: width 0.1s ease;
-  }
-
-  .nav-link {
-    position: relative;
-    color: var(--text, #375a7f);
-    text-decoration: none;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    background: var(--underline, #375a7f);
-    width: 100%;
-    transform: scaleX(1);
-    transform-origin: left center;
-    opacity: 1;
-  }
-
-  .nav-link--prev::after {
-    right: 0;
-    left: auto;
-    transform-origin: right center;
-  }
-
-  .nav-link--next::after {
-    left: 0;
-    right: auto;
-    transform-origin: left center;
-  }
-
-  .nav-link:hover::after,
-  .nav-link:focus-visible::after,
-  .nav-link:active::after,
-  .nav-link.is-animating::after,
-  .nav-link.is-active::after {
-    animation: nav-underline-replay 0.8s ease forwards;
-  }
-
-  .nav-link:hover,
-  .nav-link:focus-visible,
-  .nav-link:active,
-  .nav-link.is-animating,
-  .nav-link.is-active {
-    color: var(--underline, #375a7f);
-  }
-
-  .article-title-link {
-    display: inline-block;
-    transition: color 0.2s ease;
-  }
-
-  .article-title-link:hover,
-  .article-title-link:focus-visible,
-  .article-title-link.is-active {
-    color: var(--underline, #375a7f);
-  }
-
-  @keyframes nav-underline-replay {
-    from {
-      transform: scaleX(0);
-      opacity: 0;
-    }
-    to {
-      transform: scaleX(1);
-      opacity: 1;
-    }
-  }
-</style>
-
-<script>
-  import { onNavigate } from '../../scripts/onNavigate';
-
-  function initProgressBar() {
-    const bar = document.getElementById('progress-bar');
-    if (!bar) return;
-
-    const progressBar = bar as HTMLElement;
-
-    function update() {
-      const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      progressBar.style.width = `${percent}%`;
-    }
-
-    window.addEventListener('scroll', update);
-    update();
-  }
-  function initArticleNavAnimations() {
-    const titleLinks =
-      document.querySelectorAll<HTMLElement>('[data-title-link]');
-
-    titleLinks.forEach((titleLink) => {
-      const targetKey = titleLink.dataset.titleLink;
-      const navLink = document.querySelector<HTMLElement>(
-        `[data-nav-link="${targetKey}"]`,
-      );
-
-      if (!navLink) return;
-
-      const activate = () => {
-        navLink.classList.remove('is-animating');
-        void navLink.offsetWidth;
-        navLink.classList.add('is-animating');
-        navLink.classList.add('is-active');
-        titleLink.classList.add('is-active');
-      };
-
-      const deactivate = () => {
-        navLink.classList.remove('is-active');
-        titleLink.classList.remove('is-active');
-        navLink.classList.remove('is-animating');
-      };
-
-      titleLink.addEventListener('mouseenter', activate);
-      titleLink.addEventListener('mouseleave', deactivate);
-      titleLink.addEventListener('focus', activate);
-      titleLink.addEventListener('blur', deactivate);
-      titleLink.addEventListener('touchstart', activate, { passive: true });
-      titleLink.addEventListener('touchend', deactivate, { passive: true });
-      titleLink.addEventListener('touchcancel', deactivate, { passive: true });
-
-      navLink.addEventListener('mouseenter', activate);
-      navLink.addEventListener('mouseleave', deactivate);
-      navLink.addEventListener('focus', activate);
-      navLink.addEventListener('blur', deactivate);
-      navLink.addEventListener('touchstart', activate, { passive: true });
-      navLink.addEventListener('touchend', deactivate, { passive: true });
-      navLink.addEventListener('touchcancel', deactivate, { passive: true });
-    });
-  }
-
-  onNavigate(initProgressBar);
-  onNavigate(initArticleNavAnimations);
-</script>

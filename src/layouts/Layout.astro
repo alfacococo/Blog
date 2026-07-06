@@ -3,6 +3,8 @@ import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import SearchModal from '../components/SearchModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -18,37 +20,14 @@ const {
   image = '/images/favicon.ico',
   type = 'website',
 } = Astro.props;
-
-// 用于 og:url 和 og:image 的绝对地址，这些平台拉取卡片预览时需要绝对路径
-const ogImageURL = new URL(image, Astro.site);
-const pageURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <html transition:animate="none" lang="zh-cmn-Hans">
   <head>
     <meta charset="utf-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#1e1e2e" />
-    <link rel="icon" href="/images/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-
-    <!-- Open Graph （分享到 Misskey / 长毛象等联邦宇宙时用于生成预览卡片） -->
-    <meta property="og:type" content={type} />
-    <meta property="og:site_name" content="Curly Sheep" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={pageURL} />
-    <meta property="og:image" content={ogImageURL} />
-    <meta property="og:locale" content="zh_CN" />
-
-    <!-- Twitter Card（一些联邦实例/客户端也会参考这套标签） -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
+    <SeoMeta pageTitle={pageTitle} description={description} image={image} type={type} />
 
     <!-- pagefind 搜索组件的样式表。固定写在 head 里而不是用 JS 动态注入，
          这样新旧页面的 head 里 href 能对上，Astro 切页时才会自动保留它，
@@ -139,57 +118,7 @@ const pageURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body class="mt-[78px] mx-auto">
     <Header />
-    <div id="search-modal" class="search-modal hidden" transition:persist>
-      <div class="search-modal-content">
-        <div id="search"></div>
-        <button id="search-close" aria-label="关闭搜索">✕</button>
-      </div>
-    </div>
-    <style>
-      .search-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 3000;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        padding-top: 10vh;
-      }
-
-      .search-modal.hidden {
-        display: none;
-      }
-
-      .search-modal-content {
-        background: var(--background);
-        border-radius: 12px;
-        padding: 1.5rem 2rem;
-        width: 90%;
-        max-width: 500px;
-        max-height: 70vh;
-        overflow-y: auto;
-        position: relative;
-      }
-
-      #search-close {
-        position: absolute;
-        top: 2.5rem;
-        transform: translateY(-50%);
-        right: 0.5rem;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 1.2rem;
-        line-height: 1;
-        padding: 0;
-      }
-    </style>
+    <SearchModal />
     <main>
       <slot />
       <ScrollToTop />

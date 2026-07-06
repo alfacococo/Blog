@@ -1,0 +1,35 @@
+---
+interface Props {
+  pageTitle: string;
+  description: string;
+  image: string;
+  type: 'website' | 'article';
+}
+
+const { pageTitle, description, image, type } = Astro.props;
+
+// 用于 og:url 和 og:image 的绝对地址，这些平台拉取卡片预览时需要绝对路径
+const ogImageURL = new URL(image, Astro.site);
+const pageURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<meta name="description" content={description} />
+<meta name="theme-color" content="#1e1e2e" />
+<link rel="icon" href="/images/favicon.ico" />
+<meta name="generator" content={Astro.generator} />
+<title>{pageTitle}</title>
+
+<!-- Open Graph （分享到 Misskey / 长毛象等联邦宇宙时用于生成预览卡片） -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Curly Sheep" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageURL} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:locale" content="zh_CN" />
+
+<!-- Twitter Card（一些联邦实例/客户端也会参考这套标签） -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />

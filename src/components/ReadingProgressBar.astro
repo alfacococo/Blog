@@ -1,0 +1,38 @@
+<div class="progress-bar" id="progress-bar"></div>
+
+<style>
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--text, #375a7f);
+    z-index: 2000;
+    transition: width 0.1s ease;
+  }
+</style>
+
+<script>
+  import { onNavigate } from '../scripts/onNavigate';
+
+  function updateProgressBar() {
+    const bar = document.getElementById('progress-bar') as HTMLElement | null;
+    if (!bar) return;
+
+    const scrollTop = window.scrollY;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = `${percent}%`;
+  }
+
+  // 每次导航都要立刻校正一次进度（不然新文章刚打开时，进度条会残留上一篇文章滚动到的百分比）
+  onNavigate(updateProgressBar);
+
+  // scroll 监听器只需要绑一次：window 对象跨导航不会被替换，
+  // updateProgressBar 内部每次都重新查询当前的 #progress-bar，不会引用到旧节点
+  onNavigate(() => window.addEventListener('scroll', updateProgressBar), {
+    once: true,
+  });
+</script>
