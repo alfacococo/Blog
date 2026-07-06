@@ -6,7 +6,7 @@ export async function GET(context) {
 
   return rss({
     title: 'Curly Sheep | Blog',
-    description: '卷毛羊的博客~！',
+    description: '卷毛羊的赛博羊圈~！',
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
