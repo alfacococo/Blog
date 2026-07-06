@@ -31,17 +31,13 @@ const pageTitle = '标签索引';
   </div>
   <script>
     import { navigate } from 'astro:transitions/client';
+    import { onNavigate } from '../../scripts/onNavigate';
+    import { attachPressFeedback } from '../../scripts/attachPressFeedback';
 
-    const attachTagTapFeedback = () => {
+    function initTagLinks() {
+      attachPressFeedback('a[data-tag-link]');
+
       document.querySelectorAll('a[data-tag-link]').forEach((link) => {
-        const handlePressStart = () => link.classList.add('is-pressed');
-        const handlePressEnd = () => link.classList.remove('is-pressed');
-
-        link.addEventListener('pointerdown', handlePressStart);
-        link.addEventListener('pointerup', handlePressEnd);
-        link.addEventListener('pointerleave', handlePressEnd);
-        link.addEventListener('pointercancel', handlePressEnd);
-
         link.addEventListener('click', (event) => {
           const href = link.getAttribute('href');
           if (!href) return;
@@ -54,9 +50,8 @@ const pageTitle = '标签索引';
           }, 120);
         });
       });
-    };
+    }
 
-    document.addEventListener('astro:page-load', attachTagTapFeedback);
-    document.addEventListener('DOMContentLoaded', attachTagTapFeedback);
+    onNavigate(initTagLinks);
   </script>
 </BaseLayout>

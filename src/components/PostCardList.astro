@@ -63,19 +63,8 @@ const {
 </ul>
 
 <script>
-  const attachPostCardInteractions = () => {
-    document.querySelectorAll('a[data-post-card]').forEach((card) => {
-      card.addEventListener('pointerdown', () => {
-        card.classList.add('is-pressed');
-      });
+  import { onNavigate } from '../scripts/onNavigate';
+  import { attachPressFeedback } from '../scripts/attachPressFeedback';
 
-      const clearPressed = () => card.classList.remove('is-pressed');
-      card.addEventListener('pointerup', clearPressed);
-      card.addEventListener('pointerleave', clearPressed);
-      card.addEventListener('pointercancel', clearPressed);
-    });
-  };
-
-  document.addEventListener('astro:page-load', attachPostCardInteractions);
-  document.addEventListener('DOMContentLoaded', attachPostCardInteractions);
+  onNavigate(() => attachPressFeedback('a[data-post-card]'));
 </script>

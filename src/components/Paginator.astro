@@ -185,8 +185,10 @@ function getPageHref(pageNumber: number): string {
   </ul>
 </nav>
 
-<script is:inline>
-  const attachPageJumpHandlers = () => {
+<script>
+  import { onNavigate } from '../scripts/onNavigate';
+
+  function attachPageJumpHandlers() {
     document.querySelectorAll('[data-page-jump-form]').forEach((form) => {
       form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -212,8 +214,7 @@ function getPageHref(pageNumber: number): string {
         }
       });
     });
-  };
+  }
 
-  document.addEventListener('astro:page-load', attachPageJumpHandlers);
-  document.addEventListener('DOMContentLoaded', attachPageJumpHandlers);
+  onNavigate(attachPageJumpHandlers);
 </script>
