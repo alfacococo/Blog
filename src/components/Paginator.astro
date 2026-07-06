@@ -1,6 +1,4 @@
 ---
-import { navigate } from 'astro:transitions/client';
-
 interface Props {
   page: {
     currentPage: number;
@@ -186,6 +184,7 @@ function getPageHref(pageNumber: number): string {
 </nav>
 
 <script>
+  import { navigate } from 'astro:transitions/client';
   import { onNavigate } from '../scripts/onNavigate';
 
   function attachPageJumpHandlers() {
@@ -206,12 +205,9 @@ function getPageHref(pageNumber: number): string {
         const basePath = form.getAttribute('data-base-path') || '/';
         const target = value === 1 ? basePath : `${basePath}/${value}/`;
 
-        if (window.history && window.history.pushState) {
-          window.history.pushState({}, '', target);
-          window.dispatchEvent(new Event('popstate'));
-        } else {
-          window.location.assign(target);
-        }
+        // 直接用 Astro 官方的 navigate() 触发客户端跳转，让 ClientRouter 正常接管这次导航，
+        // 不再用 pushState + 手动 dispatchEvent(popstate) 去模拟了
+        navigate(target);
       });
     });
   }
