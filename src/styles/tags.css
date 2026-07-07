@@ -32,20 +32,3 @@ html.light .tag-text {
   background-color: #9076a8;
   transform: scale(0.97);
 }
-
-.tag {
-  background-color: #584966;
-}
-
-.tag.is-selected,
-.tag.is-pressed,
-.tag:active,
-.tag:focus-visible {
-  background-color: #9076a8;
-}
-
-@media (hover: hover) {
-  .tag:hover {
-    background-color: #9076a8;
-  }
-}
