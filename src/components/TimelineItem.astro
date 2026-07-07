@@ -3,9 +3,11 @@
 const { time } = Astro.props;
 ---
 
-<li class="flex mb-4 items-start gap-2 flex-col bg-[#102] px-2 py-4 rounded-[10px] timeline-card duration-300 ease-in hover:scale-110 shadow-md">
+<li
+  class="flex mb-4 items-start gap-2 flex-col bg-[#102] p-4 rounded-2xl timeline-card transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-md shadow-sm"
+>
   <time class="post-date badge--item badge min-w-[81px] block">{time}</time>
-  <div class="inline-block ">
+  <div class="inline-block">
     <slot />
   </div>
 </li>
