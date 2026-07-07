@@ -11,7 +11,7 @@ if (!postId || !sourceFolder) {
   process.exit(1);
 }
 
-const targetDir = path.resolve("public/images");
+const targetDir = path.resolve("src/assets/images");
 if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
 
 const MAX_WIDTH = 1200; // 超过这个宽度会被缩小，按你博客实际展示尺寸调整即可
@@ -59,7 +59,7 @@ async function main() {
       `${file} → ${newName} (${(beforeSize / 1024).toFixed(0)}KB → ${(afterSize / 1024).toFixed(0)}KB, 省了 ${savedPercent}%)`
     );
 
-    markdownLines.push(`![](/images/${newName})`);
+    markdownLines.push(`![](../../assets/images/${newName})`);
   }
 
   const output = markdownLines.join("\n\n");
