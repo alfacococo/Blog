@@ -25,7 +25,7 @@ const pageTitle = '标签索引';
             type="button"
             data-tag={tag}
             data-tag-link
-            class="tag cursor-pointer text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] duration-300 ease-in-out transition"
+            class="tag cursor-pointer text-[#ffffff] bg-[#584966] duration-300 ease-in-out transition"
           >
             {tag}({tagCountMap[tag]})
           </button>
@@ -97,7 +97,7 @@ const pageTitle = '标签索引';
       };
 
       const activateTag = (selectedTag: string, shouldSyncUrl = false) => {
-        tagLinks.forEach((item) => item.classList.remove('bg-[#9076a8]'));
+        tagLinks.forEach((item) => item.classList.remove('is-selected'));
 
         const activeLink = tagLinks.find(
           (item) => item.getAttribute('data-tag') === selectedTag,
@@ -105,7 +105,7 @@ const pageTitle = '标签索引';
 
         if (!activeLink) return;
 
-        activeLink.classList.add('bg-[#9076a8]');
+        activeLink.classList.add('is-selected');
         applyFilter(selectedTag);
 
         if (shouldSyncUrl) {
