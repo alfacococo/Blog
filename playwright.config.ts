@@ -12,7 +12,9 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: `npx astro build && npx astro preview --port ${PORT}`,
+    // 用完整的 `npm run build`（含 pagefind 建索引），而不是裸的 `astro build`，
+    // 不然 /pagefind/pagefind-ui.js 不存在，搜索测试会一直挂起等不到脚本加载完。
+    command: `npm run build && npx astro preview --port ${PORT}`,
     port: PORT,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
