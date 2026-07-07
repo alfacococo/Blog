@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "gray-matter": "^4.0.3",
+    "jsdom": "^29.1.1",
     "pagefind": "^1.5.2",
     "vitest": "^4.1.10",
     "zod": "^3.25.76"

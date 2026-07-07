@@ -46,6 +46,11 @@ const pageTitle = '标签索引';
   <script>
     import { onNavigate } from '../../scripts/onNavigate';
     import { attachPressFeedback } from '../../scripts/attachPressFeedback';
+    import {
+      applyTagFilter,
+      resolveInitialTag,
+      setActiveTagLink,
+    } from '../../scripts/tagFilter';
 
     function initTagLinks() {
       attachPressFeedback('[data-tag-link]');
@@ -70,43 +75,12 @@ const pageTitle = '标签索引';
         );
       };
 
-      const applyFilter = (selectedTag: string) => {
-        allCards.forEach((card) => {
-          const raw = card.getAttribute('data-post-tags') || '[]';
-          let cardTags = [];
-
-          try {
-            cardTags = JSON.parse(raw);
-          } catch {
-            cardTags = [];
-          }
-
-          const matched =
-            Array.isArray(cardTags) && cardTags.includes(selectedTag);
-          const listItem = card.closest('li');
-          if (!listItem) return;
-          listItem.style.display = matched ? '' : 'none';
-        });
-
-        const visibleCount = allCards.filter((card) => {
-          const listItem = card.closest('li');
-          return listItem?.style.display !== 'none';
-        }).length;
-
-        tagTitle.textContent = `包含「${selectedTag}」标签的文章`;
-      };
-
       const activateTag = (selectedTag: string, shouldSyncUrl = false) => {
-        tagLinks.forEach((item) => item.classList.remove('is-selected'));
-
-        const activeLink = tagLinks.find(
-          (item) => item.getAttribute('data-tag') === selectedTag,
-        );
-
+        const activeLink = setActiveTagLink(tagLinks, selectedTag);
         if (!activeLink) return;
 
-        activeLink.classList.add('is-selected');
-        applyFilter(selectedTag);
+        applyTagFilter(allCards, selectedTag);
+        tagTitle.textContent = `包含「${selectedTag}」标签的文章`;
 
         if (shouldSyncUrl) {
           updateTagQuery(selectedTag);
@@ -114,7 +88,7 @@ const pageTitle = '标签索引';
       };
 
       tagLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
+        link.addEventListener('click', () => {
           const selectedTag = link.getAttribute('data-tag');
           if (!selectedTag) return;
 
@@ -129,12 +103,10 @@ const pageTitle = '标签索引';
       });
 
       const queryTag = new URLSearchParams(window.location.search).get('tag');
-      const isValidQueryTag = queryTag
-        ? tagLinks.some((item) => item.getAttribute('data-tag') === queryTag)
-        : false;
-      const initialTag = isValidQueryTag
-        ? queryTag
-        : tagLinks[0].getAttribute('data-tag');
+      const { tag: initialTag, isValidQueryTag } = resolveInitialTag(
+        tagLinks.map((item) => item.getAttribute('data-tag')),
+        queryTag,
+      );
 
       if (initialTag) {
         activateTag(initialTag, !isValidQueryTag);
