@@ -1,7 +1,6 @@
 /* Tags */
 
 .tags {
-  margin-top: 60px;
   display: flex;
   flex-wrap: wrap;
 }

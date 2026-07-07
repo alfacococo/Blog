@@ -2,8 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/Layout.astro';
 import { getTagCounts, getSortedTags } from '../../utils/tags';
+import PostCardList from '../../components/PostCardList.astro';
 
-const allPosts = await getCollection('posts');
+const allPosts = (await getCollection('posts')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
 const tagCountMap = getTagCounts(allPosts);
 const tags = getSortedTags(tagCountMap);
 
@@ -11,7 +14,7 @@ const pageTitle = '标签索引';
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <div class="my-8 text-xl border-l-4 pl-4">
+  <div class="my-4 text-xl border-l-4 pl-4">
     <h3>也可以通过以下标签来查看博文~</h3>
   </div>
   <div class="tags gap-1 flex flex-wrap">
@@ -20,6 +23,7 @@ const pageTitle = '标签索引';
         <p>
           <a
             href={`/tags/${tag}`}
+            data-tag={tag}
             data-tag-link
             class="tag text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] transition-colors duration-300 ease-in-out"
           >
@@ -29,27 +33,118 @@ const pageTitle = '标签索引';
       ))
     }
   </div>
+
+  <section class="mt-8" aria-live="polite">
+    <h3 id="selected-tag-title" class="my-4 text-xl border-l-4 pl-4">
+      请选择一个标签查看对应文章
+    </h3>
+    <div id="tag-posts-container" data-tag-posts-container>
+      <PostCardList posts={allPosts} showTags={true} />
+    </div>
+  </section>
+
   <script>
-    import { navigate } from 'astro:transitions/client';
     import { onNavigate } from '../../scripts/onNavigate';
     import { attachPressFeedback } from '../../scripts/attachPressFeedback';
 
     function initTagLinks() {
       attachPressFeedback('a[data-tag-link]');
 
-      document.querySelectorAll('a[data-tag-link]').forEach((link) => {
+      const tagTitle = document.getElementById('selected-tag-title');
+      const allCards = Array.from(
+        document.querySelectorAll('a[data-post-card]'),
+      );
+      const tagLinks = Array.from(
+        document.querySelectorAll('a[data-tag-link][data-tag]'),
+      );
+
+      if (!tagTitle || !allCards.length || !tagLinks.length) return;
+
+      const updateTagQuery = (tag: string) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('tag', tag);
+        history.replaceState(
+          {},
+          '',
+          `${url.pathname}?${url.searchParams.toString()}`,
+        );
+      };
+
+      const applyFilter = (selectedTag: string) => {
+        allCards.forEach((card) => {
+          const raw = card.getAttribute('data-post-tags') || '[]';
+          let cardTags = [];
+
+          try {
+            cardTags = JSON.parse(raw);
+          } catch {
+            cardTags = [];
+          }
+
+          const matched =
+            Array.isArray(cardTags) && cardTags.includes(selectedTag);
+          const listItem = card.closest('li');
+          if (!listItem) return;
+          listItem.style.display = matched ? '' : 'none';
+        });
+
+        const visibleCount = allCards.filter((card) => {
+          const listItem = card.closest('li');
+          return listItem?.style.display !== 'none';
+        }).length;
+
+        tagTitle.textContent = `包含「${selectedTag}」标签的文章`;
+      };
+
+      const activateTag = (
+        selectedTag: string,
+        shouldSyncUrl = false,
+      ) => {
+        tagLinks.forEach((item) => item.classList.remove('bg-[#9076a8]'));
+
+        const activeLink = tagLinks.find(
+          (item) => item.getAttribute('data-tag') === selectedTag,
+        );
+
+        if (!activeLink) return;
+
+        activeLink.classList.add('bg-[#9076a8]');
+        applyFilter(selectedTag);
+
+        if (shouldSyncUrl) {
+          updateTagQuery(selectedTag);
+        }
+      };
+
+      tagLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
-          const href = link.getAttribute('href');
-          if (!href) return;
+          const selectedTag = link.getAttribute('data-tag');
+          if (!selectedTag) return;
 
           event.preventDefault();
           link.classList.add('is-pressed');
 
-          window.setTimeout(() => {
-            navigate(href);
-          }, 120);
+          activateTag(selectedTag, true);
         });
       });
+
+      allCards.forEach((card) => {
+        const listItem = card.closest('li');
+        if (!listItem) return;
+        listItem.style.display = 'none';
+      });
+
+      const queryTag = new URLSearchParams(window.location.search).get('tag');
+      const isValidQueryTag = queryTag
+        ? tagLinks.some((item) => item.getAttribute('data-tag') === queryTag)
+        : false;
+      const initialTag = isValidQueryTag
+        ? queryTag
+        : tagLinks[0].getAttribute('data-tag');
+
+      if (initialTag) {
+        activateTag(initialTag, !isValidQueryTag);
+      }
     }
 
     onNavigate(initTagLinks);
