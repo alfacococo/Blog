@@ -96,10 +96,7 @@ const pageTitle = '标签索引';
         tagTitle.textContent = `包含「${selectedTag}」标签的文章`;
       };
 
-      const activateTag = (
-        selectedTag: string,
-        shouldSyncUrl = false,
-      ) => {
+      const activateTag = (selectedTag: string, shouldSyncUrl = false) => {
         tagLinks.forEach((item) => item.classList.remove('bg-[#9076a8]'));
 
         const activeLink = tagLinks.find(
