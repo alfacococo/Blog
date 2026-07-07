@@ -14,8 +14,8 @@
   --text-link: #78c2ad;
   --text-link-light: #375a7f;
   --underline: #375a7f;
-  --header: 'Pacifico', "Noto Sans SC", cursive;
-  --body: 'Josefin Sans', "Noto Sans SC", sans-serif;
+  --header: 'Pacifico', "Noto Sans SC","LXGWNeoXiHei", sans-serif;
+  --body: 'Josefin Sans', "Noto Sans SC", "LXGWNeoXiHei", sans-serif;
   --pagefind-ui-text: var(--text) !important;
 }
 

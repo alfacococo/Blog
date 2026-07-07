@@ -12,6 +12,7 @@
   padding-left: 1rem;
   border-left: solid 4px var(--text);
   font-size: 1.15rem;
+  font-family: var(--header);
 }
 
 .prose h4 {

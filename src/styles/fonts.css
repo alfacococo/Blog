@@ -13,3 +13,11 @@
   src: url('/fonts/JosefinSans-Regular.ttf') format('truetype');
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'LXGWNeoXiHei';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/LXGWNeoXiHei.ttf') format('truetype');
+  font-display: swap;
+}
