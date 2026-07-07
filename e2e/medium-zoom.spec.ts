@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
 
-// post-1 里确定放了本地图片（/images/post-1-1.webp 等），用它来验证 medium-zoom。
+// post-1 里确定放了本地图片（src/assets/images/post-1-1.webp 等），用它来验证 medium-zoom。
 const POST_WITH_IMAGES = '/posts/post-1/';
 
 /**

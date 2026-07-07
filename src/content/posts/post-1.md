@@ -33,6 +33,6 @@ description: "刚住进新家后的一周的碎碎念。"
 <div class="divider my-3 mx-auto"></div>
 <p class='foreword'>20250509追记：是真的非常让我满意的一个家！特地精选了两张在长毛象发过的照片附在最后，让大家陪我一起欣赏嘿嘿嘿。</p>
 
-![](/images/post-1-1.webp)
+![](../../assets/images/post-1-1.webp)
 
-![](/images/post-1-2.webp)
+![](../../assets/images/post-1-2.webp)
