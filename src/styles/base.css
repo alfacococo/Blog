@@ -36,6 +36,8 @@ html {
   background-attachment: fixed;
   background-size: cover;
   color: var(--text);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html.light {
@@ -44,7 +46,7 @@ html.light {
 
 body {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   max-width: 650px;
   background-color: var(--background);
   padding: 20px;
