@@ -25,7 +25,7 @@ const pageTitle = '标签索引';
             type="button"
             data-tag={tag}
             data-tag-link
-            class="tag text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] transition-colors duration-300 ease-in-out"
+            class="tag cursor-pointer text-[#ffffff] hover:bg-[#9076a8] active:bg-[#9076a8] focus:bg-[#9076a8] bg-[#584966] duration-300 ease-in-out transition"
           >
             {tag}({tagCountMap[tag]})
           </button>
@@ -48,14 +48,14 @@ const pageTitle = '标签索引';
     import { attachPressFeedback } from '../../scripts/attachPressFeedback';
 
     function initTagLinks() {
-      attachPressFeedback('a[data-tag-link]');
+      attachPressFeedback('[data-tag-link]');
 
       const tagTitle = document.getElementById('selected-tag-title');
       const allCards = Array.from(
         document.querySelectorAll('a[data-post-card]'),
       );
       const tagLinks = Array.from(
-        document.querySelectorAll('a[data-tag-link][data-tag]'),
+        document.querySelectorAll('[data-tag-link][data-tag]'),
       );
 
       if (!tagTitle || !allCards.length || !tagLinks.length) return;
