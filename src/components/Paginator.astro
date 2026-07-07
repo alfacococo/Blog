@@ -1,4 +1,6 @@
 ---
+import { getPageHref, getPageItems } from '../utils/pagination';
+
 interface Props {
   page: {
     currentPage: number;
@@ -15,24 +17,7 @@ const { page, basePath } = Astro.props;
 const current = page.currentPage;
 const total = page.lastPage;
 
-// ✅ 构建分页页码数组（1, 2, '…', N-1, N 形式）
-function getPageItems(total: number): (number | string)[] {
-  const pages: (number | string)[] = [];
-
-  if (total <= 5) {
-    for (let i = 1; i <= total; i++) pages.push(i);
-  } else {
-    pages.push(1, '...', total);
-  }
-
-  return pages;
-}
-
 const pageItems = getPageItems(total);
-
-function getPageHref(pageNumber: number): string {
-  return pageNumber === 1 ? basePath : `${basePath}/${pageNumber}/`;
-}
 ---
 
 <nav aria-label="Page navigation example" class="mt-10">
@@ -114,7 +99,7 @@ function getPageHref(pageNumber: number): string {
           );
         }
 
-        const href = getPageHref(p as number);
+        const href = getPageHref(basePath, p as number);
         const isActive = p === current;
 
         return (

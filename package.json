@@ -11,7 +11,8 @@
     "test": "vitest run",
     "typecheck": "astro check",
     "test:rss": "node scripts/verify-rss.mjs",
-    "verify": "npm run typecheck && npm test && astro build && npm run test:rss"
+    "test:e2e": "playwright test",
+    "verify": "npm run typecheck && npm test && astro build && npm run test:rss && npm run test:e2e"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.0",
     "gray-matter": "^4.0.3",
     "jsdom": "^29.1.1",
