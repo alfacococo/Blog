@@ -1,23 +1,11 @@
-import { z, defineCollection } from "astro:content";
+import { defineCollection } from "astro:content";
 import { glob } from 'astro/loaders';
+import { postFrontmatterSchema } from './postSchema';
 
 
 const postsCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
-  schema: z.object({
-    title: z.string(),
-    author: z.string().optional(),
-    date: z.string().or(z.date()),
-    updateDate: z.string().or(z.date()).optional(),
-    description: z.string().optional(),
-    tags: z.array(z.string()).optional(),
-    image: z
-      .object({
-        url: z.string(),
-        alt: z.string(),
-      })
-      .optional(),
-  }),
+  schema: postFrontmatterSchema,
 });
 
 
