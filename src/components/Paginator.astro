@@ -191,7 +191,7 @@ function getPageHref(pageNumber: number): string {
     document.querySelectorAll('[data-page-jump-form]').forEach((form) => {
       form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const input = form.querySelector('input[name="page"]');
+        const input = form.querySelector<HTMLInputElement>('input[name="page"]');
         if (!input) return;
 
         const value = Number(input.value);

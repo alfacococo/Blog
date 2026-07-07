@@ -30,7 +30,7 @@ type Props = {
 };
 const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
-const wordCount = getWordCount(post.body, { onlyChinese: true }); // 中文为主可启用此选项
+const wordCount = getWordCount(post.body ?? '', { onlyChinese: true }); // 中文为主可启用此选项
 const readingTime = getReadingTime(wordCount);
 ---
 

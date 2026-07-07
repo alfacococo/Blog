@@ -8,7 +8,10 @@
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "astro check",
+    "test:rss": "node scripts/verify-rss.mjs",
+    "verify": "npm run typecheck && npm test && astro build && npm run test:rss"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
@@ -23,9 +26,12 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/node": "^26.1.0",
     "gray-matter": "^4.0.3",
     "jsdom": "^29.1.1",
     "pagefind": "^1.5.2",
+    "typescript": "^5.9.3",
     "vitest": "^4.1.10",
     "zod": "^3.25.76"
   }

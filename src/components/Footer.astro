@@ -7,7 +7,7 @@ const posts = await getCollection('posts');
 
 // 计算总字数（复用你已有的 getWordCount 工具函数）
 const totalWordCount = posts.reduce((sum, post) => {
-  return sum + getWordCount(post.body, { onlyChinese: true });
+  return sum + getWordCount(post.body ?? '', { onlyChinese: true });
 }, 0);
 
 // 设定博客搭建日期

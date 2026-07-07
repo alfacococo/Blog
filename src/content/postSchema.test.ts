@@ -8,7 +8,7 @@ import { postFrontmatterSchema } from './postSchema';
 const postsDir = join(dirname(fileURLToPath(import.meta.url)), 'posts');
 
 describe('post frontmatter', () => {
-  const files = readdirSync(postsDir).filter((f) => f.endsWith('.md'));
+  const files = readdirSync(postsDir).filter((f: string) => f.endsWith('.md'));
 
   it('finds markdown posts to validate', () => {
     expect(files.length).toBeGreaterThan(0);
