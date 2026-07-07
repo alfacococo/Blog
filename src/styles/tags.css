@@ -32,3 +32,7 @@ html.light .tag-text {
   background-color: #9076a8;
   transform: scale(0.97);
 }
+
+.tag.is-selected {
+  background-color: #9076a8;
+}
