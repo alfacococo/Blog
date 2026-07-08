@@ -71,4 +71,9 @@ export const friends: Friend[] = [
     url: 'https://notion-next-neon-eight.vercel.app/',
     motto: '',
   },
+    {
+    name: "第三夏尔",
+    url: 'https://thirdshire.com',
+    motto: '认真生活，积极摸鱼',
+  },
 ];
