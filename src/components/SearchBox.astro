@@ -9,7 +9,8 @@
     const trigger = document.getElementById('search-trigger');
     const modal = document.getElementById('search-modal');
     const closeBtn = document.getElementById('search-close');
-    if (!trigger || !modal || !closeBtn) return;
+    const results = document.getElementById('search');
+    if (!trigger || !modal || !closeBtn || !results) return;
 
     // modal 现在直接写在 Layout.astro 里作为 Header 的同级兄弟节点，
     // 不再嵌套在持久化的 nav 里面了，所以不需要再用 JS 把它挑到 body 下面，
@@ -43,6 +44,15 @@
     closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
     modal.addEventListener('click', (e) => {
       if (e.target === modal) modal.classList.add('hidden');
+    });
+
+    // pagefind-ui 的搜索结果是点击后才动态插入到 #search 里的 <a> 标签，
+    // 所以用事件委托绑在 #search 容器上，而不是等结果出现了再逐个绑定
+    results.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('a')) {
+        modal.classList.add('hidden');
+      }
     });
   }
 
