@@ -42,15 +42,22 @@
   }
 </style>
 <script is:inline data-astro-rerun>
-  const handleToggleClick = () => {
-    const element = document.documentElement;
-    element.classList.toggle("light");
+  // 同 Layout.astro 里那段主题脚本一样，data-astro-rerun 会让这段代码在每次软导航后
+  // 重新执行一遍，顶层 const 在经典脚本里会撞上共享的全局词法作用域，所以包一层 IIFE。
+  // 另外这个按钮本身是放在 <nav transition:persist> 里的，跨导航不会被销毁重建，
+  // 所以还得用 dataset 标记一下"是否已经绑过监听器"，不然每次软导航都会重复 addEventListener，
+  // 点一下按钮就会触发好几次 toggle。
+  (function () {
+    const button = document.getElementById("themeToggle");
+    if (!button || button.dataset.toggleBound) return;
+    button.dataset.toggleBound = "true";
 
-    const isLight = element.classList.contains("light");
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-  };
+    button.addEventListener("click", () => {
+      const element = document.documentElement;
+      element.classList.toggle("light");
 
-  document
-    .getElementById("themeToggle")
-    .addEventListener("click", handleToggleClick);
+      const isLight = element.classList.contains("light");
+      localStorage.setItem("theme", isLight ? "light" : "dark");
+    });
+  })();
 </script>

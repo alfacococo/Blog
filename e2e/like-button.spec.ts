@@ -41,6 +41,12 @@ test.describe('like button', () => {
     await page.goto('/posts/');
     await page.locator('a[data-post-card]').first().click();
 
+    // initLikeButton() 绑定点击事件是在 fetch 初始点赞数完成之后才做的（异步），
+    // 而 Playwright 的 click() 只检查按钮"看起来"可点（可见、稳定），不知道监听器
+    // 有没有真的挂上去。等 like-count 从占位符变成真实数字，就代表初始化已经跑完，
+    // 这时候点才靠谱——不然在内容比较重、渲染慢的文章上会偶发点了却没反应。
+    await expect(page.locator('.like-count')).not.toHaveText('--');
+
     await page.locator('.like-btn').click();
     await expect(page.locator('.like-btn')).toHaveClass(/liked/);
 

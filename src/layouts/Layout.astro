@@ -35,73 +35,83 @@ const {
     <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
 
     <script is:inline data-astro-rerun>
-      const theme = (() => {
-        if (
-          typeof localStorage !== 'undefined' &&
-          localStorage.getItem('theme')
-        ) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-          return 'light';
-        }
-        return 'dark';
-      })();
-
-      if (theme === 'dark') {
-        document.documentElement.classList.remove('light');
-      } else {
-        document.documentElement.classList.add('light');
-      }
-
-      window.localStorage.setItem('theme', theme);
-
-      document.addEventListener('astro:before-swap', (event) => {
-        const isLight = document.documentElement.classList.contains('light');
-        if (isLight) {
-          event.newDocument.documentElement.classList.add('light');
-        }
-      });
-
-      function initTitleEffect() {
-        const originalTitle = document.title;
-        const awayTitle = '(つ•̀ω•́)つ 羊等你回来~';
-        const backTitle = '欢迎回来！ヽ(・∀・)ﾉ ';
-
-        let hasHidden = false;
-        let timer = null;
-
-        if (window.__titleEffectBound) return;
-        window.__titleEffectBound = true;
-
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) {
-            hasHidden = true;
-
-            clearTimeout(timer);
-            document.title = awayTitle;
-          } else {
-            if (hasHidden) {
-              document.title = backTitle;
-
-              timer = setTimeout(() => {
-                document.title = originalTitle;
-              }, 600);
-
-              hasHidden = false;
-            } else {
-              document.title = originalTitle;
-            }
+      // data-astro-rerun 会让这段脚本在每次 ClientRouter 软导航时都重新执行一次。
+      // 但经典（非 module）脚本的顶层 const/let 声明是挂在整个页面共享的全局词法作用域上的，
+      // 不会因为是"新的一次执行"就重新清空——所以如果不包一层 IIFE，
+      // 第二次软导航时再执行到 `const theme = ...` 就会直接抛
+      // "Identifier 'theme' has already been declared"，把这次导航剩下的脚本执行全部打断。
+      (function () {
+        const theme = (() => {
+          if (
+            typeof localStorage !== 'undefined' &&
+            localStorage.getItem('theme')
+          ) {
+            return localStorage.getItem('theme');
           }
-        });
+          if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+            return 'light';
+          }
+          return 'dark';
+        })();
 
-        window.addEventListener('pageshow', () => {
-          clearTimeout(timer);
-          document.title = originalTitle;
-        });
-      }
+        if (theme === 'dark') {
+          document.documentElement.classList.remove('light');
+        } else {
+          document.documentElement.classList.add('light');
+        }
 
-      initTitleEffect();
+        window.localStorage.setItem('theme', theme);
+
+        if (!window.__themeBeforeSwapBound) {
+          window.__themeBeforeSwapBound = true;
+          document.addEventListener('astro:before-swap', (event) => {
+            const isLight = document.documentElement.classList.contains('light');
+            if (isLight) {
+              event.newDocument.documentElement.classList.add('light');
+            }
+          });
+        }
+
+        function initTitleEffect() {
+          const originalTitle = document.title;
+          const awayTitle = '(つ•̀ω•́)つ 羊等你回来~';
+          const backTitle = '欢迎回来！ヽ(・∀・)ﾉ ';
+
+          let hasHidden = false;
+          let timer = null;
+
+          if (window.__titleEffectBound) return;
+          window.__titleEffectBound = true;
+
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              hasHidden = true;
+
+              clearTimeout(timer);
+              document.title = awayTitle;
+            } else {
+              if (hasHidden) {
+                document.title = backTitle;
+
+                timer = setTimeout(() => {
+                  document.title = originalTitle;
+                }, 600);
+
+                hasHidden = false;
+              } else {
+                document.title = originalTitle;
+              }
+            }
+          });
+
+          window.addEventListener('pageshow', () => {
+            clearTimeout(timer);
+            document.title = originalTitle;
+          });
+        }
+
+        initTitleEffect();
+      })();
     </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3BM4LFJ6D"
