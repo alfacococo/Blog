@@ -1,6 +1,6 @@
 import type { Context } from '@netlify/functions';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import likes from './likes.mts';
+import likes from '../functions/likes.mts';
 
 const { getStore } = vi.hoisted(() => ({ getStore: vi.fn() }));
 vi.mock('@netlify/blobs', () => ({ getStore }));
