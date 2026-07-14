@@ -60,3 +60,20 @@ html:not(.light) .timeline-card:active {
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 14px 32px -8px rgba(6, 6, 14, 0.55);
 }
+
+/* 浅色模式卡片：resting/hover 的边框 + 阴影结构跟深色模式保持一致（位移距离、
+ * 时长、缓动都来自组件上共享的 Tailwind class），只是颜色换成适合浅色背景的中性色。 */
+html.light .timeline-card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px -10px rgba(0, 0, 0, 0.12);
+}
+
+html.light .timeline-card:hover,
+html.light .timeline-card:active {
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 16px 32px -10px rgba(0, 0, 0, 0.18);
+}
