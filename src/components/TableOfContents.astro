@@ -1,5 +1,5 @@
 ---
-interface TocProps {
+interface Props {
   headings: {
     depth: number;
     slug: string;
@@ -11,47 +11,137 @@ const { headings } = Astro.props;
 
 const filtered = headings.filter((h) => h.depth <= 4);
 ---
-{filtered.length > 0 &&
-<nav class="toc mx-4 my-4 p-4 bg-gray-200 ">
-  <h2 class="toc-title">目录</h2>
-  <ul>
-    {filtered.map((h) => (
-      <p class={`depth-${h.depth} hover:underline`}>
-        ⭐︎ <a href={`#${h.slug}`}>{h.text}</a>
-      </p>
-    ))}
-  </ul>
-</nav>}
 
+{
+  filtered.length > 0 && (
+    <nav class='toc mx-4 my-4 p-4'>
+      <h2 class='toc-title'>目录</h2>
+      <ul>
+        {filtered.map((h) => (
+          <p class={`depth-${h.depth} hover:underline`}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </p>
+        ))}
+      </ul>
+    </nav>
+  )
+}
 
 <style>
   .toc {
     padding: 1rem;
-    border-left: 4px solid var(--color-accent);
+    /* border-left: 4px solid var(--waline-theme-color); */
     border-radius: 6px;
     background-color: var(--background);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  .light .toc {
-  background-color: var(--background-light);
-}
+
   .toc-title {
     margin-bottom: 0.5rem;
     font-weight: bold;
     color: var(--text);
   }
+
   .toc ul {
     list-style: none;
     padding-left: 0;
   }
+
   .toc p {
     margin: 4px 0;
     color: var(--text);
   }
-  .toc p.depth-3 {
-    margin-left: 1rem;
-  }
+
+  /* 不再用符号区分层级，靠缩进 + 字号/透明度的深浅差异来传达主次：
+     三级维持正常字重和颜色，四级缩进、字号略小、颜色略淡，
+     一眼扫过去层级感还在，但不会有额外的图形符号增加视觉噪音 */
   .toc p.depth-4 {
-    margin-left: 2.5rem;
+    margin-left: 1rem;
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+
+  /* 桌面端（≥1328px，够放下 650px 正文 + 24px 间距 + 315px 目录列，两侧对称）：
+     脱离正文的文档流，钉在 body 两侧天然留白、从头到尾都没被占用过的区域里，
+     不需要 body/Header 跟着变宽。位置算法跟 Header.astro 用的是同一个
+     "left: 50% 相对视口居中" 基准，只是这里往外偏移而不是居中对齐。
+     从滚动阈值触发开始，全程固定显示，不会因为划到评论区/页脚而消失。
+     断点数值和 .toc 的 width 是绑定的：650 + 2 × (24 + width)，以后再改宽度
+     记得连这个断点一起改，不然会重新出现窗口刚过断点时右边被裁掉一截的问题。 */
+  @media (min-width: 1328px) {
+    .toc {
+      position: fixed;
+      top: 50%;
+      left: calc(50% + 325px + 24px);
+      transform: translateY(-50%);
+      width: 315px;
+      max-height: 70vh;
+      overflow-y: auto;
+      margin: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      /* Firefox / 较新的 Chromium、Safari 走这两个标准属性 */
+      scrollbar-width: thin;
+      scrollbar-color: var(--underline) transparent;
+    }
+
+    .toc.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* 其余 WebKit 系浏览器（含旧版 Safari/Chrome）走伪元素，能精细到滑块圆角、hover 变色 */
+    .toc::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .toc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .toc::-webkit-scrollbar-thumb {
+      background-color: var(--underline);
+      border-radius: 999px;
+    }
+
+    .toc::-webkit-scrollbar-thumb:hover {
+      background-color: var(--text-link);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toc {
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  import { onNavigate } from '../scripts/onNavigate';
+
+  const SHOW_THRESHOLD = 300; // 和 ScrollToTop 的显隐阈值保持一致
+
+  function updateVisibility() {
+    const toc = document.querySelector('.toc');
+    if (!toc) return;
+    // 这个 class 只在 ≥1328px 的媒体查询里有视觉效果，移动端切换它不会有任何影响，
+    // 所以不需要额外判断当前是不是桌面端视口
+    toc.classList.toggle('visible', window.scrollY > SHOW_THRESHOLD);
+  }
+
+  function initToc() {
+    // 每次进入文章时立刻按当前滚动位置校正一次，
+    // 不然切换页面后会沿用上一篇文章滚动到的状态，直到下次滚动才更新
+    updateVisibility();
+  }
+
+  // scroll 监听器只需要绑定一次：window 对象跨导航不会被替换，
+  // updateVisibility 内部每次都重新查询当前页面的目录节点，不会引用到旧节点
+  function initScrollListener() {
+    window.addEventListener('scroll', updateVisibility);
+  }
+
+  onNavigate(initToc);
+  onNavigate(initScrollListener, { once: true });
+</script>

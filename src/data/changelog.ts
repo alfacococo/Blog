@@ -4,6 +4,12 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: ChangelogEntry[] = [
+  {
+    time: '2026-07-14',
+    items: [
+      '电脑端的目录单独拆了出来，显示在正文的右边，移动端不变。稍微调整了一下标题字体和目录的版式。',
+    ],
+    },
     {
     time: '2026-07-07',
     items: [
