@@ -18,8 +18,13 @@ const filtered = headings.filter((h) => h.depth <= 4);
       <h2 class='toc-title'>目录</h2>
       <ul>
         {filtered.map((h) => (
-          <p class={`depth-${h.depth} hover:underline`}>
-            <a href={`#${h.slug}`}>{h.text}</a>
+          <p class={`depth-${h.depth}`}>
+            <a href={`#${h.slug}`}>
+              <span class="toc-text">{h.text}</span>
+              <span class="toc-text toc-text--bold" aria-hidden="true">
+                {h.text}
+              </span>
+            </a>
           </p>
         ))}
       </ul>
@@ -50,6 +55,39 @@ const filtered = headings.filter((h) => h.depth <= 4);
   .toc p {
     margin: 4px 0;
     color: var(--text);
+  }
+
+  /* 字重渐变 + 轻移。LXGWNeoXiHei 只有 400 一个字重、没有可变字体版本，font-weight
+     过渡没法真正逐帧插值（浏览器只会在过渡中途瞬间切换渲染结果），所以改用两层文字
+     叠放 + opacity 交叉淡入淡出来"伪造"渐变变粗的观感：opacity 是能真正插值的属性，
+     两层文字的透明度此消彼长，视觉上就是逐渐变粗。粗体那层用 aria-hidden 隐藏，
+     避免屏幕阅读器把标题读两遍。 */
+  .toc a {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+  }
+
+  .toc a:hover {
+    transform: translateX(4px);
+  }
+
+  .toc-text {
+    display: block;
+  }
+
+  .toc-text--bold {
+    position: absolute;
+    inset: 0;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .toc a:hover .toc-text--bold {
+    opacity: 1;
   }
 
   /* 不再用符号区分层级，靠缩进 + 字号/透明度的深浅差异来传达主次：
@@ -111,7 +149,9 @@ const filtered = headings.filter((h) => h.depth <= 4);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .toc {
+    .toc,
+    .toc a,
+    .toc-text--bold {
       transition: none;
     }
   }
