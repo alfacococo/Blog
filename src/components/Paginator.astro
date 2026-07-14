@@ -21,14 +21,17 @@ const pageItems = getPageItems(total);
 ---
 
 <nav aria-label="Page navigation example" class="mt-10">
-  <ul class="flex items-center -space-x-px h-10 text-base justify-center">
+  <ul class="paginator-list relative flex items-center -space-x-px h-10 text-base justify-center">
+    <span class="paginator-highlight" aria-hidden="true"></span>
+
     <!-- Prev Button -->
     <li>
       {
         page.url.prev ? (
           <a
             href={page.url.prev}
-            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-[var(--background)] border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-[var(--underline)]"
+            data-page-link
+            class="relative flex items-center justify-center px-4 h-10 ms-0 leading-tight text-[var(--text)] border border-e-0 paginator-border rounded-s-lg"
           >
             <span class="sr-only">Previous</span>
             <svg
@@ -48,7 +51,7 @@ const pageItems = getPageItems(total);
             </svg>
           </a>
         ) : (
-          <span class="flex items-center justify-center px-4 h-10 ms-0 text-gray-400 bg-[var(--background)] border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed">
+          <span class="flex items-center justify-center px-4 h-10 ms-0 text-[var(--text)] opacity-40 border border-e-0 paginator-border rounded-s-lg cursor-not-allowed">
             <svg
               class="w-3 h-3"
               viewBox="0 0 6 10"
@@ -77,7 +80,7 @@ const pageItems = getPageItems(total);
               <form
                 data-page-jump-form
                 data-base-path={basePath}
-                class="flex items-center h-10"
+                class="relative flex items-center h-10"
               >
                 <input
                   type="number"
@@ -85,12 +88,12 @@ const pageItems = getPageItems(total);
                   min="1"
                   max={total}
                   inputmode="numeric"
-                  class="w-10 h-10 border border-gray-300 bg-[var(--background)] px-2 text-center text-sm text-gray-700 outline-none"
+                  class="paginator-jump-input w-10 h-10 border paginator-border px-2 text-center text-sm text-[var(--text)] outline-none"
                   placeholder={String(current)}
                 />
                 <button
                   type="submit"
-                  class="h-10 border border-l-0 border-gray-300 bg-[var(--background)] w-10 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-700 "
+                  class="paginator-jump-btn h-10 border border-l-0 paginator-border w-10 text-sm text-[var(--text)] opacity-80"
                 >
                   Go
                 </button>
@@ -107,10 +110,11 @@ const pageItems = getPageItems(total);
             <a
               href={href}
               aria-current={isActive ? 'page' : undefined}
-              class={`flex items-center justify-center px-4 h-10 leading-tight border ${
+              data-page-link
+              class={`relative flex items-center justify-center px-4 h-10 leading-tight border paginator-border ${
                 isActive
-                  ? 'z-10 [color:var(--text-link)] border-[var(--text-link)] bg-[var(--background)] hover:bg-gray-100 hover:text-[var(--underline)] '
-                  : 'text-gray-500 bg-[var(--background)] border-gray-300 hover:bg-gray-100 hover:text-[var(--underline)] '
+                  ? 'z-10 [color:var(--text-link)] [border-color:var(--text-link)]'
+                  : 'text-[var(--text)]'
               }`}
             >
               {p}
@@ -126,7 +130,8 @@ const pageItems = getPageItems(total);
         page.url.next ? (
           <a
             href={page.url.next}
-            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-[var(--background)] border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
+            data-page-link
+            class="relative flex items-center justify-center px-4 h-10 leading-tight text-[var(--text)] border paginator-border rounded-e-lg"
           >
             <span class="sr-only">Next</span>
             <svg
@@ -146,7 +151,7 @@ const pageItems = getPageItems(total);
             </svg>
           </a>
         ) : (
-          <span class="flex items-center justify-center px-4 h-10 text-gray-400 bg-[var(--background)] border border-gray-300 rounded-e-lg cursor-not-allowed">
+          <span class="flex items-center justify-center px-4 h-10 text-[var(--text)] opacity-40 border paginator-border rounded-e-lg cursor-not-allowed">
             <svg
               class="w-3 h-3"
               viewBox="0 0 6 10"
@@ -197,5 +202,67 @@ const pageItems = getPageItems(total);
     });
   }
 
+  // 滑动高亮：hover/focus 到哪个页码，一块共享的背景块就平滑移动、覆盖到那一格上，
+  // 不用每个格子各自变色（连体分段条的边框是共享的，单独给某一格变色/放大/浮起
+  // 都容易跟相邻格子打架，滑动一块背景反而是跟这种布局摩擦最小的做法）。
+  // 当前页排除在追踪目标之外，因为它已经有自己常驻的边框+主题色标记，不需要再叠加。
+  function initPaginatorHighlight() {
+    const list = document.querySelector<HTMLElement>('.paginator-list');
+    const highlight = list?.querySelector<HTMLElement>('.paginator-highlight');
+    if (!list || !highlight) return;
+
+    const links = Array.from(
+      list.querySelectorAll<HTMLAnchorElement>(
+        '[data-page-link]:not([aria-current="page"])'
+      )
+    );
+    if (links.length === 0) return;
+
+    let hovered: HTMLElement | null = null;
+    let focused: HTMLElement | null = null;
+
+    function place(el: HTMLElement) {
+      if (!list || !highlight) return;
+      const listRect = list.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      highlight.style.width = `${elRect.width}px`;
+      highlight.style.transform = `translateX(${elRect.left - listRect.left}px)`;
+      // 中间的页码按钮是直角，只有 prev/next 两端是圆角（rounded-s-lg/rounded-e-lg），
+      // 高亮块的圆角必须跟目标按钮保持一致，不然贴上去的时候直角按钮会露出方角，
+      // 圆角按钮那边又会被高亮块的直角切掉一块。
+      highlight.style.borderRadius = getComputedStyle(el).borderRadius;
+      highlight.style.opacity = '1';
+    }
+
+    function update() {
+      const active = hovered ?? focused;
+      if (active) {
+        place(active);
+      } else if (highlight) {
+        highlight.style.opacity = '0';
+      }
+    }
+
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        hovered = link;
+        update();
+      });
+      link.addEventListener('mouseleave', () => {
+        if (hovered === link) hovered = null;
+        update();
+      });
+      link.addEventListener('focus', () => {
+        focused = link;
+        update();
+      });
+      link.addEventListener('blur', () => {
+        if (focused === link) focused = null;
+        update();
+      });
+    });
+  }
+
   onNavigate(attachPageJumpHandlers);
+  onNavigate(initPaginatorHighlight);
 </script>

@@ -1,0 +1,63 @@
+.paginator-list {
+  isolation: isolate;
+}
+
+/* 滑动高亮背景块：默认宽度 0、透明，JS 会在 hover/focus 到某个页码时
+   把它移动、放大到覆盖那一格。颜色用 --text-link（深浅模式下同一个值），
+   半透明所以叠在页码文字上不会挡住数字。圆角默认是 0（贴合中间直角的页码按钮），
+   JS 定位时会读取目标按钮实际的 border-radius 覆盖过来，两端 prev/next
+   的圆角也能对上。 */
+.paginator-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 0;
+  background-color: color-mix(in srgb, var(--text-link) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text-link) 45%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.2s ease,
+    width 0.2s ease,
+    opacity 0.15s ease;
+}
+
+/* 边框颜色按深浅模式适配，替代原来写死的 border-gray-300。 */
+.paginator-border {
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+html:not(.light) .paginator-border {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.paginator-jump-input,
+.paginator-jump-btn {
+  background-color: var(--background);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.paginator-jump-btn:hover {
+  color: var(--text-link);
+  border-color: var(--text-link);
+}
+
+/* focus-visible 走纯 CSS，不依赖 JS 是否已经初始化完成，键盘用户始终能看到焦点位置；
+   inset 的 outline-offset 避免在连体分段条里跟相邻格子的边框重叠。 */
+[data-page-link]:focus-visible,
+.paginator-jump-input:focus-visible,
+.paginator-jump-btn:focus-visible {
+  outline: 2px solid var(--text-link);
+  outline-offset: -2px;
+  z-index: 20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paginator-highlight {
+    transition: none;
+  }
+}
