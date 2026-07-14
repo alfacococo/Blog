@@ -39,3 +39,24 @@
 .post-title:hover::after {
   transform: scaleX(1);
 }
+
+/* 深色模式卡片：磨砂玻璃质感，仅作用于深色模式（html 上没有 .light class 时），
+ * 不影响浅色模式样式。*/
+html:not(.light) .timeline-card {
+  background-color: color-mix(in srgb, var(--background) 55%, transparent);
+  backdrop-filter: blur(20px) saturate(160%) brightness(1.12);
+  -webkit-backdrop-filter: blur(20px) saturate(160%) brightness(1.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 24px -8px rgba(6, 6, 14, 0.5);
+}
+
+html:not(.light) .timeline-card:hover,
+html:not(.light) .timeline-card:active {
+  background-color: color-mix(in srgb, var(--background) 62%, transparent);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 32px -8px rgba(6, 6, 14, 0.55);
+}
