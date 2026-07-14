@@ -1,0 +1,91 @@
+name: Friend links health check
+
+on:
+  schedule:
+    - cron: '0 1 * * 1' # 每周一 01:00 UTC（北京时间周一 09:00）
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Check friend links
+        run: node scripts/check-friend-links.mjs
+
+      - name: Sync GitHub issue with results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('friend-link-report.json', 'utf-8'));
+            const failures = report.results.filter((r) => !r.ok);
+            const label = 'friend-links';
+            const title = '友链健康检查：发现无法访问的链接';
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: label,
+            });
+            const existing = issues[0];
+
+            if (failures.length === 0) {
+              if (existing) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: existing.number,
+                  body: '本次检查所有友链均可访问，自动关闭这个提醒。',
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: existing.number,
+                  state: 'closed',
+                });
+              }
+              console.log('All friend links reachable, nothing to report.');
+              return;
+            }
+
+            const body = [
+              `本次检查（${report.checkedAt}）发现 ${failures.length} 个可能无法访问的友链，建议联系对方确认最新地址：`,
+              '',
+              ...failures.map(
+                (f) =>
+                  `- **${f.name}** ${f.url}${f.status ? ` — HTTP ${f.status}` : ''}${f.error ? ` — ${f.error}` : ''}`,
+              ),
+              '',
+              '数据来源：`src/data/friends.ts`。此 Issue 由 `friend-links` 定时检查自动创建/更新，' +
+                '不代表链接一定永久失效，也可能是对方服务器临时故障或屏蔽了自动化请求，建议人工确认后再决定要不要移除。',
+            ].join('\n');
+
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body,
+              });
+              console.log(`Updated existing issue #${existing.number}`);
+            } else {
+              const { data: created } = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: [label],
+              });
+              console.log(`Created issue #${created.number}`);
+            }

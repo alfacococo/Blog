@@ -12,6 +12,7 @@
     "typecheck": "astro check",
     "test:rss": "node scripts/verify-rss.mjs",
     "test:e2e": "playwright test",
+    "check:friends": "node scripts/check-friend-links.mjs",
     "verify": "npm run typecheck && npm test && astro build && npm run test:rss && npm run test:e2e"
   },
   "dependencies": {
