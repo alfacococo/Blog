@@ -8,17 +8,51 @@
   }
 
   .friend-card {
-      border: 1px solid var(--border, #ddd);
-      border-radius: 10px;
-      background: var(--background);
+      border-radius: 0.5rem;
       transition:
-          transform 0.2s ease,
-          border-color 0.2s ease;
+          transform 0.3s ease-in-out,
+          background-color 0.3s ease-in-out,
+          border-color 0.3s ease-in-out,
+          box-shadow 0.3s ease-in-out;
   }
 
   .friend-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent, #888);
+      transform: translateY(-10px);
+  }
+
+  /* 边框、背景（含磨砂玻璃质感）、阴影都跟 PostCardList 的卡片保持一致，
+   * 按深浅模式分别适配。 */
+  html:not(.light) .friend-card {
+      background-color: color-mix(in srgb, var(--background) 55%, transparent);
+      backdrop-filter: blur(20px) saturate(160%) brightness(1.12);
+      -webkit-backdrop-filter: blur(20px) saturate(160%) brightness(1.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          0 8px 24px -8px rgba(6, 6, 14, 0.5);
+  }
+
+  html:not(.light) .friend-card:hover {
+      background-color: color-mix(in srgb, var(--background) 62%, transparent);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.08),
+          0 14px 32px -8px rgba(6, 6, 14, 0.55);
+  }
+
+  html.light .friend-card {
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow:
+          0 1px 2px rgba(0, 0, 0, 0.04),
+          0 8px 24px -10px rgba(0, 0, 0, 0.12);
+  }
+
+  html.light .friend-card:hover {
+      border-color: rgba(0, 0, 0, 0.12);
+      box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.06),
+          0 16px 32px -10px rgba(0, 0, 0, 0.18);
   }
 
   .friend-card a {
