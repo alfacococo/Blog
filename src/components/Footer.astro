@@ -10,9 +10,6 @@ const totalWordCount = posts.reduce((sum, post) => {
   return sum + getWordCount(post.body ?? '', { onlyChinese: true });
 }, 0);
 
-// 设定博客搭建日期
-const earliestDate = new Date(2025, 4, 9);
-
 // 字数转换成"千字"为单位，保留一位小数
 const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
 ---
@@ -69,11 +66,27 @@ const wordCountInThousands = (totalWordCount / 1000).toFixed(1);
   </div>
 </footer>
 
-<script is:inline data-astro-rerun define:vars={{ earliestDate }}>
-  // 在客户端运行的脚本
-  const start = new Date(earliestDate);
-  const now = new Date();
-  // 计算从最早那篇文章到今天，一共多少天
-  const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-  document.getElementById('days-count').innerText = diff;
+<script>
+  import { onNavigate } from '../scripts/onNavigate';
+
+  // 之前这里用的是 `is:inline data-astro-rerun define:vars`，但 Astro 编译器
+  // 在脚本同时带 define:vars 的情况下会把 data-astro-rerun 属性直接丢掉
+  // （不带 define:vars 的纯 is:inline 脚本不受影响，参照 Layout.astro 里的
+  // 主题切换脚本）。丢了这个属性之后，ClientRouter 发现这段脚本全站每页
+  // 文本都完全一样，只要在首次整页加载时跑过一次，就会被当成"已经执行过"，
+  // 之后每次 SPA 软导航都会被跳过，天数就会一直停在 HTML 里写死的占位符 0。
+  // 改用 onNavigate（监听 astro:page-load）就没有这个问题：它不靠脚本文本
+  // 去重，而是每次导航都重新查询 DOM、重新算一遍。
+  const EARLIEST_DATE = new Date(2025, 4, 9); // 博客搭建日期
+
+  function updateDaysCount() {
+    const el = document.getElementById('days-count');
+    if (!el) return;
+    const diff = Math.floor(
+      (Date.now() - EARLIEST_DATE.getTime()) / (1000 * 60 * 60 * 24),
+    );
+    el.textContent = String(diff);
+  }
+
+  onNavigate(updateDaysCount);
 </script>
