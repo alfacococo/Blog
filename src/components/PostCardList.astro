@@ -21,6 +21,7 @@ const {
         <a
           href={`/posts/${post.id}/`}
           data-post-card
+          data-post-slug={post.id}
           data-post-tags={JSON.stringify(post.data.tags ?? [])}
           class="timeline-card group block rounded-2xl border-[var(--line-color)] bg-[var(--background)]/80 p-5 transition duration-300 ease-in-out hover:-translate-y-2.5 active:-translate-y-2.5"
         >
@@ -57,6 +58,16 @@ const {
               )}
             </div>
           </div>
+          <span class="read-stamp" aria-hidden="true">
+            <img
+              src="/images/read-stamp.png"
+              alt=""
+              width="341"
+              height="308"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
         </a>
       </li>
     ))
@@ -66,6 +77,58 @@ const {
 <script>
   import { onNavigate } from '../scripts/onNavigate';
   import { attachPressFeedback } from '../scripts/attachPressFeedback';
+  import { getReadSlugs } from '../scripts/readPosts';
+
+  function markReadCards() {
+    const readSlugs = getReadSlugs();
+    document
+      .querySelectorAll<HTMLElement>('a[data-post-card]')
+      .forEach((card) => {
+        const slug = card.dataset.postSlug;
+        card.classList.toggle('is-read', !!slug && readSlugs.has(slug));
+      });
+  }
 
   onNavigate(() => attachPressFeedback('a[data-post-card]'));
+  onNavigate(markReadCards);
 </script>
+
+<style>
+  .timeline-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 图源裁掉透明边之后是 341x308，用 aspect-ratio 锁住这个真实比例，
+     宽度定死、高度跟着比例走，避免图章被拉伸变形。 */
+  .read-stamp {
+    position: absolute;
+    top: -19px;
+    right: -15px;
+    width: 90px;
+    aspect-ratio: 341 / 308;
+    transform: rotate(-12deg) scale(0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .read-stamp img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .timeline-card.is-read .read-stamp {
+    opacity: 0.92;
+    transform: rotate(-12deg) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .read-stamp {
+      transition: none;
+    }
+  }
+</style>

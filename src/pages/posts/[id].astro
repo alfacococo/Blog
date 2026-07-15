@@ -4,6 +4,7 @@ import MarkdownPostsLayout from '../../layouts/MarkdownPostsLayout.astro';
 import { getWordCount, getReadingTime } from '../../utils/wordCount';
 import TableOfContents from '../../components/TableOfContents.astro';
 import LikeButton from '../../components/LikeButton.astro';
+import ReadMarker from '../../components/ReadMarker.astro';
 import PostNavigation from '../../components/PostNavigation.astro';
 import ReadingProgressBar from '../../components/ReadingProgressBar.astro';
 
@@ -42,6 +43,7 @@ const readingTime = getReadingTime(wordCount);
   <TableOfContents headings={headings} />
   <ReadingProgressBar />
   <Content />
+  <ReadMarker slug={post.id} />
   <LikeButton slug={post.id} />
   <PostNavigation prevPost={prevPost} nextPost={nextPost} />
 </MarkdownPostsLayout>

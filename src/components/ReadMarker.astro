@@ -1,0 +1,23 @@
+---
+interface Props {
+  slug: string; // 文章的 slug，进入这篇文章页面就把它记为已读
+}
+const { slug } = Astro.props;
+---
+
+<div class="read-marker" data-slug={slug} hidden></div>
+
+<script>
+  import { onNavigate } from '../scripts/onNavigate';
+  import { markPostAsRead } from '../scripts/readPosts';
+
+  function initReadMarker() {
+    const marker = document.querySelector<HTMLElement>('.read-marker');
+    const slug = marker?.dataset.slug;
+    if (!slug) return;
+
+    markPostAsRead(slug);
+  }
+
+  onNavigate(initReadMarker);
+</script>
