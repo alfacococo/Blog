@@ -4,7 +4,13 @@ export interface ChangelogEntry {
 }
 
 export const changelogEntries: ChangelogEntry[] = [
-  {
+    {
+    time: '2026-07-16',
+    items: [
+      '已阅后该博文卡片右上角会显示已阅印章，但换设备、换浏览器、隐身模式、清缓存都会导致"失效"，所以没啥作用，只是好玩。',
+    ],
+    },
+    {
     time: '2026-07-14',
     items: [
       '电脑端的目录单独拆了出来，显示在正文的右边，移动端不变。稍微调整了一下标题字体和目录的版式。',
