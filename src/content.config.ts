@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { glob } from 'astro/loaders';
-import { postFrontmatterSchema } from './postSchema';
+import { postFrontmatterSchema } from './content/postSchema';
 
 
 const postsCollection = defineCollection({
