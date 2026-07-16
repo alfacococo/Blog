@@ -1,5 +1,16 @@
 /* 博文内部样式 */
 
+/* Header 是 fixed 定位、还会随滚动方向隐藏/重新出现，点目录跳转到标题时
+   如果不留这个安全距离，标题会被重新出现的 Header 盖住一截。
+   78px 跟 base.css 里 main 的 padding-top 保持一致，都是 Header 桌面端高度撑出来的值；
+   窄屏下 Header 换行变高之后的 124px 覆盖值见 responsive.css。 */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  scroll-margin-top: 78px;
+}
+
 .prose p {
   margin-bottom: 1rem;
   font-size: 1rem;

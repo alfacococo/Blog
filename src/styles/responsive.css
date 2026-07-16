@@ -41,4 +41,11 @@
   main {
     padding-top: 124px
   }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    scroll-margin-top: 124px;
+  }
 }
