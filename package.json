@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist && node scripts/subset-fonts.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
@@ -13,7 +13,7 @@
     "test:rss": "node scripts/verify-rss.mjs",
     "test:e2e": "playwright test",
     "check:friends": "node scripts/check-friend-links.mjs",
-    "verify": "npm run typecheck && npm test && astro build && npm run test:rss && npm run test:e2e",
+    "verify": "npm run typecheck && npm test && npm run build && npm run test:rss && npm run test:e2e",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -39,6 +39,7 @@
     "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.35.3",
+    "subset-font": "^2.5.0",
     "typescript": "^5.9.3",
     "vitest": "^4.1.10"
   }

@@ -18,6 +18,11 @@
   font-family: 'LXGWNeoXiHei';
   font-style: normal;
   font-weight: 400;
-  src: url('/fonts/LXGWNeoXiHei.ttf') format('truetype');
+  /* woff2 是构建时按实际用到的字符现生成的子集（见 scripts/subset-fonts.mjs），
+     体积从原始 ttf 的 4.3MB 降到几百 KB。只在 dist/ 里存在，dev 模式下这个文件不存在，
+     浏览器请求 404 后会按 CSS 规范自动 fallback 到下面的完整 ttf，本地开发不受影响。 */
+  src:
+    url('/fonts/LXGWNeoXiHei.subset.woff2') format('woff2'),
+    url('/fonts/LXGWNeoXiHei.ttf') format('truetype');
   font-display: swap;
 }
