@@ -24,6 +24,28 @@
       position: relative;
   }
 
+  /* pagefind-ui 脚本首次加载完成前，#search 是空的，靠这个占位骨架撑住高度，
+     避免弹窗在脚本加载完成前只显示一半；一旦 PagefindUI 挂载了真实内容，
+     #search 就不再匹配 :empty，这段样式自动失效，不需要额外 JS 清理 */
+  #search:empty {
+      min-height: 3.25rem;
+  }
+
+  #search:empty::before {
+      content: "";
+      display: block;
+      height: 3.25rem;
+      border-radius: 8px;
+      background-color: currentColor;
+      opacity: 0.1;
+      animation: search-skeleton-pulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes search-skeleton-pulse {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.2; }
+  }
+
   #search-close {
       position: absolute;
       top: 2.5rem;

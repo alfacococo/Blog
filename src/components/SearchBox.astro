@@ -22,23 +22,39 @@
       }
     });
 
-    let uiLoaded = false;
+    // idle | loading | ready：防止重复注入 script，也让 hover/focus 预加载和
+    // 点击时的加载共用同一份状态
+    let uiState: 'idle' | 'loading' | 'ready' = 'idle';
+
+    function loadPagefindUI() {
+      if (uiState !== 'idle') return;
+      uiState = 'loading';
+
+      const script = document.createElement('script');
+      script.src = '/pagefind/pagefind-ui.js';
+      script.onload = () => {
+        new (window as any).PagefindUI({
+          element: '#search',
+          excerptLength: 50,
+        });
+        uiState = 'ready';
+      };
+      document.body.appendChild(script);
+    }
+
+    // 预加载：浏览器空闲时，或用户 hover/focus 到搜索按钮时（两者取先到者），
+    // 提前把 pagefind-ui.js 加载好，这样真正点击时大概率已经就绪，不占首屏关键路径
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(loadPagefindUI, { timeout: 4000 });
+    } else {
+      setTimeout(loadPagefindUI, 2000);
+    }
+    trigger.addEventListener('mouseenter', loadPagefindUI, { once: true });
+    trigger.addEventListener('focus', loadPagefindUI, { once: true });
 
     trigger.addEventListener('click', () => {
       modal.classList.remove('hidden');
-
-      if (!uiLoaded) {
-        const script = document.createElement('script');
-        script.src = '/pagefind/pagefind-ui.js';
-        script.onload = () => {
-          new (window as any).PagefindUI({
-            element: '#search',
-            excerptLength: 50,
-          });
-        };
-        document.body.appendChild(script);
-        uiLoaded = true;
-      }
+      loadPagefindUI(); // 若已在预加载中或已就绪，内部会直接跳过
     });
 
     closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
