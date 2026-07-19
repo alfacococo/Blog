@@ -34,9 +34,12 @@ async function openAndCloseZoom(page: import('@playwright/test').Page) {
 
   // medium-zoom 打开时：原图会被隐藏，另外克隆一张挂在 body 下当作放大态，
   // 同时 body 会挂上 medium-zoom--opened，遮罩层跟着可见。
+  // 图片带 srcset 时（constrained 响应式图片），medium-zoom 还会再克隆一份
+  // 换大 sizes 的"高清版"，所以 --opened 元素可能是 1 个也可能是 2 个，
+  // 这里断言"至少有一个可见"而不是用严格单元素定位。
   await expect(page.locator('body')).toHaveClass(/medium-zoom--opened/);
   await expect(image).toHaveClass(/medium-zoom-image--hidden/);
-  await expect(page.locator('.medium-zoom-image--opened')).toBeVisible();
+  await expect(page.locator('.medium-zoom-image--opened').first()).toBeVisible();
 
   // medium-zoom 在打开动画（.3s transform 过渡）结束前会忽略关闭请求，
   // 所以点遮罩关闭之前得先等这个过渡跑完，不然点了也没反应。

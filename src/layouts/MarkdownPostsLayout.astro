@@ -67,16 +67,11 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     if (zoomInstance) {
       zoomInstance.detach();
     }
+    // 开了 image.layout: 'constrained' 之后 markdown 本地图片都带真实的多档 srcset，
+    // medium-zoom 看到 srcset 会在放大时克隆一份、把 sizes 换成放大后的尺寸去加载
+    // 高清档——这正是我们要的效果（正文里只下载小图，点开放大才取大图），
+    // 所以以前那段"删掉空 srcset"的 workaround 不需要也不能再做了。
     const images = document.querySelectorAll('.prose img');
-    images.forEach((image) => {
-      // Astro 的 markdown 图片处理会给本地图片加一个恒为空的 srcset 属性。
-      // medium-zoom 只要看到 srcset 存在就会另外克隆一份"高清图"做二次加载，
-      // 结果两份克隆都会被打上 medium-zoom-image--opened，导致放大/收起状态错乱。
-      // 这个 srcset 本来就没有实际内容，去掉不影响图片显示。
-      if (image.getAttribute('srcset') === '') {
-        image.removeAttribute('srcset');
-      }
-    });
     if (images.length > 0) {
       zoomInstance = mediumZoom(images, { background: 'rgba(0, 0, 0, 0.8)' });
     }
