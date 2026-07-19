@@ -4,10 +4,20 @@
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
 
-  # 每次部署后自动跑一遍 Lighthouse（默认 mobile，跟之前人工跑的报告口径一致），
-  # 分数会打印在 Netlify 的 Deploy log 里，报告网页存在下面这两个路径下方便回看。
-  # 先不设 thresholds/fail_deploy_on_score_thresholds —— 只记录，不让分数波动挡住部署，
-  # 攒几次数据看看正常波动范围再决定要不要加阈值。
+  # 部署前（onPostBuild）自动跑一遍 Lighthouse（默认 mobile），分数打印在
+  # Deploy log 里，报告网页存在下面两个路径下方便回看。
+  #
+  # 注意这个插件是在构建服务器上本地静态伺服 dist 来测的：没有真实网络、
+  # 没有 CDN 压缩、Lighthouse 版本也偏旧，分数系统性虚高（正常在 95~100），
+  # 绝对分数没有参考价值，准确分数以 PSI / Chrome 扩展实测为准。
+  # 它的定位是烟雾报警器：在这种虚高环境里 performance 都能跌破 0.8，
+  # 说明部署产物真出了大问题（比如误传大图、CSS 内联失效），直接挡住部署。
+  [plugins.inputs]
+    fail_deploy_on_score_thresholds = "true"
+
+  [plugins.inputs.thresholds]
+    performance = 0.8
+
   [[plugins.inputs.audits]]
     path = "/"
     output_path = "reports/lighthouse-home.html"
