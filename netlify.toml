@@ -1,2 +1,17 @@
 [build]
   functions = "netlify/functions"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+  # 每次部署后自动跑一遍 Lighthouse（默认 mobile，跟之前人工跑的报告口径一致），
+  # 分数会打印在 Netlify 的 Deploy log 里，报告网页存在下面这两个路径下方便回看。
+  # 先不设 thresholds/fail_deploy_on_score_thresholds —— 只记录，不让分数波动挡住部署，
+  # 攒几次数据看看正常波动范围再决定要不要加阈值。
+  [[plugins.inputs.audits]]
+    path = "/"
+    output_path = "reports/lighthouse-home.html"
+
+  [[plugins.inputs.audits]]
+    path = "posts/"
+    output_path = "reports/lighthouse-posts.html"
