@@ -16,8 +16,35 @@ const {
 
 <img
   class:list={['mx-auto hero-image', className]}
+  src="/images/mv-dark.webp"
   alt={alt}
   width={width}
   height={height}
   fetchpriority="high"
 />
+<script is:inline data-astro-rerun>
+  // LCP 图片默认走深色版 src，让预加载扫描器无需等 CSS 就能直接发现并高优先级抓取。
+  // 这里用 MutationObserver 盯着 html 的 class：无论是首次加载时的浅色纠正、软导航后
+  // 重新解析出的新 img（默认又是深色），还是用户点了 ThemeIcon 按钮手动切主题，
+  // 都统一走同一条同步逻辑，不必反过来耦合 ThemeIcon 的点击事件。
+  // data-astro-rerun 原因同 Layout.astro 里的主题脚本——ClientRouter 软导航不会重新
+  // 执行普通内联脚本，需要这个属性显式声明每次都要重跑，从而对新页面的 img 也纠正一次初始状态。
+  (function () {
+    function syncHeroImages() {
+      var isLight = document.documentElement.classList.contains('light');
+      document.querySelectorAll('.hero-image').forEach(function (img) {
+        img.src = isLight ? '/images/mv.webp' : '/images/mv-dark.webp';
+      });
+    }
+
+    syncHeroImages();
+
+    if (!window.__heroThemeObserverBound) {
+      window.__heroThemeObserverBound = true;
+      new MutationObserver(syncHeroImages).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    }
+  })();
+</script>

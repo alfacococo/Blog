@@ -1,11 +1,7 @@
-/* 默认是深色模式的图片 */
+/* 图片 src 由 HeroImage.astro 里的内联脚本按主题设置，
+   这里只负责尺寸，不再用 content: url() 切图——
+   那样浏览器预加载扫描器发现不了图片地址，必须等 CSS 下载解析完才知道要抓哪张图，LCP 会被拖慢。 */
 .hero-image {
-  content: url('/images/mv-dark.webp');
   width: 400px;
   height: auto;
-}
-
-/* 当 html 拥有 light 类时，切换图片 */
-html.light .hero-image {
-  content: url('/images/mv.webp');
 }
