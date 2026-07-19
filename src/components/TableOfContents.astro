@@ -69,10 +69,6 @@ const filtered = headings.filter((h) => h.depth <= 4);
     transition: transform 0.25s ease;
   }
 
-  .toc a:hover {
-    transform: translateX(4px);
-  }
-
   .toc-text {
     display: block;
   }
@@ -86,8 +82,17 @@ const filtered = headings.filter((h) => h.depth <= 4);
     transition: opacity 0.25s ease;
   }
 
-  .toc a:hover .toc-text--bold {
-    opacity: 1;
+  /* 触屏设备没有"指针移出"的概念，:hover 会在点击后卡住直到点别处才解除，
+     4px 位移和假粗体交叉淡入淡出叠在一起就成了明显的重影/位移，
+     所以这个悬浮效果只在真正支持 hover 的指针设备（鼠标/触控板）上启用 */
+  @media (hover: hover) and (pointer: fine) {
+    .toc a:hover {
+      transform: translateX(4px);
+    }
+
+    .toc a:hover .toc-text--bold {
+      opacity: 1;
+    }
   }
 
   /* 不再用符号区分层级，靠缩进 + 字号/透明度的深浅差异来传达主次：
