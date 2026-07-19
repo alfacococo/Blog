@@ -202,7 +202,7 @@
       (match: any, name: string | number) => {
         const url = emojiMap[name];
         if (!url) return match;
-        return `<img src="${url}" alt=":${name}:" class="misskey-emoji" style="width: 1.2em; vertical-align: middle; display: inline;" />`;
+        return `<img src="${url}" alt=":${name}:" class="misskey-emoji" loading="lazy" decoding="async" style="width: 1.2em; vertical-align: middle; display: inline;" />`;
       },
     );
   }

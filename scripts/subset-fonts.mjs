@@ -4,8 +4,24 @@ import subsetFont from 'subset-font';
 
 const DIST_DIR = 'dist';
 const POSTS_DIR = 'src/content/posts';
-const SOURCE_FONT = 'public/fonts/LXGWNeoXiHei.ttf';
-const OUTPUT_FONT = 'dist/fonts/LXGWNeoXiHei.subset.woff2';
+
+// 三个字体走同一套"按站点实际用到的字符生成 woff2 子集"的流程。
+// Pacifico / JosefinSans 是拉丁字体，塞进去的 CJK 字符它们本来就没有字形，
+// 子集工具会自动跳过，所以共用同一个字符集是安全的。
+const FONTS = [
+  {
+    source: 'public/fonts/LXGWNeoXiHei.ttf',
+    output: 'dist/fonts/LXGWNeoXiHei.subset.woff2',
+  },
+  {
+    source: 'public/fonts/Pacifico-Regular.ttf',
+    output: 'dist/fonts/Pacifico-Regular.subset.woff2',
+  },
+  {
+    source: 'public/fonts/JosefinSans-Regular.ttf',
+    output: 'dist/fonts/JosefinSans-Regular.subset.woff2',
+  },
+];
 
 const HTML_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
 
@@ -64,14 +80,16 @@ for (const file of walk(POSTS_DIR, ['.md', '.mdx'])) {
 }
 
 const text = Array.from(chars).join('');
-const originalFont = readFileSync(SOURCE_FONT);
-const subsetBuffer = await subsetFont(originalFont, text, { targetFormat: 'woff2' });
-
 mkdirSync('dist/fonts', { recursive: true });
-writeFileSync(OUTPUT_FONT, subsetBuffer);
 
-const originalKiB = (originalFont.length / 1024).toFixed(0);
-const subsetKiB = (subsetBuffer.length / 1024).toFixed(0);
-console.log(
-  `✓ Font subset: ${chars.size} unique characters, ${originalKiB} KiB → ${subsetKiB} KiB`,
-);
+for (const { source, output } of FONTS) {
+  const originalFont = readFileSync(source);
+  const subsetBuffer = await subsetFont(originalFont, text, { targetFormat: 'woff2' });
+  writeFileSync(output, subsetBuffer);
+
+  const originalKiB = (originalFont.length / 1024).toFixed(0);
+  const subsetKiB = (subsetBuffer.length / 1024).toFixed(0);
+  console.log(
+    `✓ ${output}: ${chars.size} unique characters, ${originalKiB} KiB → ${subsetKiB} KiB`,
+  );
+}

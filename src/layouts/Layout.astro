@@ -31,8 +31,17 @@ const {
 
     <!-- pagefind 搜索组件的样式表。固定写在 head 里而不是用 JS 动态注入，
          这样新旧页面的 head 里 href 能对上，Astro 切页时才会自动保留它，
-         不会像之前那样切一次页就丢一次。体积很小，常驻也不影响首屏。 -->
-    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+         不会像之前那样切一次页就丢一次。
+         media="print" + onload 切回 all 是标准的异步样式表加载法：浏览器对 print
+         样式表不阻塞渲染，加载完成后再启用。这些样式只有打开搜索弹窗才用得上，
+         不值得为它挡住首屏；切页时即使元素被替换重新走一遍 onload，弹窗没开也无感。 -->
+    <link
+      rel="stylesheet"
+      href="/pagefind/pagefind-ui.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript><link rel="stylesheet" href="/pagefind/pagefind-ui.css" /></noscript>
 
     <script is:inline data-astro-rerun>
       // data-astro-rerun 会让这段脚本在每次 ClientRouter 软导航时都重新执行一次。
@@ -113,9 +122,10 @@ const {
         initTitleEffect();
       })();
     </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3BM4LFJ6D"
-    ></script>
+    <!-- Google tag (gtag.js)。dataLayer 桩子照常先建好把事件排队，但 gtag.js 本体
+         推迟到 load 事件后的空闲时段再注入：它在慢速设备上会占主线程还触发强制重排
+         （Lighthouse 的 TBT / 强制自动重排两项都指向它），统计脚本没必要跟首屏抢时间。
+         排队的事件在脚本加载后会照常上报，不丢数据。 -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -123,6 +133,36 @@ const {
       }
       gtag('js', new Date());
       gtag('config', 'G-Q3BM4LFJ6D');
+
+      (function () {
+        if (window.__gtagLoaderBound) return;
+        window.__gtagLoaderBound = true;
+
+        function loadGtag() {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Q3BM4LFJ6D';
+          document.head.appendChild(s);
+        }
+
+        var idle =
+          window.requestIdleCallback ||
+          function (cb) {
+            setTimeout(cb, 1500);
+          };
+
+        if (document.readyState === 'complete') {
+          idle(loadGtag);
+        } else {
+          window.addEventListener(
+            'load',
+            function () {
+              idle(loadGtag);
+            },
+            { once: true },
+          );
+        }
+      })();
     </script>
     <ClientRouter />
   </head>
