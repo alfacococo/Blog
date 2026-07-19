@@ -60,10 +60,10 @@ const {
           </div>
           <span class="read-stamp" aria-hidden="true">
             <img
-              src="/images/read-stamp.png"
+              src="/images/read-stamp.webp"
               alt=""
-              width="341"
-              height="308"
+              width="180"
+              height="163"
               loading="lazy"
               decoding="async"
             />
@@ -99,14 +99,14 @@ const {
     overflow: hidden;
   }
 
-  /* 图源裁掉透明边之后是 341x308，用 aspect-ratio 锁住这个真实比例，
-     宽度定死、高度跟着比例走，避免图章被拉伸变形。 */
+  /* 图源裁掉透明边之后是 180x163（按展示尺寸 90px 的 2 倍图导出，兼顾高分屏），
+     用 aspect-ratio 锁住这个真实比例，宽度定死、高度跟着比例走，避免图章被拉伸变形。 */
   .read-stamp {
     position: absolute;
     top: -19px;
     right: -15px;
     width: 90px;
-    aspect-ratio: 341 / 308;
+    aspect-ratio: 180 / 163;
     transform: rotate(-12deg) scale(0.85);
     opacity: 0;
     pointer-events: none;
