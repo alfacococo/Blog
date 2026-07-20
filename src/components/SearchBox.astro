@@ -36,6 +36,7 @@
         new (window as any).PagefindUI({
           element: '#search',
           excerptLength: 50,
+          showImages: false, // 没有任何页面标了 data-pagefind-meta="image"，缩略图区域永远空着，不如直接关掉
         });
         uiState = 'ready';
       };
