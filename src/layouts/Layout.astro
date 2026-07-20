@@ -27,6 +27,16 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 提前预加载这三个 @font-face 字体（见 fonts.css），不然浏览器要等 CSS
+         解析完、发现真的有文字要用它们才会开始下载。LXGWNeoXiHei 子集有 334 KiB，
+         手机网络上够不上瞬间下载完，字体没下载完的这段时间 font-display: swap
+         会先显示兜底字体——以前切页是硬切感知不到，现在换成 250ms 淡入淡出后
+         这个过程会被看见，预加载能尽量缩短这个窗口。 -->
+    <link rel="preload" href="/fonts/LXGWNeoXiHei.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Pacifico-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JosefinSans-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
+
     <SeoMeta pageTitle={pageTitle} description={description} image={image} type={type} />
 
     <!-- pagefind 搜索组件的样式表。固定写在 head 里而不是用 JS 动态注入，
