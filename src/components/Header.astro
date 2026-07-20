@@ -2,7 +2,12 @@
 import Navigation from "./Navigation.astro";
 ---
 
-<header class="site-header">
+<!-- transition:animate="none"：不加这个的话 Header 会被划进 Layout.astro 里
+     <html transition:animate={fade(...)}> 那个整页淡入淡出分组。但里面的 nav 又是
+     transition:persist（同一个活节点，高亮的 Tab 会实时更新），两者叠在一起会导致
+     切页瞬间同时看到"旧快照淡出的 Header"和"已经实时更新高亮的 Header"，
+     两条下划线错位重叠，看起来像重影。摘出去之后 Header 只保留自己实时的状态，不再受影响。 -->
+<header class="site-header" transition:animate="none">
   <nav transition:persist>
     <Navigation />
   </nav>
