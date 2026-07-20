@@ -4,17 +4,15 @@
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
 
-  # 部署前（onPostBuild）自动跑一遍 Lighthouse（默认 mobile），分数打印在
+  # 部署成功后自动对线上地址跑一遍 Lighthouse（默认 mobile），分数打印在
   # Deploy log 里，报告网页存在下面两个路径下方便回看。
   #
-  # 注意这个插件是在构建服务器上本地静态伺服 dist 来测的：没有真实网络、
-  # 没有 CDN 压缩、Lighthouse 版本也偏旧，分数系统性虚高（正常在 95~100），
-  # 绝对分数没有参考价值，准确分数以 PSI / Chrome 扩展实测为准。
-  # 它的定位是烟雾报警器：在这种虚高环境里 performance 都能跌破 0.8，
-  # 说明部署产物真出了大问题（比如误传大图、CSS 内联失效），直接挡住部署。
-  [plugins.inputs]
-    fail_deploy_on_score_thresholds = "true"
-
+  # 不要开 fail_deploy_on_score_thresholds：开了之后插件会改成在部署前
+  # 本地静态伺服 dist 来测（没有 CDN 压缩、HTTP/1.1、还套完整节流模拟），
+  # 基线直接从 95+ 掉到 ~70，0.8 的阈值会拦住每一次正常部署（2026-07-20
+  # 踩过一次）。现在这样部署后测线上真实地址，基线 95+，performance 跌破
+  # 0.8 时构建会标红报警，但部署已经发布，不会挡住发文章。
+  # 它的定位是烟雾报警器：分数只看趋势，准确分数以 PSI / Chrome 扩展为准。
   [plugins.inputs.thresholds]
     performance = 0.8
 
