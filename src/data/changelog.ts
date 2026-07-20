@@ -5,6 +5,13 @@ export interface ChangelogEntry {
 
 export const changelogEntries: ChangelogEntry[] = [
   {
+    time: "2026-07-20",
+    items: [
+      "去掉搜索结果的缩略图区域，现在单条搜索结果的左边不再是一片空白了。",
+      "预加载字体 + 给字体文件加长期缓存，缓解手机端切页字体闪烁。",
+    ],
+  },
+  {
     time: "2026-07-19",
     items: [
       "修复移动端目录悬浮动画出现重影和位移的bug。",
