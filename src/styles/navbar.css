@@ -53,10 +53,24 @@
   transition: transform 0.3s ease;
 }
 
+/* :focus-visible 而不是 :focus：切页时 Astro 对 transition:persist 节点的
+   兼容处理（不支持 moveBefore 的浏览器会退回 appendChild/replaceWith，
+   导致节点断开重连、焦点被打断又被程序化恢复）会触发一次 blur+focus，
+   如果绑的是 :focus，下划线动画会被这次抖动重放一遍。:focus-visible
+   只在键盘等非指针交互时命中，点击/触摸/程序化 focus 都不会触发，从根上
+   避开这个问题，键盘可访问性也不受影响。
+
+   is-pressed 是 Navigation.astro 里点击（click，鼠标/触摸都会触发）导航链接时
+   手动加上的 class，一路保持到新页面里 .active 生效才摘掉，用来撑住"点击到
+   切页完成"这段过渡期——试过靠 :hover 撑，但切页时的 DOM 替换会让浏览器
+   暂时"忘记"指针是否还悬停在这个节点上，导致下划线中途归零又被 .active
+   重新展开一次，效果跟上面 :focus 那个问题一样。 */
 .navbar__title>a:hover::after,
 .navbar__menu>a:hover::after,
 #search-container:hover::after,
-.navbar__menu>a:focus::after,
+.navbar__menu>a:focus-visible::after,
+.navbar__title>a.is-pressed::after,
+.navbar__menu>a.is-pressed::after,
 .navbar__title>a.active::after,
 .navbar__menu>a.active::after {
   transform: scaleX(1);

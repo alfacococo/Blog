@@ -36,8 +36,35 @@ import SearchBox from "./SearchBox.astro";
       const isActive = isHome ? path === '/' : path.startsWith(href);
 
       link.classList.toggle('active', isActive);
+      // 导航已经完成、.active 已经就位，之前点击时临时加的 is-pressed 可以摘掉了——
+      // 这时候 .active 已经在顶着下划线展开，摘掉 is-pressed 不会有空档。
+      link.classList.remove('is-pressed');
+    });
+  }
+
+  // 点击瞬间（不是 pointerdown/hover）就把下划线固定展开，一路保持到上面
+  // updateActiveNavLink 里 .active 接手为止。
+  //
+  // 之前试过靠 :hover / :focus 撑住这段"点击到切页完成"的过渡期，但两个都靠不住：
+  // :focus 会被 Astro 对 transition:persist 节点的兼容处理打断（不支持 moveBefore
+  // 的浏览器退回 appendChild/replaceWith，节点断开重连导致失焦，Astro 自己再
+  // 程序化 focus 回去，这一下一上会让下划线的 :focus 触发重新播一遍展开动画）；
+  // :hover 则是切页时的 DOM 替换会让浏览器暂时"忘记"当前指针是否还悬停在
+  // 这个节点上（需要一次新的 mousemove 才会重新识别），中途一旦掉线，下划线也会
+  // 归零再被 .active 重新展开一次。用 click 事件手动接管、只在确认 .active 生效后
+  // 才放手，中间完全没有空档，两种情况都不会再重播。
+  function initNavClickFeedback() {
+    const links = document.querySelectorAll<HTMLAnchorElement>(
+      '.navbar__title > a, .navbar__menu > a',
+    );
+    links.forEach((link) => {
+      link.addEventListener('click', () => link.classList.add('is-pressed'));
     });
   }
 
   onNavigate(updateActiveNavLink);
+
+  // .navbar__title > a / .navbar__menu > a 都在 <nav transition:persist> 里，
+  // 跨导航不会被销毁重建，所以只绑定一次点击监听，不然每次导航都会重复 addEventListener
+  onNavigate(initNavClickFeedback, { once: true });
 </script>
