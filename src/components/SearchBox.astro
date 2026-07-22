@@ -16,9 +16,26 @@
     // 不再嵌套在持久化的 nav 里面了，所以不需要再用 JS 把它挑到 body 下面，
     // 它自己的 transition:persist 能直接稳定生效
 
+    const openModal = () => {
+      modal.classList.remove('hidden');
+      document.documentElement.classList.add('search-modal-open');
+    };
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      document.documentElement.classList.remove('search-modal-open');
+    };
+
+    // 安全网：弹窗节点带 transition:persist，跨软导航不会重建，万一某条路径
+    // 导航发生前没走到 closeModal（比如用户直接点了底层内容之外的链接），
+    // 至少保证下一页不会继承一个锁死滚动的 html
+    document.addEventListener('astro:before-preparation', () => {
+      document.documentElement.classList.remove('search-modal-open');
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        modal.classList.add('hidden');
+        closeModal();
       }
     });
 
@@ -54,13 +71,13 @@
     trigger.addEventListener('focus', loadPagefindUI, { once: true });
 
     trigger.addEventListener('click', () => {
-      modal.classList.remove('hidden');
+      openModal();
       loadPagefindUI(); // 若已在预加载中或已就绪，内部会直接跳过
     });
 
-    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+    closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.add('hidden');
+      if (e.target === modal) closeModal();
     });
 
     // pagefind-ui 的搜索结果是点击后才动态插入到 #search 里的 <a> 标签，
@@ -68,7 +85,7 @@
     results.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       if (target.closest('a')) {
-        modal.classList.add('hidden');
+        closeModal();
       }
     });
   }

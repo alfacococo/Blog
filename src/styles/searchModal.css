@@ -21,6 +21,7 @@
       max-width: 500px;
       max-height: 70dvh;
       overflow-y: auto;
+      overscroll-behavior: contain;
       position: relative;
   }
 

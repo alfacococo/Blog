@@ -38,6 +38,14 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* 常驻预留滚动条位置，这样搜索弹窗打开时锁定 overflow 也不会因为滚动条消失
+     导致 body 的居中基准跟着变宽、页面左右跳动几像素 */
+  scrollbar-gutter: stable;
+}
+
+/* 搜索弹窗打开期间锁定背景滚动，见 SearchBox.astro 里开关这个 class 的地方 */
+html.search-modal-open {
+  overflow: hidden;
 }
 
 html.light {
