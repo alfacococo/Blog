@@ -1,63 +1,244 @@
-.paginator-list {
-  isolation: isolate;
+.paginator-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  --paginator-accent: #584966;
+  --paginator-border-color: rgba(0, 0, 0, 0.14);
 }
 
-/* 滑动高亮背景块：默认宽度 0、透明，JS 会在 hover/focus 到某个页码时
-   把它移动、放大到覆盖那一格。颜色用 --text-link（深浅模式下同一个值），
-   半透明所以叠在页码文字上不会挡住数字。圆角默认是 0（贴合中间直角的页码按钮），
-   JS 定位时会读取目标按钮实际的 border-radius 覆盖过来，两端 prev/next
-   的圆角也能对上。 */
-.paginator-highlight {
+html:not(.light) .paginator-row {
+  --paginator-border-color: rgba(255, 255, 255, 0.16);
+}
+
+.paginator-list {
+  isolation: isolate;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paginator-list li {
+  display: flex;
+}
+
+/* 当前页圆点：默认隐藏（宽度 0、透明），只在点击某个页码时短暂出场——
+   JS 把它定位、缩放到 0 盖在被点的格子上，再用 GSAP 从 scale 0 放大到 1，
+   做出"从格子中心的一个点扩散成整圆"的效果，动画放完就跳转过去了。
+   平时（包括无 JS 的情况）不依赖它——.paginator-cell--active 自己已经有
+   一份纯 CSS 的圆形背景常驻显示。 */
+.paginator-current-dot {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 0;
-  border-radius: 0;
-  background-color: color-mix(in srgb, var(--text-link) 18%, transparent);
-  border: 1px solid color-mix(in srgb, var(--text-link) 45%, transparent);
+  border-radius: 9999px;
   opacity: 0;
   pointer-events: none;
+  background-color: var(--paginator-accent);
+  /* 负数而不是正数：.paginator-list 是 flex 容器，里面的 <li> 作为 flex item
+     按"近似 inline-block"的绘制层级来画（早于普通正数 z-index 的定位元素），
+     这个绝对定位的圆点如果用正数 z-index，反而会盖在数字文字上面；
+     负数能确保它稳稳地画在所有 <li> 内容下面，只露出背景色那个圆。 */
+  z-index: -1;
+}
+
+.paginator-nav-btn,
+.paginator-cell {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  color: var(--text);
   transition:
-    transform 0.2s ease,
-    width 0.2s ease,
-    opacity 0.15s ease;
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.12s ease;
 }
 
-/* 边框颜色按深浅模式适配，替代原来写死的 border-gray-300。 */
-.paginator-border {
-  border-color: rgba(0, 0, 0, 0.14);
+.paginator-nav-btn {
+  border: 1px solid var(--paginator-border-color);
 }
 
-html:not(.light) .paginator-border {
-  border-color: rgba(255, 255, 255, 0.16);
+.paginator-nav-btn--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 页码数字格固定宽度（按两位数留够空间），一位数、两位数占同样的格子尺寸，
+   点击时圆点是原地从中心放大铺满格子，宽度不需要再跟着文字宽度额外过渡。 */
+.paginator-cell {
+  min-width: 2.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.paginator-nav-btn:hover {
+  color: var(--paginator-accent);
+  border-color: var(--paginator-accent);
+}
+
+.paginator-cell:hover {
+  color: var(--paginator-accent);
+}
+
+.paginator-nav-btn:active,
+.paginator-cell:active,
+.paginator-jump-btn:active {
+  transform: scale(0.95);
+}
+
+/* 当前页：纯 CSS 常驻圆形背景 + 反色文字，不依赖 JS 也能正确展示。
+   文字写死白色而不是跟随 --text/--text-light——强调色 #584966 是偏暗的紫色，
+   深浅模式下都需要浅色文字才够对比度（--text-light 那种近黑色配深紫底几乎
+   看不清），这里是独立于站点主题的"贴在强调色上的文字"，不需要跟着切换。 */
+.paginator-cell--active {
+  background-color: var(--paginator-accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.paginator-cell--active:hover {
+  color: #fff;
+}
+
+/* 点击扩散动画期间临时贴给被点的那个格子：只换文字颜色，不带背景（背景交给
+   .paginator-current-dot 那个从中心放大的圆点负责）。必须单独写、且排在
+   .paginator-cell:hover 后面——鼠标点击后指针通常还停留在格子上，:hover
+   会把文字变成 var(--paginator-accent)，正好和圆点的填充色是同一个变量，撞在一起
+   文字会"隐形"，这里用同优先级 + 更靠后的规则把颜色顶回白色。 */
+.paginator-cell--rippling,
+.paginator-cell--rippling:hover {
+  color: #fff;
+}
+
+/* 这几个都是 <li> 元素，选择器特意写成 .paginator-list li.xxx 而不是单独一个类名——
+   前面 `.paginator-list li { display: flex }` 的特异性是 (0,1,1)，比单独的类选择器
+   (0,1,0) 更高，如果这里只用类选择器，display:none 会在层叠时被那条通用规则盖掉。 */
+.paginator-list li.paginator-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 2.5rem;
+  color: var(--text);
+  opacity: 0.6;
+  user-select: none;
+}
+
+/* "当前页 / 总页数" 的纯文本展示，只在窄屏（见下方媒体查询）替代数字格列表，
+   宽度不随总页数位数变化而变化，比数字格阵列更能扛住极窄的可用空间。 */
+.paginator-list li.paginator-compact {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  height: 2.5rem;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.paginator-jump {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.5rem;
+}
+
+.paginator-jump-label {
+  font-size: 0.875rem;
+  color: var(--text);
+  opacity: 0.7;
+  white-space: nowrap;
 }
 
 .paginator-jump-input,
 .paginator-jump-btn {
   background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--paginator-border-color);
+  height: 2.5rem;
   transition:
     border-color 0.2s ease,
     color 0.2s ease;
 }
 
-.paginator-jump-btn:hover {
-  color: var(--text-link);
-  border-color: var(--text-link);
+.paginator-jump-input {
+  width: 3rem;
+  border-radius: 9999px;
+  padding: 0 0.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
-/* focus-visible 走纯 CSS，不依赖 JS 是否已经初始化完成，键盘用户始终能看到焦点位置；
-   inset 的 outline-offset 避免在连体分段条里跟相邻格子的边框重叠。 */
+.paginator-jump-btn {
+  width: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginator-jump-input:focus-visible {
+  border-color: var(--paginator-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--paginator-accent) 25%, transparent);
+}
+
+.paginator-jump-btn:hover {
+  color: var(--paginator-accent);
+  border-color: var(--paginator-accent);
+}
+
+@keyframes paginator-jump-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+.paginator-jump-input--invalid {
+  border-color: #e06c75;
+  animation: paginator-jump-shake 0.15s ease-in-out 2;
+}
+
+/* focus-visible 走纯 CSS，不依赖 JS 是否已经初始化完成，键盘用户始终能看到焦点位置 */
 [data-page-link]:focus-visible,
 .paginator-jump-input:focus-visible,
 .paginator-jump-btn:focus-visible {
-  outline: 2px solid var(--text-link);
-  outline-offset: -2px;
-  z-index: 20;
+  outline: 2px solid var(--paginator-accent);
+  outline-offset: 2px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .paginator-highlight {
-    transition: none;
+/* 窄屏（分页条自身可用宽度有限，比如内容列跟着视口收窄到手机尺寸）：
+   数字格列表本身宽度不可控（页数越多、位数越多就越宽），先砍掉它，
+   换成宽度恒定的"当前/总页数"纯文本，"跳转到"也去掉文字标签、
+   输入框收窄，把有限的宽度留给 Prev/Next 和这个精简后的跳转区。 */
+@media (max-width: 600px) {
+  /* 隐藏的是外层 <li>，不能只隐藏里面的 <a>——空的 <li> 仍然会以
+     display:flex 参与布局并吃掉一份 gap 间距，页码越多，Next 那一侧
+     累积的"隐形间距"就越多，会把 compact 文本挤得偏向 Prev 一侧。 */
+  .paginator-list li.paginator-cell-item,
+  .paginator-list li.paginator-ellipsis {
+    display: none;
+  }
+
+  .paginator-list li.paginator-compact {
+    display: flex;
+  }
+
+  .paginator-jump-label {
+    display: none;
+  }
+
+  .paginator-jump-input {
+    width: 2.25rem;
   }
 }

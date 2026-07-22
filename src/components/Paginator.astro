@@ -17,163 +17,168 @@ const { page, basePath } = Astro.props;
 const current = page.currentPage;
 const total = page.lastPage;
 
-const pageItems = getPageItems(total);
+const pageItems = getPageItems(current, total);
 ---
 
-<nav aria-label="Page navigation example" class="mt-10">
-  <ul class="paginator-list relative flex items-center -space-x-px h-10 text-base justify-center">
-    <span class="paginator-highlight" aria-hidden="true"></span>
+<nav aria-label="分页导航" class="paginator mt-10">
+  <div class="paginator-row">
+    <ul class="paginator-list relative flex items-center gap-1" aria-live="polite">
+      <span class="paginator-current-dot" aria-hidden="true"></span>
 
-    <!-- Prev Button -->
-    <li>
-      {
-        page.url.prev ? (
-          <a
-            href={page.url.prev}
-            data-page-link
-            class="relative flex items-center justify-center px-4 h-10 ms-0 leading-tight text-[var(--text)] border border-e-0 paginator-border rounded-s-lg"
-          >
-            <span class="sr-only">Previous</span>
-            <svg
-              class="w-3 h-3 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 1 1 5l4 4"
-              />
-            </svg>
-          </a>
-        ) : (
-          <span class="flex items-center justify-center px-4 h-10 ms-0 text-[var(--text)] opacity-40 border border-e-0 paginator-border rounded-s-lg cursor-not-allowed">
-            <svg
-              class="w-3 h-3"
-              viewBox="0 0 6 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 1 1 5l4 4"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        )
-      }
-    </li>
-
-    <!-- Page Numbers -->
-    {
-      pageItems.map((p) => {
-        if (p === '...') {
-          return (
-            <li>
-              <form
-                data-page-jump-form
-                data-base-path={basePath}
-                class="relative flex items-center h-10"
+      <!-- Prev Button -->
+      <li>
+        {
+          page.url.prev ? (
+            <a href={page.url.prev} data-page-link class="paginator-nav-btn">
+              <span class="sr-only">上一页</span>
+              <svg
+                class="w-3 h-3 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
               >
-                <input
-                  type="number"
-                  name="page"
-                  min="1"
-                  max={total}
-                  inputmode="numeric"
-                  class="paginator-jump-input w-10 h-10 border paginator-border px-2 text-center text-sm text-[var(--text)] outline-none"
-                  placeholder={String(current)}
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 1 1 5l4 4"
                 />
-                <button
-                  type="submit"
-                  class="paginator-jump-btn h-10 border border-l-0 paginator-border w-10 text-sm text-[var(--text)] opacity-80"
-                >
-                  Go
-                </button>
-              </form>
+              </svg>
+            </a>
+          ) : (
+            <span class="paginator-nav-btn paginator-nav-btn--disabled" aria-disabled="true">
+              <svg
+                class="w-3 h-3"
+                viewBox="0 0 6 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 1 1 5l4 4"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          )
+        }
+      </li>
+
+      <!-- Compact "current / total" text, shown instead of the number cells on narrow screens -->
+      <li class="paginator-compact" aria-hidden="true">{current} / {total}</li>
+
+      <!-- Page Numbers -->
+      {
+        pageItems.map((p) => {
+          if (p === '...') {
+            return (
+              <li class="paginator-ellipsis" aria-hidden="true">
+                …
+              </li>
+            );
+          }
+
+          const href = getPageHref(basePath, p as number);
+          const isActive = p === current;
+
+          return (
+            <li class="paginator-cell-item">
+              <a
+                href={href}
+                aria-current={isActive ? 'page' : undefined}
+                data-page-link
+                data-page-number
+                class={`paginator-cell ${isActive ? 'paginator-cell--active' : ''}`}
+              >
+                {p}
+              </a>
             </li>
           );
-        }
-
-        const href = getPageHref(basePath, p as number);
-        const isActive = p === current;
-
-        return (
-          <li>
-            <a
-              href={href}
-              aria-current={isActive ? 'page' : undefined}
-              data-page-link
-              class={`relative flex items-center justify-center px-4 h-10 leading-tight border paginator-border ${
-                isActive
-                  ? 'z-10 [color:var(--text-link)] [border-color:var(--text-link)]'
-                  : 'text-[var(--text)]'
-              }`}
-            >
-              {p}
-            </a>
-          </li>
-        );
-      })
-    }
-
-    <!-- Next Button -->
-    <li>
-      {
-        page.url.next ? (
-          <a
-            href={page.url.next}
-            data-page-link
-            class="relative flex items-center justify-center px-4 h-10 leading-tight text-[var(--text)] border paginator-border rounded-e-lg"
-          >
-            <span class="sr-only">Next</span>
-            <svg
-              class="w-3 h-3 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 9 4-4-4-4"
-              />
-            </svg>
-          </a>
-        ) : (
-          <span class="flex items-center justify-center px-4 h-10 text-[var(--text)] opacity-40 border paginator-border rounded-e-lg cursor-not-allowed">
-            <svg
-              class="w-3 h-3"
-              viewBox="0 0 6 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m1 9 4-4-4-4"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        )
+        })
       }
-    </li>
-  </ul>
+
+      <!-- Next Button -->
+      <li>
+        {
+          page.url.next ? (
+            <a href={page.url.next} data-page-link class="paginator-nav-btn">
+              <span class="sr-only">下一页</span>
+              <svg
+                class="w-3 h-3 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+            </a>
+          ) : (
+            <span class="paginator-nav-btn paginator-nav-btn--disabled" aria-disabled="true">
+              <svg
+                class="w-3 h-3"
+                viewBox="0 0 6 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m1 9 4-4-4-4"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          )
+        }
+      </li>
+    </ul>
+
+    <form data-page-jump-form data-base-path={basePath} class="paginator-jump">
+      <span class="paginator-jump-label">跳转到</span>
+      <input
+        type="number"
+        name="page"
+        min="1"
+        max={total}
+        inputmode="numeric"
+        class="paginator-jump-input"
+        placeholder={String(current)}
+        aria-label="跳转到指定页码"
+      />
+      <button type="submit" class="paginator-jump-btn" aria-label="跳转">
+        <svg
+          class="w-3 h-3"
+          viewBox="0 0 6 10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m1 9 4-4-4-4"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </form>
+  </div>
 </nav>
 
 <script>
+  import gsap from 'gsap';
   import { navigate } from 'astro:transitions/client';
   import { onNavigate } from '../scripts/onNavigate';
 
@@ -189,6 +194,12 @@ const pageItems = getPageItems(total);
         const max = Number(input.max);
 
         if (!Number.isInteger(value) || value < min || value > max) {
+          input.classList.add('paginator-jump-input--invalid');
+          input.addEventListener(
+            'animationend',
+            () => input.classList.remove('paginator-jump-input--invalid'),
+            { once: true },
+          );
           return;
         }
 
@@ -202,67 +213,64 @@ const pageItems = getPageItems(total);
     });
   }
 
-  // 滑动高亮：hover/focus 到哪个页码，一块共享的背景块就平滑移动、覆盖到那一格上，
-  // 不用每个格子各自变色（连体分段条的边框是共享的，单独给某一格变色/放大/浮起
-  // 都容易跟相邻格子打架，滑动一块背景反而是跟这种布局摩擦最小的做法）。
-  // 当前页排除在追踪目标之外，因为它已经有自己常驻的边框+主题色标记，不需要再叠加。
-  function initPaginatorHighlight() {
+  function getRelativeRect(list: HTMLElement, el: HTMLElement) {
+    const listRect = list.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    return {
+      x: elRect.left - listRect.left,
+      width: elRect.width,
+    };
+  }
+
+  // 当前页圆点现在只在点击瞬间出场：定位到被点的那个页码格子，从 scale 0
+  // （格子中心的一个点）放大到 scale 1（盖满整个格子），放完了再真正调用
+  // navigate() 跳转——不再是"从旧位置滑到新位置"那种连续位移。
+  //
+  // 只对页码数字格（data-page-number）做这个动效，不包括 Prev/Next——
+  // 因为 Prev/Next 跳转到的目标页码不一定出现在当前这份折叠后的页码列表里
+  // （比如从第 5 页点 Next 跳到第 6 页，而当前列表里根本没有"6"这个格子），
+  // 从中心放大这个前提本身倒是不依赖目标格子是否存在，但既然目标格子都不存在，
+  // 也就无从谈起"在哪个格子中心放大"了，所以还是只处理数字格点击。
+  function initCurrentDotAnimation() {
     const list = document.querySelector<HTMLElement>('.paginator-list');
-    const highlight = list?.querySelector<HTMLElement>('.paginator-highlight');
-    if (!list || !highlight) return;
+    const dot = list?.querySelector<HTMLElement>('.paginator-current-dot');
+    if (!list || !dot) return;
 
-    const links = Array.from(
-      list.querySelectorAll<HTMLAnchorElement>(
-        '[data-page-link]:not([aria-current="page"])'
-      )
+    gsap.set(dot, { opacity: 0 });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const numberLinks = Array.from(
+      list.querySelectorAll<HTMLAnchorElement>('[data-page-number]:not([aria-current="page"])')
     );
-    if (links.length === 0) return;
 
-    let hovered: HTMLElement | null = null;
-    let focused: HTMLElement | null = null;
+    numberLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const href = link.href;
 
-    function place(el: HTMLElement) {
-      if (!list || !highlight) return;
-      const listRect = list.getBoundingClientRect();
-      const elRect = el.getBoundingClientRect();
-      highlight.style.width = `${elRect.width}px`;
-      highlight.style.transform = `translateX(${elRect.left - listRect.left}px)`;
-      // 中间的页码按钮是直角，只有 prev/next 两端是圆角（rounded-s-lg/rounded-e-lg），
-      // 高亮块的圆角必须跟目标按钮保持一致，不然贴上去的时候直角按钮会露出方角，
-      // 圆角按钮那边又会被高亮块的直角切掉一块。
-      highlight.style.borderRadius = getComputedStyle(el).borderRadius;
-      highlight.style.opacity = '1';
-    }
+        if (reduceMotion) {
+          navigate(href);
+          return;
+        }
 
-    function update() {
-      const active = hovered ?? focused;
-      if (active) {
-        place(active);
-      } else if (highlight) {
-        highlight.style.opacity = '0';
-      }
-    }
-
-    links.forEach((link) => {
-      link.addEventListener('mouseenter', () => {
-        hovered = link;
-        update();
-      });
-      link.addEventListener('mouseleave', () => {
-        if (hovered === link) hovered = null;
-        update();
-      });
-      link.addEventListener('focus', () => {
-        focused = link;
-        update();
-      });
-      link.addEventListener('blur', () => {
-        if (focused === link) focused = null;
-        update();
+        const { x, width } = getRelativeRect(list, link);
+        // 鼠标点击后指针通常还停在这个格子上，:hover 会把文字变成
+        // var(--text-link)——正好跟圆点的填充色是同一个变量，撞在一起文字
+        // 会"隐形"。贴上这个 class 把文字换成反色，跟当前页的常驻样式一致。
+        link.classList.add('paginator-cell--rippling');
+        gsap.killTweensOf(dot);
+        gsap.set(dot, { x, width, opacity: 1, scale: 0 });
+        gsap.to(dot, {
+          scale: 1,
+          duration: 0.32,
+          ease: 'power3.out',
+          onComplete: () => navigate(href),
+        });
       });
     });
   }
 
   onNavigate(attachPageJumpHandlers);
-  onNavigate(initPaginatorHighlight);
+  onNavigate(initCurrentDotAnimation);
 </script>
