@@ -5,6 +5,14 @@ export interface ChangelogEntry {
 
 export const changelogEntries: ChangelogEntry[] = [
   {
+    time: "2026-07-22",
+    items: [
+      "修复移动端切页时导航栏下划线动画重播两遍的问题。",
+      "搜索弹窗打开时背景页面不再跟着滚动。",
+      "重做分页组件的样式与交互动画。",
+    ],
+  },
+  {
     time: "2026-07-20",
     items: [
       "去掉搜索结果的缩略图区域，现在单条搜索结果的左边不再是一片空白了。",
