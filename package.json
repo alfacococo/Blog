@@ -13,6 +13,8 @@
     "test:rss": "node scripts/verify-rss.mjs",
     "test:e2e": "playwright test",
     "check:friends": "node scripts/check-friend-links.mjs",
+    "new-post": "node scripts/new-post.mjs",
+    "sync:obsidian": "node scripts/sync-to-obsidian.mjs",
     "verify": "npm run typecheck && npm test && npm run build && npm run test:rss && npm run test:e2e",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

@@ -1,0 +1,5 @@
+#!/bin/sh
+# 自动把本次提交涉及的文章同步一份只读副本到 Obsidian，用于全文检索。
+# 这个 hook 本身不会被 git 追踪（.git/hooks 不进版本库），换新电脑或重新 clone 后
+# 需要重新执行一次: bash scripts/setup-git-hooks.sh
+node scripts/sync-to-obsidian.mjs
