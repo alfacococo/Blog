@@ -5,6 +5,12 @@ export interface ChangelogEntry {
 
 export const changelogEntries: ChangelogEntry[] = [
   {
+    time: "2026-08-03",
+    items: [
+      "更新首页的vibe coding项目列表，增加了晋江收藏夹书单导出/在线管理网页。",
+    ],
+  },
+  {
     time: "2026-07-22",
     items: [
       "修复移动端切页时导航栏下划线动画重播两遍的问题。",
