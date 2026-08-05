@@ -31,6 +31,18 @@ export default defineConfig({
     processor: unified({
       rehypePlugins: [rehypeLazyImages, [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }]],
     }),
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      // 关掉 Shiki 默认生成的那套"跟随系统 prefers-color-scheme"切换逻辑——
+      // 我们博客的深浅色是靠手动点按钮切 <html class="light">，不是跟系统走的，
+      // 用默认的 media query 会导致代码块颜色和站点其他地方的主题各切各的、对不上。
+      // 关掉之后 Shiki 只在每个 token 上留 --shiki-light / --shiki-dark 这两个变量，
+      // 由 prose.css 里我们自己写的规则决定读哪一个。
+      defaultColor: false,
+    },
   },
 
   site: "https://curly-sheep.netlify.app/",
