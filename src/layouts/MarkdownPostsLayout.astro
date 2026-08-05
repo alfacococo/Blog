@@ -1,7 +1,7 @@
 ---
-import BaseLayout from './Layout.astro';
-import HeroImage from '../components/HeroImage.astro';
-import '../styles/waline.css';
+import BaseLayout from "./Layout.astro";
+import HeroImage from "../components/HeroImage.astro";
+import "../styles/waline.css";
 const { frontmatter, wordCount, readingTime } = Astro.props;
 ---
 
@@ -58,8 +58,8 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 </style>
 
 <script>
-  import mediumZoom, { type Zoom } from 'medium-zoom';
-  import { onNavigate } from '../scripts/onNavigate';
+  import mediumZoom, { type Zoom } from "medium-zoom";
+  import { onNavigate } from "../scripts/onNavigate";
 
   let zoomInstance: Zoom | null = null;
 
@@ -71,9 +71,9 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     // medium-zoom 看到 srcset 会在放大时克隆一份、把 sizes 换成放大后的尺寸去加载
     // 高清档——这正是我们要的效果（正文里只下载小图，点开放大才取大图），
     // 所以以前那段"删掉空 srcset"的 workaround 不需要也不能再做了。
-    const images = document.querySelectorAll('.prose img');
+    const images = document.querySelectorAll(".prose img");
     if (images.length > 0) {
-      zoomInstance = mediumZoom(images, { background: 'rgba(0, 0, 0, 0.8)' });
+      zoomInstance = mediumZoom(images, { background: "rgba(0, 0, 0, 0.8)" });
     }
   }
 
@@ -89,53 +89,55 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     }
     // 兜底：http 或者不支持 Clipboard API 的旧浏览器
     return new Promise((resolve, reject) => {
-      const ta = document.createElement('textarea');
+      const ta = document.createElement("textarea");
       ta.value = text;
-      ta.style.cssText = 'position:fixed;top:-9999px;opacity:0';
+      ta.style.cssText = "position:fixed;top:-9999px;opacity:0";
       document.body.appendChild(ta);
       ta.select();
-      const ok = document.execCommand('copy');
+      const ok = document.execCommand("copy");
       ta.remove();
-      ok ? resolve() : reject(new Error('execCommand failed'));
+      ok ? resolve() : reject(new Error("execCommand failed"));
     });
   }
 
   // 查找所有代码块，给每个都加个复制按钮
   function initCopyButtons() {
-    document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((pre) => {
+    document.querySelectorAll<HTMLPreElement>(".prose pre").forEach((pre) => {
       // 已经处理过就跳过（保险起见，避免重复插入）
-      if (pre.closest('.code-wrapper[data-copy]')) return;
+      if (pre.closest(".code-wrapper[data-copy]")) return;
 
       // Astro 内置的 Shiki 高亮直接输出 <pre>，不带外层包装容器，
       // 这里自己包一层，好让按钮用 position:absolute 相对这层定位
-      const wrapper = document.createElement('div');
+      const wrapper = document.createElement("div");
       pre.parentNode?.insertBefore(wrapper, pre);
       wrapper.appendChild(pre);
-      wrapper.classList.add('code-wrapper');
-      wrapper.dataset.copy = 'true';
+      wrapper.classList.add("code-wrapper");
+      wrapper.dataset.copy = "true";
 
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'copy-code-button';
-      button.setAttribute('aria-label', '复制代码');
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "copy-code-button";
+      button.setAttribute("aria-label", "复制代码");
       button.innerHTML = `${ICON_COPY}<span>Copy</span>`;
       wrapper.appendChild(button);
 
-      const code = pre.querySelector('code') ?? pre;
+      const code = pre.querySelector("code") ?? pre;
       let timer: ReturnType<typeof setTimeout>;
 
-      button.addEventListener('click', async () => {
+      button.addEventListener("click", async () => {
         try {
-          await writeClipboard((code as HTMLElement).innerText.replace(/\n$/, ''));
-          button.classList.add('is-copied');
+          await writeClipboard(
+            (code as HTMLElement).innerText.replace(/\n$/, ""),
+          );
+          button.classList.add("is-copied");
           button.innerHTML = `${ICON_DONE}<span>Copied</span>`;
           clearTimeout(timer);
           timer = setTimeout(() => {
-            button.classList.remove('is-copied');
+            button.classList.remove("is-copied");
             button.innerHTML = `${ICON_COPY}<span>Copy</span>`;
           }, 1600);
         } catch (err) {
-          console.error('Copy failed!', err);
+          console.error("Copy failed!", err);
           button.innerHTML = `${ICON_COPY}<span>Failed</span>`;
         }
       });
@@ -318,5 +320,9 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
     /* 浅底上用更深的绿，保证对比度 */
     background: rgba(22, 163, 74, 0.1);
     border-color: rgba(22, 163, 74, 0.28);
+  }
+
+  .copy-btn {
+    display: none;
   }
 </style>
