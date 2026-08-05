@@ -52,6 +52,10 @@ description: "${description}"
 ---
 
 <p class='foreword my-3'></p>
+<div class="divider my-3 mx-auto"></div>
+
+<div class="divider my-3 mx-auto"></div>
+<p class='foreword'></p>
 
 `;
 
