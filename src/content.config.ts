@@ -4,7 +4,7 @@ import { postFrontmatterSchema } from './content/postSchema';
 
 
 const postsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
   schema: postFrontmatterSchema,
 });
 

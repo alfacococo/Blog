@@ -9,23 +9,26 @@ const [, , ...args] = process.argv;
 const title = args.find((a) => !a.startsWith("--"));
 const tagsArg = args.find((a) => a.startsWith("--tags="));
 const descArg = args.find((a) => a.startsWith("--desc="));
+const useMdx = args.includes("--mdx");
 
 if (!title) {
-  console.error('用法: node scripts/new-post.mjs "文章标题" [--tags=标签1,标签2] [--desc="一句话简介"]');
+  console.error('用法: node scripts/new-post.mjs "文章标题" [--tags=标签1,标签2] [--desc="一句话简介"] [--mdx]');
   process.exit(1);
 }
 
 if (!existsSync(POSTS_DIR)) mkdirSync(POSTS_DIR, { recursive: true });
 
-// 沿用仓库里 post-N.md 的顺序编号，自动找下一个可用编号
+// 沿用仓库里 post-N.md / post-N.mdx 的顺序编号，自动找下一个可用编号，
+// .md 和 .mdx 混在一起统一编号，不然两种格式各编各的号会撞车
 const existingIds = readdirSync(POSTS_DIR)
-  .map((f) => f.match(/^post-(\d+)\.md$/))
+  .map((f) => f.match(/^post-(\d+)\.mdx?$/))
   .filter(Boolean)
   .map((m) => Number(m[1]));
 
 const nextId = (existingIds.length ? Math.max(...existingIds) : 0) + 1;
 const postId = `post-${nextId}`;
-const filePath = path.join(POSTS_DIR, `${postId}.md`);
+const ext = useMdx ? "mdx" : "md";
+const filePath = path.join(POSTS_DIR, `${postId}.${ext}`);
 
 const today = new Date().toISOString().slice(0, 10);
 
