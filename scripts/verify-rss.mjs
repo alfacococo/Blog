@@ -27,7 +27,7 @@ const channel = doc.querySelector('channel');
 if (!channel) fail('missing <channel> element');
 
 const items = Array.from(doc.querySelectorAll('item'));
-const postCount = readdirSync(POSTS_DIR).filter((f) => f.endsWith('.md')).length;
+const postCount = readdirSync(POSTS_DIR).filter((f) => f.endsWith('.md') || f.endsWith('.mdx')).length;
 
 if (items.length !== postCount) {
   fail(
