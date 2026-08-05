@@ -52,12 +52,79 @@
 .prose pre {
   margin: 1rem 0;
   border-radius: 16px;
+  /* 浅色模式下代码块背景（纯白）跟正文卡片背景（--background-light，也
+     接近纯白）太接近，光靠色差分不清边界，加一层细边框 + 双层柔和阴影
+     勾出轮廓：一层贴边小阴影负责近处的立体感，一层大范围低透明度阴影
+     负责整体"浮起来"的感觉。默认这组是深色模式的参数，浅色模式的参数
+     在下面 .light .prose pre 里覆盖——阴影在深色背景上要更深才看得见，
+     浅色背景上则要浅很多，不然会显脏，所以两边分开调，不能共用一套。 */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.24);
+  /* 代码行超宽时 Shiki 给 pre 加了 overflow-x: auto，出来的横向滚动条默认是
+     系统原生样式，跟卡片本身的圆角、阴影这些精心调过的细节比显得很粗糙。
+     跟 TOC 面板滚动条同一个思路：标准属性 + ::-webkit-scrollbar 伪元素两套
+     一起写，颜色沿用复制按钮那套深浅两色方案，保持视觉统一。 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.light .prose pre {
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+.prose pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+.prose pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.light .prose pre::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.light .prose pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.28);
 }
 
 .prose pre code {
   display: block;
   padding: 1rem;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Shiki 双主题：astro.config.mjs 里配了 shikiConfig.themes（light/dark）+
+   defaultColor: false，Shiki 就只在每个 token 上留 --shiki-light /
+   --shiki-dark 这两个变量，不会自己套用任何一个、也不会跟系统
+   prefers-color-scheme 联动——具体读哪个变量由下面这两条规则决定，
+   跟着站内唯一的深浅色开关 html.light 这个 class 走，跟别处的主题切换
+   保持同一套机制。默认（没有 .light）走 dark 那一档。 */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+.light .astro-code,
+.light .astro-code span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
 }
 
 .prose p a {

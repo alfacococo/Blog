@@ -295,4 +295,28 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
       /* 取消位移动画，直接停在最终位置 */
     }
   }
+
+  /* ---------- 6. 浅色模式（.light）适配 ----------
+     现在 Shiki 开了双主题（见 prose.css），浅色模式下代码块背景会变成
+     真正的浅色，上面第 2 步那套深色配色的按钮会跟背景对不上，所以浅色
+     模式下换一套深色文字/浅色底的按钮配色。 */
+
+  :global(.light .copy-code-button) {
+    color: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  :global(.light .copy-code-button:hover) {
+    color: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  :global(.light .copy-code-button.is-copied) {
+    color: #16a34a;
+    /* 浅底上用更深的绿，保证对比度 */
+    background: rgba(22, 163, 74, 0.1);
+    border-color: rgba(22, 163, 74, 0.28);
+  }
 </style>
