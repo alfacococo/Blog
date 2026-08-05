@@ -79,30 +79,66 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 
   onNavigate(init);
 
+  // 复制按钮用到的两个图标（复制中 / 已复制），内联 SVG 免得额外发请求
+  const ICON_COPY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>`;
+  const ICON_DONE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+  function writeClipboard(text: string): Promise<void> {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    // 兜底：http 或者不支持 Clipboard API 的旧浏览器
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;top:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      ok ? resolve() : reject(new Error('execCommand failed'));
+    });
+  }
+
   // 查找所有代码块，给每个都加个复制按钮
   function initCopyButtons() {
-    const blocks = document.querySelectorAll('pre');
+    document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((pre) => {
+      // 已经处理过就跳过（保险起见，避免重复插入）
+      if (pre.closest('.code-wrapper[data-copy]')) return;
 
-    blocks.forEach((block) => {
-      // 保险起见：避免同一个 pre 块被重复插入按钮
-      if (block.querySelector('.copy-btn')) return;
+      // Astro 内置的 Shiki 高亮直接输出 <pre>，不带外层包装容器，
+      // 这里自己包一层，好让按钮用 position:absolute 相对这层定位
+      const wrapper = document.createElement('div');
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+      wrapper.classList.add('code-wrapper');
+      wrapper.dataset.copy = 'true';
 
       const button = document.createElement('button');
-      button.innerText = 'COPY';
-      button.className = 'copy-btn';
+      button.type = 'button';
+      button.className = 'copy-code-button';
+      button.setAttribute('aria-label', '复制代码');
+      button.innerHTML = `${ICON_COPY}<span>Copy</span>`;
+      wrapper.appendChild(button);
 
-      // 点击复制逻辑
-      button.addEventListener('click', () => {
-        const code = block.querySelector('code')?.innerText;
-        if (code) {
-          navigator.clipboard.writeText(code);
-          button.innerText = 'Success!';
-          setTimeout(() => (button.innerText = 'COPY'), 2000);
+      const code = pre.querySelector('code') ?? pre;
+      let timer: ReturnType<typeof setTimeout>;
+
+      button.addEventListener('click', async () => {
+        try {
+          await writeClipboard((code as HTMLElement).innerText.replace(/\n$/, ''));
+          button.classList.add('is-copied');
+          button.innerHTML = `${ICON_DONE}<span>Copied</span>`;
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            button.classList.remove('is-copied');
+            button.innerHTML = `${ICON_COPY}<span>Copy</span>`;
+          }, 1600);
+        } catch (err) {
+          console.error('Copy failed!', err);
+          button.innerHTML = `${ICON_COPY}<span>Failed</span>`;
         }
       });
-
-      block.style.position = 'relative';
-      block.prepend(button);
     });
   }
 
@@ -110,17 +146,153 @@ const { frontmatter, wordCount, readingTime } = Astro.props;
 </script>
 
 <style>
-  /* 简单的样式，你可以根据你的博客主题调整 */
-  .copy-btn {
+  /* =========================================================
+     代码块「复制」按钮样式
+     配套 JS：给每个 pre 外面套一层 .code-wrapper，
+     并在里面插入一个 .copy-code-button
+
+     没有做浅色主题适配
+     ========================================================= */
+
+  /* ---------- 1. 定位容器 ---------- */
+
+  :global(.code-wrapper) {
+    position: relative;
+    /* 给按钮提供绝对定位的坐标原点，没有这行按钮会飞到页面角落 */
+  }
+
+  :global(.code-wrapper > pre) {
+    padding-top: 1.5em;
+    /* 代码区顶部留白，防止按钮压住第一行代码 */
+  }
+
+  /* ---------- 2. 按钮本体 ---------- */
+
+  :global(.copy-code-button) {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    padding: 4px 8px;
-    font-size: 12px;
+    /* 脱离文档流，相对 .code-wrapper 定位 */
+    top: 0.6em;
+    /* 距代码块顶边的距离 */
+    left: 0.6em;
+    /* 距代码块左边的距离（改成 right 即可放到右上角） */
+    z-index: 2;
+    /* 层级抬高，压在代码内容之上，避免被遮住 */
+
+    display: inline-flex;
+    /* 弹性布局，让图标和文字能并排且垂直居中 */
+    align-items: center;
+    /* 图标与文字在竖直方向对齐居中 */
+    gap: 0.4em;
+    /* 图标和文字之间的间距 */
+
+    margin: 0;
+    /* 清掉浏览器给 button 的默认外边距 */
+    padding: 0.32em 0.7em;
+    /* 按钮内边距：上下 0.32em，左右 0.7em，决定按钮大小 */
+
+    font: inherit;
+    /* 继承页面字体，覆盖 button 默认的系统字体 */
+    font-size: 0.75rem;
+    /* 按钮文字大小（图标尺寸不受影响，单独设） */
+    font-weight: 500;
+    /* 字重，中等粗细，比正文略突出一点 */
+    line-height: 1.4;
+    /* 行高，影响按钮的实际高度 */
+    letter-spacing: 0.01em;
+    /* 字间距，微微拉开一点更清爽 */
+    color: rgba(255, 255, 255, 0.62);
+    /* 文字和图标颜色（图标用 currentColor 跟随此值） */
+
+    background: rgba(255, 255, 255, 0.06);
+    /* 按钮底色：极淡的白，浮在深色代码块上 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* 1px 细描边，勾出按钮轮廓 */
+    border-radius: 7px;
+    /* 圆角大小，数值越大越圆 */
+    backdrop-filter: blur(6px);
+    /* 毛玻璃效果：模糊按钮背后的代码 */
+    -webkit-backdrop-filter: blur(6px);
+    /* 同上，Safari 需要的私有前缀 */
+
     cursor: pointer;
-    background: #444;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    /* 鼠标移上去变成小手，提示可点击 */
+    opacity: 0;
+    /* 默认完全透明（即隐藏），悬停代码块时才显形 */
+    transform: translateY(-2px);
+    /* 默认向上偏移 2px，配合淡入做「滑下来」的动效 */
+    transition:
+      opacity 0.18s ease,
+      /* 显隐的淡入淡出时长 */ transform 0.18s ease,
+      /* 位移／缩放的过渡时长 */ color 0.18s ease,
+      /* 文字变色的过渡 */ background-color 0.18s ease,
+      /* 底色变化的过渡 */ border-color 0.18s ease;
+    /* 描边变色的过渡 */
+  }
+
+  :global(.copy-code-button svg) {
+    width: 13px;
+    /* 图标宽度 */
+    height: 13px;
+    /* 图标高度 */
+    flex: none;
+    /* 禁止图标被弹性布局压扁或拉伸 */
+  }
+
+  /* ---------- 3. 显形时机：悬停代码块、键盘聚焦、复制成功后 ---------- */
+
+  :global(.code-wrapper:hover .copy-code-button),
+  /* 鼠标移到代码块任意位置时 */
+  :global(.copy-code-button:focus-visible),
+  /* 用 Tab 键聚焦到按钮时（无障碍） */
+  :global(.copy-code-button.is-copied) {
+    /* 刚复制完、正显示 Copied 时保持可见 */
+    opacity: 1;
+    /* 完全不透明，按钮出现 */
+    transform: translateY(0);
+    /* 回到原位，完成下滑动画 */
+  }
+
+  /* ---------- 4. 交互状态 ---------- */
+
+  :global(.copy-code-button:hover) {
+    color: rgba(255, 255, 255, 0.95);
+    /* 悬停时文字变亮，反馈「可以点了」 */
+    background: rgba(255, 255, 255, 0.12);
+    /* 悬停时底色加深一点 */
+    border-color: rgba(255, 255, 255, 0.2);
+    /* 悬停时描边变明显 */
+  }
+
+  :global(.copy-code-button:active) {
+    transform: scale(0.96);
+    /* 按下瞬间轻微缩小，做出「按下去」的手感 */
+  }
+
+  :global(.copy-code-button:focus-visible) {
+    outline: 2px solid rgba(120, 170, 255, 0.55);
+    /* 键盘聚焦时的蓝色 focus 环（鼠标点击不会触发） */
+    outline-offset: 2px;
+    /* focus 环与按钮边缘的间隙 */
+  }
+
+  :global(.copy-code-button.is-copied) {
+    color: #4ade80;
+    /* 复制成功后文字和对勾图标变绿 */
+    background: rgba(74, 222, 128, 0.12);
+    /* 成功态的淡绿底色 */
+    border-color: rgba(74, 222, 128, 0.32);
+    /* 成功态的绿色描边 */
+  }
+
+  /* ---------- 5. 触屏设备适配 ---------- */
+
+  @media (hover: none) {
+    /* 手机／平板等没有鼠标悬停的设备 */
+    :global(.copy-code-button) {
+      opacity: 1;
+      /* 按钮常驻显示，否则触屏用户永远看不到它 */
+      transform: none;
+      /* 取消位移动画，直接停在最终位置 */
+    }
   }
 </style>
